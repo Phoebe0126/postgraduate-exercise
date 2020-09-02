@@ -6,6 +6,7 @@
 			<button @click="login">登录</button>
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
 		</view>
+			<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
 </template>
 
@@ -69,25 +70,17 @@ import { getUserOpenId } from '../../api/user.js';
 </script>
 
 <style lang="scss">
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		.logo {
-			height: 200rpx;
-			width: 200rpx;
-			margin: 200rpx auto 50rpx auto;
-		}
-	}
+	.content{
 
-	.text-area {
-		display: flex;
-		justify-content: center;
+	.continueToDevelop{
+		font-family: Microsoft Yahei;
+		font-size: 30rpx;
+		color: #FFFFFF;
+		text-align: center;
+		background: #c9a2a2;
+		width: 100%;
 	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+	
 	}
+	
 </style>
