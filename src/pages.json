@@ -8,9 +8,9 @@
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "考研政治刷题",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "考研刷题宝典",
+		"navigationBarBackgroundColor": "#C9A2A2",
+		"backgroundColor": "#C9A2A2"
 	}
 }
