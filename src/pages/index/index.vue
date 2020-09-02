@@ -20,6 +20,7 @@
 			<button @click="login">登录</button>
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
 		</view>
+		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
 </template>
 
@@ -103,6 +104,16 @@ export default {
 				
 			}
 		}
+		.continueToDevelop{
+			font-family: Microsoft Yahei;
+			font-size: 30rpx;
+			color: #FFFFFF;
+			text-align: center;
+			background: #c9a2a2;
+			width: 100%;
+		}
 	}
 
+	
+	
 </style>
