@@ -37,30 +37,17 @@
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
 
 export default {
-    props: {
-        avatarUrl: { 
-            type: String,
-            default: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132'
-        },
-        nickname: {
-            type: String,
-            default: '小陈小陈早点睡觉'
-        },
-        motto: {
-            type: String,
-            default: '书山有路勤为径，学海无涯苦作舟。书山有路勤为径，学海无涯苦作舟.'
-        },
-        goal: {
-            type: Number,
-            default: 150
+    data () {
+        return {
+            avatarUrl: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132',
+            nickname: '小陈小陈早点睡觉',
+            motto: '书山有路勤为径，学海无涯苦作舟。书山有路勤为径，学海无涯苦作舟.',
+            goal: 150
         }
     },
     components: {
         // User
         uniIcons
-    },
-    mounted() {
-        wx.setNavigationBarTitle({title: '我的'})
     }
 }
 </script>

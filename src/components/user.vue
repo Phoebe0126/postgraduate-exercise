@@ -5,13 +5,13 @@
       <view class="user-info">
           <view class="avatar">
               <uni-icons v-if="!avatarUrl" type="person" color="#fff" size="16" />
-              <image v-else :src="avatarUrl" mode="aspectFill" />
+              <image v-else :src="avatarUrl" mode="aspectFill" class="image" />
           </view>
           <view class="nickname">{{ nickname }}</view>
       </view>
       <!-- 剩余天数 -->
       <view class="remainDays">  
-          剩余：<text >{{ validRemainingDays }}</text>天
+          剩余：<text class="text">{{ validRemainingDays }}</text>天
       </view>
   </view>
 </template> 
@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss">
 .user-wrapper {
-    padding: 10rpx 30rpx;
+    padding: 20rpx 50rpx;
     background: #fff;
     display: flex;
     justify-content: space-between;
@@ -66,7 +66,7 @@ export default {
             border-radius: 50%;
             width: 50rpx;
             height: 50rpx;
-            image {
+            .image {
                 width: 50rpx;
                 height: 50rpx;
                 border-radius: 50%;
@@ -78,7 +78,7 @@ export default {
     }
     .remainDays {
         color: #000;
-        text {
+        .text {
             padding: 0 5rpx;
             font-size: 32rpx;
             color: #c9a2a2;
