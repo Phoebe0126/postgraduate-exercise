@@ -14,14 +14,14 @@
           剩余：<text >{{ validRemainingDays }}</text>天
       </view>
   </view>
-</template>
+</template> 
 
 <script>
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
 
 export default {
     props: {
-        avatarUrl: {
+        avatarUrl: { 
             type: String,
             default: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132'
         },

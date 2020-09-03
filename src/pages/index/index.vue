@@ -15,10 +15,12 @@
 			</uni-notice-bar>
 		</view>
 		<!-- 用户区域 -->
-		<user
-			:nickname="'小陈小陈早点睡觉'"
-		></user>
-
+		<view @click="navigateToMine">
+			<user
+				:nickname="'小陈小陈早点睡觉'"	
+			>
+			</user>
+		</view>
 		<view>
 			<button @click="login">登录</button>
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
@@ -29,7 +31,7 @@
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
 </template>
-
+ 
 <script>
 import { getUserOpenId } from '../../api/user.js';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
@@ -92,6 +94,11 @@ export default {
 				}
 			}
 			console.log(res);
+		},
+		navigateToMine () {
+			wx.navigateTo({
+  				url: '../mine/mine'
+			})
 		}
 	}
 }
