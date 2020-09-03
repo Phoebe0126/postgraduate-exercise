@@ -14,12 +14,18 @@
 			>
 			</uni-notice-bar>
 		</view>
+		<!-- 用户区域 -->
+		<user
+			:nickname="'小陈小陈早点睡觉'"
+		></user>
 
 		<view>
-			<text class="title">{{title}}</text>
 			<button @click="login">登录</button>
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
 		</view>
+		<tip>
+			
+		</tip>
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
 </template>
@@ -27,15 +33,19 @@
 <script>
 import { getUserOpenId } from '../../api/user.js';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
+import User from '@/components/user.vue';
+import Tip from '@/components/tip.vue';
 
 export default {
 	data() {
 		return {
-			title: 'Hello'
+			
 		}
 	},
 	components: {
-		uniNoticeBar
+		uniNoticeBar,
+		User,
+		Tip
 	},
 	onLoad() {
 		this.login();
@@ -88,7 +98,10 @@ export default {
 </script>
 
 <style lang="scss">
+
 	.content {
+		background: #e0e0e0;
+		padding-bottom: 100rpx;
 		.notice-wrapper {
 			padding: 20rpx 0;
 			background: #c9a2a2;
