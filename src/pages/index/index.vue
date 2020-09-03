@@ -14,19 +14,55 @@
 			>
 			</uni-notice-bar>
 		</view>
-		<!-- 用户区域 -->
 		<view @click="navigateToMine">
+			<!-- 用户区域 -->
 			<user
-				:nickname="'小陈小陈早点睡觉'"	
-			>
-			</user>
+				:nickname="'小陈小陈早点睡觉'"
+			></user>
 		</view>
-		<view>
+		<!-- 主体内容区域 -->
+		<!-- 用户刷题信息 -->
+		<view class="user-exercise-info">
+			<view class="user-persist center">
+				<view class="text">坚持天数</view>
+				<view class="number">{{ 88 }}天</view>
+			</view>
+			<view class="line">
+			</view>
+			<view class="user-correct-ratio center">
+				<view class="text">刷题正确率</view>
+				<view class="number">{{ 55 }}%</view>
+			</view>
+		</view>
+		<!-- 刷题模块 -->
+		<view class="section">
+			<view class="section-left">
+				<view class="section-chapter">
+					<image src="../../static/section/begin_chapter.png" mode="aspectFill" />
+					<view class="section-chapter-text">章节练习</view>
+				</view>
+				<view class="section-smart">
+					<image src="../../static/section/begin_smart.png" mode="aspectFill" />
+					<view class="section-smart-text">智能模考</view>
+				</view>
+			</view>
+			<view class="section-right">
+				<view class="section-random">
+					<view class="section-random-text">随机练习</view>
+					<image src="../../static/section/begin_random.png" mode="aspectFill" />
+				</view>
+				<view class="section-wrong">
+					<image src="../../static/section/begin_wrong.png" mode="aspectFill" />
+					<view class="section-wrong-text">错题重练</view>
+				</view>
+			</view>
+		</view>
+		<!-- <view>
 			<button @click="login">登录</button>
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
-		</view>
+		</view> -->
 		<tip>
-			
+
 		</tip>
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
@@ -96,7 +132,7 @@ export default {
 			console.log(res);
 		},
 		navigateToMine () {
-			wx.navigateTo({
+			uni.navigateTo({
   				url: '../mine/mine'
 			})
 		}
@@ -107,6 +143,7 @@ export default {
 <style lang="scss">
 
 	.content {
+
 		background: #e0e0e0;
 		padding-bottom: 100rpx;
 		.notice-wrapper {
@@ -131,6 +168,129 @@ export default {
 			text-align: center;
 			background: #c9a2a2;
 			width: 100%;
+		}
+		.user-exercise-info {
+			display: flex;
+			justify-content: space-around;
+			padding: 20rpx;
+			align-items: center;
+			.text {
+				font-size: 30rpx;
+				margin-bottom: 20rpx;
+				color: #374959;
+			}
+			.number {
+				color: #6a3f3f;
+				font-size: 50rpx;
+			}
+			.line {
+				border-right: 3rpx solid #fff;
+				width: 1rpx;
+				height: 90rpx;
+			}
+			.center {
+				text-align: center;
+			}
+		}
+		.section {
+			margin: 20rpx 0;
+			display: flex;
+			flex-wrap: wrap;
+			color: #fff;
+			position: relative;
+			height: 500rpx;
+			font-size: 40rpx;
+			&-left {
+				flex-basis: 380rpx;
+				position: relative;
+				margin-left: 30rpx;
+			}
+			&-right {
+				flex: 1;
+				position: relative;
+			}
+			&-chapter {
+				background: #c9a2a2;
+				border-radius: 20rpx;
+				margin-right: 20rpx;
+				height: 150rpx;
+				display: flex;
+				align-items: center;
+				box-sizing: border-box;
+				width: 90%;
+				image {
+					margin-left: 25rpx;
+					width: 90rpx;
+					height: 90rpx;
+				}
+				&-text {
+					align-self: flex-end;
+					padding-bottom: 30rpx;
+					margin: 0 30rpx;
+				}
+			}
+			&-random {
+				background: #aaadc2;
+				box-sizing: border-box;
+				height: 280rpx;
+				border-radius: 20rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 50rpx 40rpx;
+				width: 90%;
+				&-text {
+					width: 30rpx;
+				}
+				image {
+					width: 150rpx;
+					height: 150rpx;
+				}
+			}
+			&-smart {
+				background: #a5b8c8;
+				display: flex;
+				justify-content: space-between;
+				border-radius: 20rpx;
+				box-sizing: border-box;
+				width: 90%;
+				padding: 40rpx;
+				position: absolute;
+				top: 170rpx;
+				bottom: 0;
+				margin-right: 20rpx;
+				align-items: center;
+				image {
+					width: 160rpx;
+					height: 160rpx;
+				}
+				&-text {
+					margin: 40rpx 30rpx;
+					width: 30rpx;
+				}
+			}
+			&-wrong {
+				background: #a0bfc0;
+				box-sizing: border-box;
+				width: 90%;
+				border-radius: 20rpx;
+				height: 200rpx;
+				display: flex;
+				justify-content: space-between;
+				position: absolute;
+				align-items: center;
+				// top: 305rpx;
+				bottom: 0;
+				padding: 30rpx;
+				image {
+					width: 110rpx;
+					height: 110rpx;
+				}
+				&-text {
+					margin-right: 20rpx;
+					width: 80rpx;
+				}
+			}
 		}
 	}
 

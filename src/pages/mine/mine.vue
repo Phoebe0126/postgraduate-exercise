@@ -37,17 +37,17 @@
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
 
 export default {
-    data() {
+    data () {
         return {
             avatarUrl: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132',
             nickname: '小陈小陈早点睡觉',
-            motto: '书山有路勤为径，学海无涯苦作舟。书山有路勤为径，学海无涯苦作舟。',
+            motto: '书山有路勤为径，学海无涯苦作舟。书山有路勤为径，学海无涯苦作舟.',
             goal: 150
         }
     },
     components: {
         uniIcons
-    },
+    }
 }
 </script>
 
@@ -97,7 +97,6 @@ export default {
         padding-left: 60rpx;
         color: #6A3F3F; 
         font-size: 34rpx;
-        // box-shadow: 0 1px 2px gainsboro, 0 -1px 2px gainsboro;
     }
     .mine {
         overflow: hidden;
