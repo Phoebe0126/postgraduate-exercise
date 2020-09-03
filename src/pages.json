@@ -5,6 +5,12 @@
 			"style": {
 				// 样式
 			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				
+			}
 		}
 	],
 	"globalStyle": {
