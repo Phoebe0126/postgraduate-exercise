@@ -23,9 +23,7 @@
 			<button @click="login">登录</button>
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
 		</view>
-		<tip>
-			
-		</tip>
+		<tip>	jjjj</tip>
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
 </template>
