@@ -24,7 +24,7 @@
                 <span>我的收藏</span>
                 <i></i>
             </li>
-            <li class="userinfo" style="color: #C9A2A2;">
+            <li class="userinfo" style="color: #C9A2A2;" @click="navToMyInfo">
                 <span style="background: #C9A2A2;"></span>
                 <span>个人信息</span>
                 <i></i>
@@ -47,6 +47,13 @@ export default {
     },
     components: {
         uniIcons
+    },
+    methods: {
+        navToMyInfo() {
+            uni.navigateTo({
+                url: "./myInfo"
+            }) 
+        }
     }
 }
 </script>

@@ -11,6 +11,12 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
+		},
+		{
+			"path": "pages/mine/myInfo",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
 		}
 	],
 	"globalStyle": {
