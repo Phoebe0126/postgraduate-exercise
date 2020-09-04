@@ -16,9 +16,11 @@
 		</view>
 		<view @click="navigateToMine">
 			<!-- 用户区域 -->
-			<user
+			<!-- <user
 				:nickname="'小陈小陈早点睡觉'"
-			></user>
+			></user> -->
+			<user></user>
+			
 		</view>
 		<!-- 主体内容区域 -->
 		<!-- 用户刷题信息 -->
@@ -88,21 +90,21 @@ export default {
 		// this.getAuthorized();
 	},
 	methods: {
-		getUserInfo (res) {
-			// todo 发起后端请求
-			// 根据返回的数据传输相应的用户信息
-			if (res.detail.userInfo) {
-				const { avatarUrl, nickName, gender } = res.detail.userInfo;
-				const params = {
-					openID: getApp().globalData.openID,
-					avatar: avatarUrl,
-					gender,
-					nickname: nickName
-				}
-			}
-			console.log(res);
-		},
-		// 跳转到我的界面
+	// 	// getUserInfo (res) {
+	// 	// 	// todo 发起后端请求
+	// 	// 	// 根据返回的数据传输相应的用户信息
+	// 	// 	if (res.detail.userInfo) {
+	// 	// 		const { avatarUrl, nickName, gender } = res.detail.userInfo;
+	// 	// 		const params = {
+	// 	// 			openID: getApp().globalData.openID,
+	// 	// 			avatar: avatarUrl,
+	// 	// 			gender,
+	// 	// 			nickname: nickName
+	// 	// 		}
+	// 	// 	}
+	// 	// 	console.log(res);
+	// 	// },
+	// 	// 跳转到我的界面
 		navigateToMine () {
 			uni.navigateTo({
   				url: '../mine/mine'
@@ -272,6 +274,7 @@ export default {
 		}
 	}
 
-	
+
+
 	
 </style>
