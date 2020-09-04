@@ -30,11 +30,11 @@ export default {
             goal: 150,
             activeIndex: -1,
             items: [
-                {id: 1, name: 'nickname', val: '', desc: '昵称'},
-                {id: 2, name: 'gender', val: '', desc: '性别'},
-                {id: 3, name: 'school', val: '', desc: '学校'},
-                {id: 4, name: 'motto', val: '', desc: '座右铭'},
-                {id: 5, name: 'goal', val: '', desc: '刷题目标'},
+                {id: 1, name: 'nickname', desc: '昵称'},
+                {id: 2, name: 'gender', desc: '性别'},
+                {id: 3, name: 'school', desc: '学校'},
+                {id: 4, name: 'motto', desc: '座右铭'},
+                {id: 5, name: 'goal', desc: '刷题目标'},
             ]
         }
     },
