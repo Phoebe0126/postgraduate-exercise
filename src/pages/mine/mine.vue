@@ -46,7 +46,6 @@ export default {
         }
     },
     components: {
-        // User
         uniIcons
     }
 }
@@ -98,7 +97,6 @@ export default {
         padding-left: 60rpx;
         color: #6A3F3F; 
         font-size: 34rpx;
-        // box-shadow: 0 1px 2px gainsboro, 0 -1px 2px gainsboro;
     }
     .mine {
         overflow: hidden;
@@ -137,7 +135,7 @@ export default {
                 height: 30rpx; 
                 display: block;
                 position: absolute; 
-                right: 20rpx;
+                right: 50rpx;
                 top: 30rpx;
             }
         }
