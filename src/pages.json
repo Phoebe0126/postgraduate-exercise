@@ -1,7 +1,7 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/home/index",
 			"style": {
 				// 样式
 			}
@@ -10,6 +10,17 @@
 			"path": "pages/mine/mine",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/subject/index",
+			"style": {
+				"navigationBarTitleText": "章节练习"
+			}
+		},
+		{
+			"path": "pages/list/index",
+			"style": {
 			}
 		}
 	],

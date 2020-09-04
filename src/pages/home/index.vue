@@ -37,7 +37,7 @@
 		<!-- 刷题模块 -->
 		<view class="section">
 			<view class="section-left">
-				<view class="section-chapter">
+				<view class="section-chapter" @click="naviToChapter">
 					<image src="../../static/section/begin_chapter.png" mode="aspectFill" />
 					<view class="section-chapter-text">章节练习</view>
 				</view>
@@ -62,7 +62,6 @@
 			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
 		</view> -->
 		<tip>
-
 		</tip>
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
 	</view>
@@ -86,38 +85,10 @@ export default {
 		Tip
 	},
 	onLoad() {
-		this.login();
+		// this.getAuthorized();
 	},
 	methods: {
-		login () {
-			wx.login({
-				success (res) {
-					if (res.code) {
-					// 获取用户的openId
-					getUserOpenId({
-						appid: 'wx0e8cbbba3aab1125',
-						secret: '9097a462abccba0564091d8536fc7295',
-						js_code: res.code,
-						grant_type: 'authorization_code'
-					}).then(res => {
-						// 存储openId
-						getApp().globalData.openID = res.openid;
-
-						
-						console.log(getApp().globalData.openID);
-					})
-					
-					} else {
-					console.log('登录失败！' + res.errMsg)
-					}
-				},
-				fail (err) {
-					console.log(err,2);
-				}
-			})
-		},
 		getUserInfo (res) {
-			this.login();
 			// todo 发起后端请求
 			// 根据返回的数据传输相应的用户信息
 			if (res.detail.userInfo) {
@@ -131,9 +102,16 @@ export default {
 			}
 			console.log(res);
 		},
+		// 跳转到我的界面
 		navigateToMine () {
 			uni.navigateTo({
   				url: '../mine/mine'
+			})
+		},
+		// 跳转到章节练习页面
+		naviToChapter () {
+			uni.navigateTo({
+				url: '../list/index'
 			})
 		}
 	}
