@@ -7,12 +7,15 @@
               <uni-icons v-if="!avatarUrl" type="person" color="#fff" size="16" />
               <image v-else :src="avatarUrl" mode="aspectFill" class="image" />
           </view>
-          <view class="nickname">{{ nickname }}</view>
+          <!-- <view class="nickname">{{ nickname }}</view> -->
+
       </view>
+      <button class="login_button">立即登录</button>
       <!-- 剩余天数 -->
       <view class="remainDays">  
           剩余：<text class="text">{{ validRemainingDays }}</text>天
       </view>
+
   </view>
 </template> 
 
@@ -41,7 +44,7 @@ export default {
     },
     components: {
         uniIcons
-    }
+    },
 
 }
 </script>
@@ -85,4 +88,19 @@ export default {
         }
     }
 }
+.login_button::before{
+		border: 0;
+		border: none;
+}
+.login_button::after{
+		border: 0;
+		border: none;
+}
+.login_button{
+    background: #fff;
+    color: #c9a2a2;
+    font-size: 32rpx;
+    margin-left: 10rpx;
+}
+	
 </style>
