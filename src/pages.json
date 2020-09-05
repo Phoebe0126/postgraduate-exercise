@@ -3,7 +3,6 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				// 样式
 			}
 		},
 		{
@@ -27,6 +26,11 @@
 			"path": "pages/subject/index",
 			"style": {
 				"navigationBarTitleText": "章节练习"
+			}
+		},
+		{
+			"path": "pages/question/index",
+			"style": {
 			}
 		}
 	],

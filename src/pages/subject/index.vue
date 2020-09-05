@@ -2,10 +2,14 @@
   <view class="subject-wrapper">
       <view>
           <single-subject 
-          v-for="(key, index) in arr" 
-          :key="index"
-          :index="index"
-          @naviToChapterPage="naviToChapterPage"
+            v-for="(item, index) in arr" 
+            :key="index"
+            :index="index"
+            :doneNum="item.doneNum"
+            :totalNum="item.totalNum"
+            :process="item.process"
+            :correctRate="item.correctRate"
+            @naviToChapterPage="naviToChapterPage"
           ></single-subject>
       </view>
   </view>
@@ -13,6 +17,7 @@
 
 <script>
 import SingleSubject from '@/components/single-subject.vue';
+import { getTotalProgress } from '../../api/record';
 
 export default {
     components: {
@@ -20,18 +25,36 @@ export default {
     },
     onLoad () {
         // todo 请求信息
+        this.getTotalProgress();
     },
     data () {
         return {
-            arr: [1,2,3,4]
+            arr: []
         }
+    },
+    onShow () {
+        uni.hideLoading();;
     },
     methods: {
         naviToChapterPage (index) {
-            console.log(111)
             uni.navigateTo({
                 url: `../list/index?subject=${++index}`
             });
+        },
+        getTotalProgress () {
+            getTotalProgress({
+                openID: getApp().globalData.openID
+            })
+            .then(res => {
+                if (res.code === 0) {
+                    this.arr = res.data;
+                }
+            })
+            .catch(err => {
+                uni.showToast({
+                    title: err
+                });
+            })
         }
     }
 }

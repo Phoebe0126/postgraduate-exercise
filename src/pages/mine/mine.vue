@@ -72,7 +72,10 @@ export default {
                     this.goal = res.data.goal == null ? '-': res.data.goal;
                 }
             }).catch(err => console.log(err))
-        }
+        },
+    },
+    onShow () {
+        uni.hideLoading();
     }
 }
 </script>

@@ -1,7 +1,7 @@
 import request from './common/request';
 
-const BASE_URL = 'http://47.106.170.118';
- 
+const BASE_URL = 'http://47.106.170.118/user';
+
 // 获取用户的openId
 export function getUserOpenId (params) {
     return request('https://api.weixin.qq.com/sns/jscode2session', {
@@ -10,9 +10,9 @@ export function getUserOpenId (params) {
     });
 }
 
-// 获取用户头像和昵称
+// 获取用户头像、昵称以及坚持天数
 export function getUserShortInfo (params) {
-    return request(`${BASE_URL}/user/getUser`, {
+    return request(`${BASE_URL}/getUser`, {
         method: 'POST',
         data: params
     })
@@ -20,7 +20,7 @@ export function getUserShortInfo (params) {
 
 //获取用户详细信息
 export function getUserAllInfo (params) {
-    return request(`${BASE_URL}/user/getUserInfo`, {
+    return request(`${BASE_URL}/getUserInfo`, {
         method: 'POST',
         data: params
     })
@@ -28,7 +28,7 @@ export function getUserAllInfo (params) {
 
 // 存入用户的首页个人信息
 export function saveUserShortInfo (params) {
-    return request(`${BASE_URL}/user/saveUser`, {
+    return request(`${BASE_URL}/saveUser`, {
         method: 'POST',
         data: params
     })
@@ -36,7 +36,7 @@ export function saveUserShortInfo (params) {
 
 //保存用户详细信息
 export function saveUserAllInfo (params) {
-    return request(`${BASE_URL}/user/saveUserInfo`, {
+    return request(`${BASE_URL}/saveUserInfo`, {
         method: 'POST',
         data: params
     })

@@ -4,7 +4,7 @@
       <!-- 头像、昵称 -->
       <view class="user-info">
           <view class="avatar">
-              <uni-icons v-if="!isAuthed" type="person" color="white" size="16" />
+              <uni-icons v-if="!isAuthed" type="person" color="#fff" size="22" />
               <image v-else :src="avatarUrl" mode="aspectFill" class="image" />
           </view>
           <view class="nickname" v-if="isAuthed">{{ nickname }}</view>
@@ -26,7 +26,6 @@ export default {
     props: {
         avatarUrl: { 
             type: String,
-            // default: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132'
             default: ''
         },
         nickname: {
@@ -77,16 +76,17 @@ export default {
             align-items: center;
             background: #c9a2a2;
             border-radius: 50%;
-            width: 50rpx;
-            height: 50rpx;
+            width: 60rpx;
+            height: 60rpx;
             .image {
-                width: 50rpx;
-                height: 50rpx;
+                width: 65rpx;
+                height: 65rpx;
                 border-radius: 50%;
             }
         }
         .nickname {
            margin-left: 20rpx;
+           font-size: 32rpx;
         }
     }
     .remainDays {
@@ -103,7 +103,7 @@ export default {
 		border: none;
 }
 .login_button::after{
-		border: 0;
+		border: 0; margin: 20rpx 0;
 		border: none;
 }
 .login_button{

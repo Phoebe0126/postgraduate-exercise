@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="content" v-if="isRequestComplete">
 		<!-- 公告栏 -->
 		<view class="notice-wrapper">
 			<uni-notice-bar 
@@ -9,7 +9,7 @@
 				text="[单行] 这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏"
 				background-color="#9f8080"
 				showIcon="true"
-				speed="50"
+				speed=50
 				color="#fff"
 			>
 			</uni-notice-bar>
@@ -20,7 +20,9 @@
 				:nickname="nickName"
 				:isAuthed="isAuthed"
 				:avatarUrl="avatarUrl"
+				:remainingDays="daysRemaining"
 				@getUserInfo="getUserInfo"
+				v-if="isRequestComplete"
 			></user>			
 		</view>
 		<!-- 主体内容区域 -->
@@ -42,21 +44,21 @@
 			<view class="section-left">
 				<view class="section-chapter" @click="naviToChapter">
 					<image src="../../static/section/begin_chapter.png" mode="aspectFill" />
-					<view class="section-chapter-text">章节练习</view>
+					<view class="section-chapter-text">{{ title[0] }}</view>
 				</view>
 				<view class="section-smart">
 					<image src="../../static/section/begin_smart.png" mode="aspectFill" />
-					<view class="section-smart-text">智能模考</view>
+					<view class="section-smart-text">{{ title[1] }}</view>
 				</view>
 			</view>
 			<view class="section-right">
-				<view class="section-random">
-					<view class="section-random-text">随机练习</view>
+				<view class="section-random" @click="naviToRandromPage">
+					<view class="section-random-text">{{ title[2] }}</view>
 					<image src="../../static/section/begin_random.png" mode="aspectFill" />
 				</view>
 				<view class="section-wrong">
 					<image src="../../static/section/begin_wrong.png" mode="aspectFill" />
-					<view class="section-wrong-text">错题重练</view>
+					<view class="section-wrong-text">{{ title[3] }}</view>
 				</view>
 			</view>
 		</view>
@@ -67,7 +69,8 @@
 </template>
  
 <script>
-import { getUserOpenId, getUserShortInfo, saveUserShortInfo } from '../../api/user.js';
+import { getUserOpenId, getUserShortInfo, saveUserShortInfo, getUserAllInfo } from '../../api/user.js';
+import { QUESTION_NAVBAR_TITLE } from '../../consts/const';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
 import User from '@/components/user.vue';
 import Tip from '@/components/tip.vue';
@@ -77,7 +80,10 @@ export default {
 		return {
 			isAuthed: false,
 			nickName: '',
-			avatarUrl: ''
+			avatarUrl: '',
+			title: QUESTION_NAVBAR_TITLE,
+			daysRemaining: -1,
+			isRequestComplete: false
 		}
 	},
 	components: {
@@ -85,14 +91,8 @@ export default {
 		User,
 		Tip
 	},
-	computed: {
-
-	},
 	onLoad() {
 		this.login();
-	},
-	onShow() {
-		
 	},
 	methods: {
 		// 授权获取用户信息
@@ -101,7 +101,7 @@ export default {
 			if (res.detail.userInfo) {
 				// 已授权
 				this.isAuthed = true;
-				// getApp().globalData.isAuthed = this.isAuthed;
+
 				const { avatarUrl, nickName, gender } = res.detail.userInfo;
 				this.avatarUrl = avatarUrl;
 				this.nickName = nickName;
@@ -115,9 +115,10 @@ export default {
 				// 存入授权用户个人信息
 				saveUserShortInfo(params)
 				.then(res => {
-					console.log(res);
 					if (res.code !== 0) {
-						console.log('授权失败,请重试')
+						uni.showToast({
+							title: '授权失败，请重试~'
+						});
 					}
 				})
 			}
@@ -133,12 +134,22 @@ export default {
 					this.isAuthed = true;
 					this.nickName = res.data.nickname;
 					this.avatarUrl = res.data.avatar;
+					this.daysRemaining = res.data.daysRemaining;
 				}
+				this.isRequestComplete = true;
+				uni.hideLoading();
 			}).catch(err => {
-				console.log(err);
+				uni.hideLoading();
+				this.isRequestComplete = true;
+				uni.showToast({
+					title: err
+				});
 			})
 		},
 		login () {
+			uni.showLoading({
+				title: '加载中'
+			});
 			const that = this;
 			wx.login({
 				success (res) {
@@ -155,17 +166,24 @@ export default {
 							that.getLoginUserInfo();
 						})
 					} else {
-						console.log('登录失败！' + res.errMsg)
+						uni.showToast({
+							title: res.errMsg
+						});
 					}
 				},
 				fail (err) {
-					console.log(err,2);
+					uni.showToast({
+						title: err
+					});
 				}
 			})
 		},
 		// 跳转到我的界面
 		navigateToMine () {
 			if (this.isAuthed) {
+				uni.showLoading({
+					title: '加载中'
+				});
 				uni.navigateTo({
 					url: '../mine/mine'
 				})
@@ -173,15 +191,29 @@ export default {
 		},
 		// 跳转到章节练习页面
 		naviToChapter () {
+			uni.showLoading({
+				title: '加载中'
+			});
 			uni.navigateTo({
 				url: '../subject/index'
 			})
+		},
+		// 跳转到随机练习界面
+		naviToRandromPage () {
+			if (this.isAuthed) {
+				uni.showLoading({
+					title: '加载中'
+				});
+				uni.navigateTo({
+					url: '../question/index?type=random'
+				});
+			}
 		}
 	}
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 	.content {
 
