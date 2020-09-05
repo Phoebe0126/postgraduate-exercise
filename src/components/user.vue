@@ -4,13 +4,13 @@
       <!-- 头像、昵称 -->
       <view class="user-info">
           <view class="avatar">
-              <uni-icons v-if="!avatarUrl" type="person" color="#fff" size="16" />
+              <uni-icons v-if="!isAuthed" type="person" color="white" size="16" />
               <image v-else :src="avatarUrl" mode="aspectFill" class="image" />
           </view>
-          <!-- <view class="nickname">{{ nickname }}</view> -->
-
+          <view class="nickname" v-if="isAuthed">{{ nickname }}</view>
+          <button class="login_button" open-type="getUserInfo" @getuserinfo="getUserInfo" v-else>立即登录</button>
       </view>
-      <button class="login_button">立即登录</button>
+     
       <!-- 剩余天数 -->
       <view class="remainDays">  
           剩余：<text class="text">{{ validRemainingDays }}</text>天
@@ -26,7 +26,8 @@ export default {
     props: {
         avatarUrl: { 
             type: String,
-            default: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132'
+            // default: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132'
+            default: ''
         },
         nickname: {
             type: String,
@@ -35,6 +36,10 @@ export default {
         remainingDays: {
             type: Number,
             default: -1
+        },
+        isAuthed: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -45,6 +50,11 @@ export default {
     components: {
         uniIcons
     },
+    methods: {
+        getUserInfo (res) {
+			this.$emit('getUserInfo', res);
+		}
+    }
 
 }
 </script>

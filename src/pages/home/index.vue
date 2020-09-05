@@ -16,11 +16,12 @@
 		</view>
 		<view @click="navigateToMine">
 			<!-- 用户区域 -->
-			<!-- <user
-				:nickname="'小陈小陈早点睡觉'"
-			></user> -->
-			<user></user>
-			
+			<user
+				:nickname="nickName"
+				:isAuthed="isAuthed"
+				:avatarUrl="avatarUrl"
+				@getUserInfo="getUserInfo"
+			></user>			
 		</view>
 		<!-- 主体内容区域 -->
 		<!-- 用户刷题信息 -->
@@ -59,10 +60,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- <view>
-			<button @click="login">登录</button>
-			<button open-type="getUserInfo" @getuserinfo="getUserInfo">授权登录</button>
-		</view> -->
 		<tip>
 		</tip>
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
@@ -70,15 +67,17 @@
 </template>
  
 <script>
-import { getUserOpenId } from '../../api/user.js';
+import { getUserOpenId, getUserShortInfo, saveUserShortInfo } from '../../api/user.js';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
 import User from '@/components/user.vue';
 import Tip from '@/components/tip.vue';
-
+ 
 export default {
 	data() {
 		return {
-			
+			isAuthed: false,
+			nickName: '',
+			avatarUrl: ''
 		}
 	},
 	components: {
@@ -86,34 +85,96 @@ export default {
 		User,
 		Tip
 	},
+	computed: {
+
+	},
 	onLoad() {
-		// this.getAuthorized();
+		this.login();
+	},
+	onShow() {
+		
 	},
 	methods: {
-	// 	// getUserInfo (res) {
-	// 	// 	// todo 发起后端请求
-	// 	// 	// 根据返回的数据传输相应的用户信息
-	// 	// 	if (res.detail.userInfo) {
-	// 	// 		const { avatarUrl, nickName, gender } = res.detail.userInfo;
-	// 	// 		const params = {
-	// 	// 			openID: getApp().globalData.openID,
-	// 	// 			avatar: avatarUrl,
-	// 	// 			gender,
-	// 	// 			nickname: nickName
-	// 	// 		}
-	// 	// 	}
-	// 	// 	console.log(res);
-	// 	// },
-	// 	// 跳转到我的界面
-		navigateToMine () {
-			uni.navigateTo({
-  				url: '../mine/mine'
+		// 授权获取用户信息
+		getUserInfo (res) {
+			// 根据返回的数据传输相应的用户信息
+			if (res.detail.userInfo) {
+				// 已授权
+				this.isAuthed = true;
+				// getApp().globalData.isAuthed = this.isAuthed;
+				const { avatarUrl, nickName, gender } = res.detail.userInfo;
+				this.avatarUrl = avatarUrl;
+				this.nickName = nickName;
+
+				const params = {
+					openID: getApp().globalData.openID,
+					avatar: avatarUrl,
+					gender,
+					nickname: nickName
+				}
+				// 存入授权用户个人信息
+				saveUserShortInfo(params)
+				.then(res => {
+					console.log(res);
+					if (res.code !== 0) {
+						console.log('授权失败,请重试')
+					}
+				})
+			}
+		},
+		// 请求已登录用户信息
+		getLoginUserInfo () {
+			// 获取用户头像和昵称
+			getUserShortInfo({
+				openID: getApp().globalData.openID
+			}).then(res => {
+				// 已授权登录过
+				if (res.code === 0) {
+					this.isAuthed = true;
+					this.nickName = res.data.nickname;
+					this.avatarUrl = res.data.avatar;
+				}
+			}).catch(err => {
+				console.log(err);
 			})
+		},
+		login () {
+			const that = this;
+			wx.login({
+				success (res) {
+					if (res.code) {
+						// 获取用户的openId
+						getUserOpenId({
+							appid: 'wx0e8cbbba3aab1125',
+							secret: '9097a462abccba0564091d8536fc7295',
+							js_code: res.code,
+							grant_type: 'authorization_code'
+						}).then(res => {
+							// 存储openId
+							getApp().globalData.openID = res.openid;
+							that.getLoginUserInfo();
+						})
+					} else {
+						console.log('登录失败！' + res.errMsg)
+					}
+				},
+				fail (err) {
+					console.log(err,2);
+				}
+			})
+		},
+		// 跳转到我的界面
+		navigateToMine () {
+			if (this.isAuthed) {
+				uni.navigateTo({
+					url: '../mine/mine'
+				})
+			}
 		},
 		// 跳转到章节练习页面
 		naviToChapter () {
 			uni.navigateTo({
-				url: '../list/index'
+				url: '../subject/index'
 			})
 		}
 	}

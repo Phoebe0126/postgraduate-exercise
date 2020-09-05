@@ -1,7 +1,5 @@
-// // 封装异步请求
-// uni.showLoading({
-//     title: '加载中'
-// });
+// 封装异步请求
+
 export default (url, paramsObj) => {
     // 处理参数 params method data
     let { method, params, data } = paramsObj;
@@ -25,9 +23,6 @@ export default (url, paramsObj) => {
                 fail(err) {
                     reject(err)
                 },
-                complete() {
-                    uni.hideLoading();
-                },
                 // 跨域
                 withCredentials: true
             })
@@ -44,9 +39,6 @@ export default (url, paramsObj) => {
             },
             fail(err) {
                 reject(err)
-            },
-            complete() {
-                uni.hideLoading();
             },
             // 跨域
             withCredentials: true

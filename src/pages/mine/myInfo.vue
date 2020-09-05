@@ -4,39 +4,46 @@
         <ul class="container">
             <li class="avatar">
                 <span>头像</span>
-                <image :src="avatarUrl"></image>
+                <view class="avatar-container">
+                    <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons>
+                    <image v-else :src="avatarUrl"></image>
+                </view>   
             </li>
             <li v-for="(item, index) in items" :key="item.id" :class="item.name">
                 <span>{{ item.desc }}</span>
-                <input type="text" 
-                :value="getValue(index)"
+                <!-- 性别 -->
+                <radio-group @change="genderChange" class="genderRadio" v-model="item.val" >
+                    <!-- 男 -->
+                    <radio v-if="item.name == 'gender'" value=1 :checked="item.val == 1" color="#CE8B8B"></radio>
+                    <span v-if="item.name == 'gender'">男</span>
+                    <!-- 女 -->
+                    <radio v-if="item.name == 'gender'" value=2 :checked="item.val == 2" color="#CE8B8B"></radio>
+                    <span v-if="item.name == 'gender'">女</span>
+                </radio-group>
+                <!-- 其他输入框 -->
+                <input v-if="item.name != 'gender'" type="text" v-model="item.val"
                 :class="{active: activeIndex == index? true: false}" 
-                @click="changeStyle(index)" @blur="restoreStyle(index)" maxlength="25">
+                @click="changeStyle(index)" @blur="restoreStyle(index)">
             </li>
         </ul>
-        <input type="button" value="保存设置" class="save">
+        <input type="button" value="保存设置" class="save" @click="saveUserInfo">
     </view>
 </template>
 
 <script>
+import {USER_INFO_ITEMS} from '../../consts/const.js'
+import {getUserAllInfo, saveUserAllInfo} from '../../api/user'
+
 export default {
     data() {
         return {
-            avatarUrl: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132',
-            nickname: '小陈小陈早点睡觉',
-            gender: '女',
-            school: '华中科技大学',
-            motto: '书山有路勤为径，学海无涯苦作舟。书山有路勤为径，学海无涯苦作舟.',
-            goal: 150,
+            avatarUrl: '',
             activeIndex: -1,
-            items: [
-                {id: 1, name: 'nickname', desc: '昵称'},
-                {id: 2, name: 'gender', desc: '性别'},
-                {id: 3, name: 'school', desc: '学校'},
-                {id: 4, name: 'motto', desc: '座右铭'},
-                {id: 5, name: 'goal', desc: '刷题目标'},
-            ]
+            items: USER_INFO_ITEMS
         }
+    },
+    onLoad() {
+        this.getUserInfo();
     },
     methods: {
         changeStyle(index) {
@@ -45,14 +52,38 @@ export default {
         restoreStyle(index) {
             this.activeIndex = -1;
         },
-        getValue(index) {
-            switch(index) {
-                case 0: return this.nickname; 
-                case 1: return this.gender; 
-                case 2: return this.school; 
-                case 3: return this.motto; 
-                case 4: return this.goal; 
-            }
+        genderChange(e) {
+            this.items[1].val = e.detail.value;
+        },
+        getUserInfo() {
+            getUserAllInfo({
+                openID: getApp().globalData.openID
+            }).then(res => {
+                if(res.code == 0) {
+                    this.avatarUrl = res.data.avatar;
+                    this.items[0].val = res.data.nickname;
+                    this.items[1].val = res.data.gender;
+                    this.items[2].val = res.data.school == null ?'未设置': res.data.school;
+                    this.items[3].val = res.data.motto == null ?'未设置': res.data.motto;
+                    this.items[4].val = res.data.goal == null ? '未设置': res.data.goal;
+                }
+            }).catch(err => console.log(err))
+        },
+        saveUserInfo() {
+            console.log(this.items)
+            saveUserAllInfo({
+                openID: getApp().globalData.openID,
+                avatar: this.avatarUrl,
+                nickname: this.items[0].val,
+                gender: this.items[1].val,
+                school: this.items[2].val,
+                motto: this.items[3].val,
+                goal: this.items[4].val
+            }).then(res => {
+                if(res.code == 0) {
+                    console.log(res.msg)
+                }
+            }).catch(err => console.log(err))
         }
     }
 }
@@ -90,7 +121,7 @@ export default {
                     text-overflow: ellipsis;
                     overflow: hidden;
                     white-space: nowrap;
-                    text-indent: 16rpx;
+                    padding: 0 10rpx;
                     border: 2rpx solid transparent;
                 }
                 input.active {
@@ -98,32 +129,45 @@ export default {
                     border: 2rpx solid #CE8B8B;
                     border-radius: 22rpx;
                 }
+                .genderRadio {
+                    radio:nth-of-type(2) {
+                        margin-left: 80rpx;
+                    }
+                }
             }
             li:nth-of-type(1) {
                 border-bottom: 2rpx solid white;
             }
-            // li:nth-of-type(2) {
-                // border-bottom: 2rpx solid white;
-            // }
+            li:nth-of-type(2), li:nth-of-type(5) {
+                border-bottom: 1rpx solid white;
+            }
             li:nth-of-type(4) {
                 margin-top: 20rpx;
                 border-bottom: 2rpx solid white;
             }
             .avatar {
                 height: 130rpx;
-                image {
+                &-container {
+                    background: white;  
                     width: 100rpx; 
                     height: 100rpx; 
                     border-radius: 20%;
+                    overflow: hidden;
                     position: relative;
-                    left: 20rpx;
+                    left: 10rpx;
+                    image {
+                        // width: 100rpx; 
+                        // height: 100rpx; 
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
             li.goal input{
-                width: 96rpx;
+                width: 80rpx;
             }
             li.goal:after {
-                content: ' 天'
+                content: '天'
             }
         }
         .save {

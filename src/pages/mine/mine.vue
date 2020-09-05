@@ -3,11 +3,11 @@
         <!-- 用户头像、昵称、座右铭 -->
         <view class="header">
             <view class="avatar">
-                <uni-icons v-if="!avatarUrl" type="person" size="20"></uni-icons>
-                <image v-else :src="avatarUrl"  mode="aspectFill" />
+                <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons>
+                 <image v-else :src="avatarUrl" mode="aspectFill" /> 
             </view>
             <view class="info">
-                <h3 class="nickname">{{ nickname }}</h3>
+                <span class="nickname">{{ nickname }}</span>
                 <p class="motto">座右铭：{{ motto }}</p>
             </view>
         </view>
@@ -35,24 +35,43 @@
 
 <script>
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
+import {getUserAllInfo} from '../../api/user'
 
 export default {
     data () {
         return {
-            avatarUrl: 'https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132',
-            nickname: '小陈小陈早点睡觉',
-            motto: '书山有路勤为径，学海无涯苦作舟。书山有路勤为径，学海无涯苦作舟.',
-            goal: 150
+            avatarUrl: '',
+            nickname: '',
+            motto: '',
+            goal: 0
         }
     },
     components: {
         uniIcons
+    },
+    // onLoad() {
+    //     this.getUserInfo();
+    // },
+    onShow() {
+        this.getUserInfo();
     },
     methods: {
         navToMyInfo() {
             uni.navigateTo({
                 url: "./myInfo"
             }) 
+        },
+        getUserInfo() {
+            getUserAllInfo({
+                openID: getApp().globalData.openID
+            }).then(res => {
+                if(res.code == 0) {
+                    this.avatarUrl = res.data.avatar;
+                    this.nickname = res.data.nickname;
+                    this.motto = res.data.motto == null ?'说点什么吧~': res.data.motto;
+                    this.goal = res.data.goal == null ? '-': res.data.goal;
+                }
+            }).catch(err => console.log(err))
         }
     }
 }
@@ -74,10 +93,15 @@ export default {
             height: 100rpx; 
             border-radius: 50%; 
             overflow: hidden;
+            background: white;
             margin-left: 40rpx; 
             image {
                 width: 100%;
                 height: 100%;
+            }
+            uni-icons {
+                position: relative;
+                left: 8rpx;
             }
         }
         .info {
@@ -85,7 +109,6 @@ export default {
             width: 540rpx; 
             .nickname {
                 font-size: 36rpx;
-                font-weight: normal;
                 line-height: 60rpx;
             }
             .motto {
