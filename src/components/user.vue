@@ -4,7 +4,7 @@
       <!-- 头像、昵称 -->
       <view class="user-info">
           <view class="avatar">
-              <uni-icons v-if="!isAuthed" type="person" color="#fff" size="16" />
+              <uni-icons v-if="!isAuthed" type="person" color="white" size="16" />
               <image v-else :src="avatarUrl" mode="aspectFill" class="image" />
           </view>
           <view class="nickname" v-if="isAuthed">{{ nickname }}</view>

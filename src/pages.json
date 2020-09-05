@@ -13,6 +13,12 @@
 			}
 		},
 		{
+			"path": "pages/mine/myInfo",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
 			"path": "pages/list/index",
 			"style": {
 			}

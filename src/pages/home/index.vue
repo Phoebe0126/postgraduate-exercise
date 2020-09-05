@@ -71,7 +71,7 @@ import { getUserOpenId, getUserShortInfo, saveUserShortInfo } from '../../api/us
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
 import User from '@/components/user.vue';
 import Tip from '@/components/tip.vue';
-
+ 
 export default {
 	data() {
 		return {
