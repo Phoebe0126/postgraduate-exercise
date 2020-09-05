@@ -34,6 +34,7 @@ export function saveUserShortInfo (params) {
     })
 }
 
+//保存用户详细信息
 export function saveUserAllInfo (params) {
     return request(`${BASE_URL}/user/saveUserInfo`, {
         method: 'POST',
