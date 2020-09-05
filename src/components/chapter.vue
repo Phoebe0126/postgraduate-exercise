@@ -1,20 +1,57 @@
 <template>
   <view class="chapter-wrapper">
-      <view class="chapter_details">
-        <text class="chapter_title">第一章   绪论</text>
-        <text class="problem_fraction">43题/368题</text>
+      <view class="chapter-details">
+        <text class="chapter-title">第{{ chapterNumber }}章 {{ chapter }}</text>
+        <text class="problem-fraction">{{ doneNum }}题/{{ totalNum }}题</text>
       </view>
-      <hr class="line">
+      <hr :class="['line', bordeColor[subject]]">
   </view>
 </template>
 
 <script>
-export default {
+import { BORDER_COLOR } from '../consts/const';
 
+export default {
+    props: {
+        chapterNumber: {
+            type: Number,
+            default: 1
+        },
+        chapter: {
+            type: String,
+            default: '的擦'
+        },
+        doneNum: {
+            type: Number,
+            default: 0
+        },
+        totalNum: {
+            type: Number,
+            default: 0
+        },
+        subject: {
+            type: Number,
+            default: 0
+        }        
+
+    },
+    data () {
+        return {
+            bordeColor: BORDER_COLOR
+        }
+    },
+    methods: {
+        naviToProblemPage () {
+            console.log(111)
+            this.$emit('naviToProblemPage', this.chapterNum);
+        }
+    }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../uni.scss";
+
   .chapter-wrapper{
     background: #fff;
     margin-top: 60rpx;
@@ -22,25 +59,25 @@ export default {
     margin-left: 40rpx;
     margin-right: 40rpx;
   }
-  .chapter_details{
+  .chapter-details{
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
-  .chapter_title{
+  .chapter-title{
     font-family: Microsoft Yahei;
-    font-size:30rpx;
+    font-size:40rpx;
     color: #000;
     text-align: left;
     padding-left: 15rpx;
   }
-  .problem_fraction{
+  .problem-fraction{
     font-family: Mcrosoft Yahei;
-    font-size: 25rpx;
+    font-size: 30rpx;
     color: #aaadc2;
     padding-right: 15rpx;
   }
   .line{
     margin-top: 6rpx;
-    border-top: 4rpx solid #aaadc2;
   }
 </style>

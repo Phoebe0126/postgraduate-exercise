@@ -13,14 +13,14 @@
 			}
 		},
 		{
-			"path": "pages/subject/index",
+			"path": "pages/list/index",
 			"style": {
-				"navigationBarTitleText": "章节练习"
 			}
 		},
 		{
-			"path": "pages/list/index",
+			"path": "pages/subject/index",
 			"style": {
+				"navigationBarTitleText": "章节练习"
 			}
 		}
 	],
