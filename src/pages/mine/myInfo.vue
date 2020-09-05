@@ -5,8 +5,8 @@
             <li class="avatar">
                 <span>头像</span>
                 <view class="avatar-container">
-                    <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons>
-                    <image v-else :src="avatarUrl"></image>
+                    <!-- <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons> -->
+                    <image v-if="avatarUrl" :src="avatarUrl"></image>
                 </view>   
             </li>
             <li v-for="(item, index) in items" :key="item.id" :class="item.name">
@@ -45,6 +45,11 @@ export default {
     onLoad() {
         this.getUserInfo();
     },
+    onUnload() {
+        let pages = getCurrentPages();
+        let parentPage = pages[pages.length - 2];
+        parentPage.onLoad();
+    },
     methods: {
         changeStyle(index) {
             this.activeIndex = index;
@@ -70,7 +75,6 @@ export default {
             }).catch(err => console.log(err))
         },
         saveUserInfo() {
-            console.log(this.items)
             saveUserAllInfo({
                 openID: getApp().globalData.openID,
                 avatar: this.avatarUrl,

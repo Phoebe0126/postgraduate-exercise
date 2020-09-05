@@ -48,12 +48,14 @@ export default {
     },
     components: {
         uniIcons
-    },
-    // onLoad() {
-    //     this.getUserInfo();
-    // },
-    onShow() {
+    },  
+    onLoad() {
         this.getUserInfo();
+    },
+    onUnload() {
+        let pages = getCurrentPages();
+        let parentPage = pages[pages.length - 2];
+        parentPage.onLoad();
     },
     methods: {
         navToMyInfo() {
