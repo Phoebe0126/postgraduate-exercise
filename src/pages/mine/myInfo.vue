@@ -45,11 +45,6 @@ export default {
     onLoad() {
         this.getUserInfo();
     },
-    onUnload() {
-        let pages = getCurrentPages();
-        let parentPage = pages[pages.length - 2];
-        parentPage.onLoad();
-    },
     methods: {
         changeStyle(index) {
             this.activeIndex = index;
@@ -68,25 +63,45 @@ export default {
                     this.avatarUrl = res.data.avatar;
                     this.items[0].val = res.data.nickname;
                     this.items[1].val = res.data.gender;
-                    this.items[2].val = res.data.school == null ?'未设置': res.data.school;
-                    this.items[3].val = res.data.motto == null ?'未设置': res.data.motto;
-                    this.items[4].val = res.data.goal == null ? '未设置': res.data.goal;
+                    this.items[2].val = (res.data.school == null || res.data.school == '') ?'未设置': res.data.school;
+                    this.items[3].val = (res.data.motto == null || res.data.motto == '') ?'未设置': res.data.motto;
+                    this.items[4].val = res.data.goal == null ? 0: res.data.goal;
                 }
             }).catch(err => console.log(err))
         },
         saveUserInfo() {
+            //昵称为空
+            if(this.items[0].val == '' ) {
+                uni.showToast({
+                    title: '昵称不能为空',
+                    icon: 'none'
+                });
+                return;
+            }
+            //目标天数非数字
+            if(!/^[0-9]*$/.test(this.items[4].val)) {
+                uni.showToast({
+                    title: '刷题目标应为数字',
+                    icon: 'none'
+                });
+                return;
+            }
+            this.items[4].val = this.items[4].val.length == 0? 0: parseInt(this.items[4].val);
             saveUserAllInfo({
                 openID: getApp().globalData.openID,
                 avatar: this.avatarUrl,
                 nickname: this.items[0].val,
                 gender: this.items[1].val,
-                school: this.items[2].val,
-                motto: this.items[3].val,
+                school: this.items[2].val == '未设置'? null: this.items[2].val,
+                motto: this.items[3].val == '未设置'? null: this.items[3].val,
                 goal: this.items[4].val
             }).then(res => {
-                if(res.code == 0) {
-                    console.log(res.msg)
-                }
+                // if(res.code == 0) {
+                uni.showToast({
+                    title: res.msg,
+                    icon: 'none'
+                })
+                // }
             }).catch(err => console.log(err))
         }
     }
@@ -168,7 +183,7 @@ export default {
                 }
             }
             li.goal input{
-                width: 80rpx;
+                width: 90rpx;
             }
             li.goal:after {
                 content: '天'

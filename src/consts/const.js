@@ -23,7 +23,7 @@ const USER_INFO_ITEMS = [
   { id: 2, name: "gender", desc: "性别", val: "" },
   { id: 3, name: "school", desc: "学校", val: "" },
   { id: 4, name: "motto", desc: "座右铭", val: "" },
-  { id: 5, name: "goal", desc: "刷题目标", val: 0 }
+  { id: 5, name: "goal", desc: "目标天数", val: 0 }
 ];
 
 const QUESTION_NAVBAR_TITLE = ["章节练习", "智能模考", "随机练习", "错题重练"];
