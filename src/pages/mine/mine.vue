@@ -52,10 +52,13 @@ export default {
     onLoad() {
         this.getUserInfo();
     },
-    onUnload() {
-        let pages = getCurrentPages();
-        let parentPage = pages[pages.length - 2];
-        parentPage.onLoad();
+    // onUnload() {
+    //     let pages = getCurrentPages();
+    //     let parentPage = pages[pages.length - 2];
+    //     parentPage.onLoad();
+    // },
+    onShow () {
+        this.getUserInfo();
     },
     methods: {
         navToMyInfo() {
@@ -70,14 +73,11 @@ export default {
                 if(res.code == 0) {
                     this.avatarUrl = res.data.avatar;
                     this.nickname = res.data.nickname;
-                    this.motto = res.data.motto == null ?'说点什么吧~': res.data.motto;
+                    this.motto = (res.data.motto == null || res.data.motto == '') ?'说点什么吧~': res.data.motto;
                     this.goal = res.data.goal == null ? '-': res.data.goal;
                 }
             }).catch(err => console.log(err))
         },
-    },
-    onShow () {
-        uni.hideLoading();
     }
 }
 </script>
