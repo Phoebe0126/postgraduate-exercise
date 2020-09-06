@@ -26,7 +26,7 @@
                 @click="changeStyle(index)" @blur="restoreStyle(index)">
             </li>
         </ul>
-        <input type="button" value="保存设置" class="save" @click="saveUserInfo">
+        <button class="save" @click="saveUserInfo">保存设置</button>
     </view>
 </template>
 
@@ -189,6 +189,9 @@ export default {
                 content: '天'
             }
         }
+        button::after {
+            border: none;
+        }
         .save {
             width: 100%;
             background: #CE8B8B;
@@ -196,6 +199,8 @@ export default {
             height: 70rpx;
             text-align: center;
             color: white;
+            line-height: 70rpx;
+            border-radius: 0;
         }
     }
 </style>

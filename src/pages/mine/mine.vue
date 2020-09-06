@@ -49,9 +49,9 @@ export default {
     components: {
         uniIcons
     },  
-    onLoad() {
-        this.getUserInfo();
-    },
+    // onLoad() {
+    //     this.getUserInfo();
+    // },
     // onUnload() {
     //     let pages = getCurrentPages();
     //     let parentPage = pages[pages.length - 2];
