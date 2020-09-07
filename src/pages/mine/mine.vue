@@ -4,7 +4,7 @@
         <view class="header">
             <view class="avatar">
                 <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons>
-                 <image v-else :src="avatarUrl" mode="aspectFill" /> 
+                 <image v-else :src="avatarUrl" mode="aspectFill"  /> 
             </view>
             <view class="info">
                 <span class="nickname">{{ nickname }}</span>
@@ -29,13 +29,18 @@
                 <span>个人信息</span>
                 <i></i>
             </li>
+            <li class="admin" style="color: #9F8080;" @click="navToAdmin">
+                <span style="background: #9F8080;"></span>
+                <span>管理员入口</span>
+                <i></i>
+            </li>
         </ul>
     </view>
 </template>
 
 <script>
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
-import {getUserAllInfo} from '../../api/user'
+import { getUserAllInfo } from '../../api/user'
 
 export default {
     data () {
@@ -49,14 +54,6 @@ export default {
     components: {
         uniIcons
     },  
-    // onLoad() {
-    //     this.getUserInfo();
-    // },
-    // onUnload() {
-    //     let pages = getCurrentPages();
-    //     let parentPage = pages[pages.length - 2];
-    //     parentPage.onLoad();
-    // },
     onShow () {
         this.getUserInfo();
     },
@@ -65,6 +62,11 @@ export default {
             uni.navigateTo({
                 url: "./myInfo"
             }) 
+        },
+        navToAdmin() {
+            uni.navigateTo({
+                url: "./admin"
+            })
         },
         getUserInfo() {
             getUserAllInfo({
@@ -78,6 +80,7 @@ export default {
                 }
             }).catch(err => console.log(err))
         },
+        
     }
 }
 </script>

@@ -32,6 +32,12 @@
 			"path": "pages/question/index",
 			"style": {
 			}
+		},
+		{
+			"path": "pages/mine/admin",
+			"style": {
+				"navigationBarTitleText": "管理中心"
+			}
 		}
 	],
 	"globalStyle": {

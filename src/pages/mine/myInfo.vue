@@ -6,7 +6,7 @@
                 <span>头像</span>
                 <view class="avatar-container">
                     <!-- <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons> -->
-                    <image v-if="avatarUrl" :src="avatarUrl"></image>
+                    <image v-if="avatarUrl" :src="avatarUrl" @click="getPhoto"></image>
                 </view>   
             </li>
             <li v-for="(item, index) in items" :key="item.id" :class="item.name">
@@ -32,6 +32,7 @@
 
 <script>
 import {USER_INFO_ITEMS} from '../../consts/const.js'
+import { pathToBase64, base64ToPath } from 'image-tools';
 import {getUserAllInfo, saveUserAllInfo} from '../../api/user'
 
 export default {
@@ -103,6 +104,30 @@ export default {
                 })
                 // }
             }).catch(err => console.log(err))
+        },
+        getPhoto() {
+            //后台再转为图片路径保存
+            // uni.chooseImage({
+            //     count: 1,
+            //     sourceType: ['album'],
+            //     success: (res) => {
+            //         pathToBase64(res.tempFilePaths[0])
+            //             .then(base64 => {
+            //                 console.log(base64);
+            //                 saveUserAllInfo({
+            //                     openID: getApp().globalData.openID,
+            //                     avatar: base64
+            //                 }).then(res => {
+            //                     if(res.code == 0) {
+            //                         uni.showToast({
+            //                             title: '头像修改成功',
+            //                             icon: 'none'
+            //                         })
+            //                     }
+            //                 })
+            //             })
+            //     }
+            // })
         }
     }
 }
