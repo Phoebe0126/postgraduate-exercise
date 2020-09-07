@@ -17,7 +17,37 @@
         v-if="isConfirm"
       ></answer>
       <!-- 确认按钮 -->
-      <button class="confirm-btn" @click="confirmAnswer">确认</button>
+      <button class="confirm-btn" @click="confirmAnswer" v-show="!isConfirm">确认</button>
+      <!-- 线条 -->
+      <view class="line"  v-show="isConfirm"></view>
+      <view class="tabs-block" v-show="isConfirm">
+           <!-- 选择项 -->
+            <view class="tabs">
+                <uni-segmented-control
+                    :current="current"
+                    :values="tabs"
+                    active-color="#c9a2a2"
+                    @clickItem="changeTab"
+                    style-type="text"
+                ></uni-segmented-control>
+            </view>
+            <!-- 显示的内容 -->
+            <view class="tab-content">
+                <!-- 解析 -->
+                <view v-if="current === 0" class="tips">
+                    <view class="title">解析</view>
+                    <view class="tip">{{ tip }}</view>
+                </view>
+                <!-- 笔记 -->
+                <view v-else class="note">
+                    <view>
+                        <i class="iconfont">&#xe60f;</i>
+                    </view>
+                   <view class="text">点击发表笔记</view>
+                   <view class="text">优质的笔记会在前排显示哦</view>
+                </view>
+            </view>
+      </view>
   </view>
 </template>
 
@@ -25,13 +55,15 @@
 import Topic from '@/components/topic';
 import Option from '@/components/option';
 import Answer from '@/components/answer';
-import { QUESTION_NAVBAR_TITLE } from '../../consts/const';
+import { QUESTION_NAVBAR_TITLE, TABS_TITLE } from '../../consts/const';
+import { uniSegmentedControl } from "@/components/uni-segmented-control";
 
 export default {
     components: {
         Topic,
         Option,
-        Answer
+        Answer,
+        uniSegmentedControl
     },
     data () {
         return {
@@ -63,11 +95,16 @@ export default {
             // 判断答案对错
             isCorrect: true,
             // 答案确认之后的样式
-            confirmStyle: []
+            confirmStyle: [],
+            // 当前选中的选项卡
+            current: 0,
+            // tabs名称
+            tabs: TABS_TITLE,
+            // 解析内容
+            tip: '阿萨德你家是多少安静的少年德你家是多少安静的少年德你家是多少安静的少年德你家是多少安静的少年德你家是多少安静的少年德你家是多少安静的少年时'
         }
     },
     onLoad(query) {
-       
         const arr = ['chapter', 'smart', 'random', 'wrong'];
         const index = arr.indexOf(query.type);
 
@@ -95,17 +132,35 @@ export default {
         },
         // 确认答案
         confirmAnswer () {
-            console.log(this.isConfirm)
+            // 还未选择答案
+            if (this.userAnswer.length === 0) {
+                uni.showToast({
+                    title: '该题还未作答哦~',
+                    icon: 'none'
+                });
+                return;
+            }
             // 判断答案是否正确
             this.isCorrect = this.userAnswer.sort().join('') === this.correctAnswer ? true : false;
             // 设置选项样式
             const style = new Array(4).fill('');
             const ans = ['A', 'B', 'C', 'D'];
+            // 正确答案
+            ans.forEach((val, index) => {
+                if (this.correctAnswer.includes(val)) {
+                    style[index] = 'option-color-unchoose';
+                }
+            })
+            // 错误答案
             this.userAnswer.forEach(val => {
                 style[ans.indexOf(val)] = this.correctAnswer.includes(val) ? 'option-color-correct' : 'option-color-wrong';
             })
             this.confirmStyle = style;
             this.isConfirm = true;
+        },
+        // 切换tab
+        changeTab () {
+            this.current = this.current === 0 ? 1 : 0;
         }
     }
 
@@ -113,8 +168,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .question-wrapper {
     margin: 10rpx auto;
+    font-family: Microsoft Yahei;
     .confirm-btn {
         background: #ce8b8b;
         margin: 100rpx auto;
@@ -122,6 +179,37 @@ export default {
         font-size: 30rpx;
         color: #fff;
         border-radius: 20rpx;
+        // box-shadow: 5rpx 5rpx 2rpx 2rpx rgba(206, 139, 139, .6);
+    }
+    .line {
+        width: 100%;
+        box-sizing: border-box;
+        height: 10rpx;
+        background: #eee;
+    }
+    .tabs-block {
+        margin-top: 20rpx;
+        .tab-content {
+            padding: 10rpx;
+            // 解析
+            .tips {
+                padding: 0 20rpx;
+                font-size: 25rpx;
+                .title {
+                    padding-left: 10rpx;
+                    border-left: 5rpx solid #c9a2a2;
+                }
+                .tip {
+                    margin: 20rpx 0;
+                }
+            }
+            .note {
+                font-size: 30rpx;
+                padding: 20rpx 0;
+                color: #ccc;
+                text-align: center
+            }
+        }
     }
 }
 </style>

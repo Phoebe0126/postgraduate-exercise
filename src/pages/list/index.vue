@@ -1,5 +1,5 @@
 <template>
-   <view>
+   <view class="list-wrapper">
         <chapter
             v-for="(item, index) in chapterArr"
             :key="index"
@@ -43,7 +43,7 @@ export default {
         getChapterProgress () {
             getChapterProgress({
                 openID: getApp().globalData.openID,
-                subject: this.subject
+                subject: this.subject + 1
             })
             .then(res => {
                 if (res.code === 0) {
@@ -61,5 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.list-wrapper {
+    font-size: 30rpx;
+}
 </style>
