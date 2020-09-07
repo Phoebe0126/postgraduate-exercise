@@ -28,6 +28,8 @@ const USER_INFO_ITEMS = [
 
 const QUESTION_NAVBAR_TITLE = ["章节练习", "智能模考", "随机练习", "错题重练"];
 
+const TABS_TITLE = ['答案解析', '我的笔记'];
+
 export {
   SUBJECT_COLOR,
   BORDER_COLOR,
@@ -35,5 +37,6 @@ export {
   SUBJECT_TITLE,
   SUBJECT_ABBR_TITLE,
   USER_INFO_ITEMS,
-  QUESTION_NAVBAR_TITLE
+  QUESTION_NAVBAR_TITLE,
+  TABS_TITLE
 };

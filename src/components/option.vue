@@ -40,7 +40,6 @@ export default {
            if (cur) {
                 this.confirmColor = this.confirmStyle;
            }
-           console.log(this.confirmColor. cur)
         }
     },
     methods: {
@@ -49,7 +48,6 @@ export default {
             if (!this.isConfirm) {
                 this.bgColors.splice(index, 1, this.bgColors[index] ? '' :'choose-bg-color');
                 // 不选
-                console.log(index,  this.bgColors);
                 this.$emit('changeOption', 'A'.charCodeAt(0) + index, !this.bgColors[index])
             }
         }
@@ -66,7 +64,7 @@ export default {
         margin: 40rpx 20rpx;
         font-size: 30rpx;
         border: 2rpx solid #c6d3dc;
-        background: #e8edf1;
+        // background: #e8edf1;
         padding: 0 40rpx;
         display: flex;
         justify-content: space-between;
@@ -98,6 +96,9 @@ export default {
     .option-color-wrong {
         background: #f1e8e8;
         border: 2rpx solid #e0b6b6;
+    }
+    .option-color-unchoose {
+        border: 2rpx solid #a0baaa;
     }
 }
 </style>

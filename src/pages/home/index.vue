@@ -91,7 +91,7 @@ export default {
 		User,
 		Tip
 	},
-	onLoad() {
+	onShow() {
 		this.login();
 	},
 	methods: {
