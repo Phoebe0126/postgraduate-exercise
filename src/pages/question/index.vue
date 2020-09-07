@@ -2,6 +2,10 @@
   <view class="question-wrapper">
       <!-- 题干 -->
       <topic :text="text"></topic>
+      <!--进度条-->
+      <progress></progress>
+      <!--单选 正确率-->
+      <option-right></option-right>
       <!-- 选项 -->
       <Option 
         :options="options" 
@@ -55,6 +59,8 @@
 import Topic from '@/components/topic';
 import Option from '@/components/option';
 import Answer from '@/components/answer';
+import Progress from '@/components/progress';
+import OptionRight from '@/components/option-right';
 import { QUESTION_NAVBAR_TITLE, TABS_TITLE } from '../../consts/const';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 
@@ -63,6 +69,8 @@ export default {
         Topic,
         Option,
         Answer,
+        Progress,
+        OptionRight,
         uniSegmentedControl
     },
     data () {
