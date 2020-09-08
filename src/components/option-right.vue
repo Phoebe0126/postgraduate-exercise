@@ -1,14 +1,28 @@
 <template>
-  <view class="option-right-wrapper">
+  <view class="option-right-wrapper" >
     <view class="two-tips">
       <text class="alone-tick">{{ typeText }}选题</text>
       <text class="right-rate">正确率：74%</text>
+      <v-clock class="clock" @clockend="clockend" ref="clock"></v-clock>
     </view>
   </view>
 </template>
 
 <script>
+import VClock from '@/components/clock';
 export default {
+  components: {
+    VClock
+  },
+  methods: {
+    clockend(res){
+      console.log(res)
+    },
+  },
+   mounted(){
+    //console.log(this.$refs.clock);
+    this.$refs.clock.start(); 
+  },
    props: {
       type: {
         type: Number,
@@ -19,7 +33,8 @@ export default {
     typeText () {
       return this.type === 1 ? '单' : '多';
     }
-  }
+  },
+
 }
 </script>
 

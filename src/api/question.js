@@ -8,3 +8,10 @@ export function getRandomQuestions () {
         method: 'GET'
     })
 }
+// 获取错题重练的题目
+export function getWrongQuestions (params) {
+    return request(`${BASE_URL}/getWrong`,{
+        method: 'POST',
+        data: params
+    })
+}

@@ -76,6 +76,7 @@ import OptionRight from '@/components/option-right';
 import { QUESTION_NAVBAR_TITLE, TABS_TITLE } from '../../consts/const';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import { getRandomQuestions } from '../../api/question';
+import { getWrongQuestions } from '../../api/question';
 import { setMarkDone, setMarkFaulty } from '../../api/record';
 
 export default {
@@ -126,10 +127,18 @@ export default {
         uni.setNavigationBarTitle({
             title: this.title[index]
         });
-        // 随机练习
+        //非智能模考模块
         if (index !== 1) {
             this.questionType = 1;
-            this.getRandomQuestions();
+            //随机练习
+            if(index === 2){
+                this.getRandomQuestions();
+            }
+            //错题重练
+            if(index === 3){
+                this.getWrongQuestions();
+            }
+            
         }
     },
     onShow() {
@@ -183,11 +192,39 @@ export default {
             this.confirmStyle = [];
             this.bgColors = ['', '', '', ''];
         },
+        //获取随机练习
         getRandomQuestions () {
             getRandomQuestions()
             .then(res => {
                 if (res.code === 0) {
                     this.questions = res.data;
+                    this.setOptions();
+                }
+                this.questionReady = true;
+            })
+            .catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+                this.questionReady = true;
+            })
+        },
+        //获取错题
+        getWrongQuestions () {
+            getWrongQuestions({
+                openID: getApp().globalData.openID
+            })
+            .then(res => {
+                console.log(res)
+                if (res.code === 0) {
+                    this.questions = res.data;
+                    if(res.data.length === 0){
+                      uni.showToast({
+                         title: '没有错题',
+                         icon: 'none'
+                    });
+                    }
                     this.setOptions();
                 }
                 this.questionReady = true;
@@ -344,7 +381,12 @@ export default {
         width: 500rpx;
         font-size: 30rpx;
         color: #fff;
-        // box-shadow: 5rpx 5rpx 2rpx 2rpx rgba(206, 139, 139, .6);
+        border-radius: 50rpx;
+        box-shadow: 0rpx 12rpx 10rpx #d4b2b2;  //下阴影
+        transition: .3s ease-out;
+    }
+    .btn:hover{
+       width: 510rpx;
     }
     .btn-disabled {
         background: #ccc;
