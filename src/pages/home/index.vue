@@ -56,7 +56,7 @@
 					<view class="section-random-text">{{ title[2] }}</view>
 					<image src="../../static/section/begin_random.png" mode="aspectFill" />
 				</view>
-				<view class="section-wrong">
+				<view class="section-wrong" @click="naviToWrongPage">
 					<image src="../../static/section/begin_wrong.png" mode="aspectFill" />
 					<view class="section-wrong-text">{{ title[3] }}</view>
 				</view>
@@ -214,6 +214,19 @@ export default {
 			}
 			uni.navigateTo({
 				url: '../question/index?type=random'
+			});
+		},
+		//跳转到错题重练界面
+		naviToWrongPage(){
+			if (!this.isAuthed) {
+				uni.showToast({
+                    title: '您还未登录喲~',
+                    icon: 'none'
+				});
+				return;
+			}
+			uni.navigateTo({
+				url: '../question/index?type=wrong'
 			});
 		}
 	}
