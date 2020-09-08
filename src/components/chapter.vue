@@ -53,6 +53,7 @@ export default {
 @import "../uni.scss";
 
   .chapter-wrapper{
+    font-size: 25rpx;
     background: #fff;
     margin-top: 60rpx;
     margin-bottom: 40rpx;
@@ -66,14 +67,14 @@ export default {
   }
   .chapter-title{
     font-family: Microsoft Yahei;
-    font-size:40rpx;
     color: #000;
     text-align: left;
     padding-left: 15rpx;
+    font-weight: bold;
   }
   .problem-fraction{
     font-family: Mcrosoft Yahei;
-    font-size: 30rpx;
+    font-size: 20rpx;
     color: #aaadc2;
     padding-right: 15rpx;
   }

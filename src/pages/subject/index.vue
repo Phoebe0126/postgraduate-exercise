@@ -52,7 +52,8 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err
+                    title: err,
+                    icone: 'none'
                 });
             })
         }

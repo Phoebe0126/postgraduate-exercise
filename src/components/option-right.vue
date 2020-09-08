@@ -1,7 +1,7 @@
 <template>
   <view class="option-right-wrapper">
     <view class="two-tips">
-      <text class="alone-tick">单选题</text>
+      <text class="alone-tick">{{ typeText }}选题</text>
       <text class="right-rate">正确率：74%</text>
     </view>
   </view>
@@ -9,7 +9,17 @@
 
 <script>
 export default {
-    
+   props: {
+      type: {
+        type: Number,
+        default: 1
+      }
+   },
+  computed: {
+    typeText () {
+      return this.type === 1 ? '单' : '多';
+    }
+  }
 }
 </script>
 

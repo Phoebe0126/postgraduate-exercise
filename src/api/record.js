@@ -17,3 +17,19 @@ export function getChapterProgress (params) {
         data: params
     })
 }
+
+// 将某题划分为错题
+export function setMarkFaulty (params) {
+    return request(`${BASE_URL}/markFaulty`, {
+        method: 'POST',
+        data: params
+    })
+}
+
+// 将某题划分为做对的记录
+export function setMarkDone (params) {
+    return request(`${BASE_URL}/markDone`, {
+        method: 'POST',
+        data: params
+    })
+}

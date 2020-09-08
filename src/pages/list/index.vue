@@ -52,7 +52,8 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err
+                    title: err,
+                    icon: 'none'
                 });
             })
         }
@@ -61,7 +62,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-wrapper {
-    font-size: 30rpx;
-}
+
 </style>

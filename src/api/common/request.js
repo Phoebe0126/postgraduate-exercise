@@ -3,7 +3,7 @@
 export default (url, paramsObj) => {
     // 处理参数 params method data
     let { method, params, data } = paramsObj;
-    if (method === 'GET') {
+    if (method === 'GET' && params) {
         if (!url.includes('?')) {
             url += '?';
         }

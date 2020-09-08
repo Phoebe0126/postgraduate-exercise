@@ -117,7 +117,8 @@ export default {
 				.then(res => {
 					if (res.code !== 0) {
 						uni.showToast({
-							title: '授权失败，请重试~'
+							title: '授权失败，请重试~',
+							icon: 'none'
 						});
 					}
 				})
@@ -142,7 +143,8 @@ export default {
 				uni.hideLoading();
 				this.isRequestComplete = true;
 				uni.showToast({
-					title: err
+					title: err,
+					icon: 'none'
 				});
 			})
 		},
@@ -167,47 +169,57 @@ export default {
 						})
 					} else {
 						uni.showToast({
-							title: res.errMsg
+							title: res.errMsg,
+							icon: 'none'
 						});
 					}
 				},
 				fail (err) {
 					uni.showToast({
-						title: err
+						title: err,
+						icon: 'none'
 					});
 				}
 			})
 		},
 		// 跳转到我的界面
 		navigateToMine () {
-			if (this.isAuthed) {
-				uni.showLoading({
-					title: '加载中'
+			if (!this.isAuthed) {
+				uni.showToast({
+                    title: '您还未登录喲~',
+                    icon: 'none'
 				});
-				uni.navigateTo({
-					url: '../mine/mine'
-				})
+				return;
 			}
+			uni.navigateTo({
+				url: '../mine/mine'
+			})
 		},
 		// 跳转到章节练习页面
 		naviToChapter () {
-			uni.showLoading({
-				title: '加载中'
-			});
+		    if (!this.isAuthed) {
+				uni.showToast({
+					title: '您还未登录喲~',
+					icon: 'none'
+				});
+				return;
+			}
 			uni.navigateTo({
 				url: '../subject/index'
 			})
 		},
 		// 跳转到随机练习界面
 		naviToRandromPage () {
-			if (this.isAuthed) {
-				uni.showLoading({
-					title: '加载中'
+			if (!this.isAuthed) {
+				uni.showToast({
+                    title: '您还未登录喲~',
+                    icon: 'none'
 				});
-				uni.navigateTo({
-					url: '../question/index?type=random'
-				});
+				return;
 			}
+			uni.navigateTo({
+				url: '../question/index?type=random'
+			});
 		}
 	}
 }
