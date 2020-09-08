@@ -62,6 +62,8 @@ export default {
 
 <style lang="scss" scoped>
 .list-wrapper {
-    font-size: 30rpx;
+    padding-top: 20rpx;
+    background: #e4e4e4;
+    padding-bottom: 400rpx;
 }
 </style>
