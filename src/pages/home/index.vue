@@ -184,16 +184,11 @@ export default {
 		},
 		// 跳转到我的界面
 		navigateToMine () {
-			if (!this.isAuthed) {
-				uni.showToast({
-                    title: '您还未登录喲~',
-                    icon: 'none'
-				});
-				return;
+			if (this.isAuthed) {
+				uni.navigateTo({
+					url: '../mine/mine'
+				})
 			}
-			uni.navigateTo({
-				url: '../mine/mine'
-			})
 		},
 		// 跳转到章节练习页面
 		naviToChapter () {

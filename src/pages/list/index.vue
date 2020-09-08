@@ -62,5 +62,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.list-wrapper {
+    padding-top: 20rpx;
+    background: #e4e4e4;
+    padding-bottom: 200rpx;
+}
 </style>

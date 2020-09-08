@@ -1,6 +1,6 @@
 import request from './common/request';
 
-const BASE_URL = 'http://47.106.170.118/record';
+const BASE_URL = 'http://49.234.89.20:3000/record';
 
 // 获取各科目的用户信息
 export function getTotalProgress (params) {

@@ -1,6 +1,6 @@
 import request from './common/request';
 
-const BASE_URL = 'http://47.106.170.118/user';
+const BASE_URL = 'http://49.234.89.20:3000/user';
 
 // 获取用户的openId
 export function getUserOpenId (params) {
