@@ -344,7 +344,12 @@ export default {
         width: 500rpx;
         font-size: 30rpx;
         color: #fff;
-        // box-shadow: 5rpx 5rpx 2rpx 2rpx rgba(206, 139, 139, .6);
+        border-radius: 50rpx;
+        box-shadow: 0rpx 12rpx 10rpx #d4b2b2;  //下阴影
+        transition: .3s ease-out;
+    }
+    .btn:hover{
+       width: 510rpx;
     }
     .btn-disabled {
         background: #ccc;
