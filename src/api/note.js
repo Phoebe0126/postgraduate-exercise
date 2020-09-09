@@ -17,3 +17,11 @@ export function getNote (data) {
         data
     })
 }
+
+//删除用户的笔记
+export function deleteNote(data){
+    return request(`${BASE_URL}/deleteNote`,{
+        method: 'POST',
+        data
+    })
+}
