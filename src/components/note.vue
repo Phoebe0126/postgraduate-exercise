@@ -68,7 +68,7 @@ export default {
         // 跳转到笔记页面
         naviToEditNotePage () {
             uni.navigateTo({
-                url: `../edit-note/index?id=${this.questionId}&text=${this.info.note}`
+                url: `../edit-note/index?id=${this.questionId}${this.info ? '&text=' + this.info.note : ''}`
             });
         },
         //编辑，删除笔记的弹窗

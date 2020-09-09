@@ -38,6 +38,12 @@
 			"style": {
 				"navigationBarTitleText": "添加笔记"
 			}
+		},
+		{
+			"path": "pages/smart-test/index",
+			"style": {
+				"navigationBarTitleText": "智能模考"
+			}
 		}
 	],
 	"globalStyle": {

@@ -2,8 +2,8 @@
   <view class="option-right-wrapper" >
     <view class="two-tips">
       <text class="alone-tick">{{ typeText }}选题</text>
-      <!-- <text class="right-rate" v-if="moduleType !== 2">正确率：{{ correctRate }}%</text> -->
-      <view class="clock-block">
+      <text class="right-rate" v-if="moduleType !== 2">正确率：{{ correctRate }}%</text>
+      <view class="clock-block" v-else>
         <i class="iconfont">&#xe655;</i>
         <v-clock class="clock" @clockend="clockend" ref="clock"></v-clock>
       </view>
@@ -79,7 +79,9 @@ export default {
     }
   },
   mounted(){
-    this.$refs.clock.start(); 
+    if (this.moduleType === 2) {
+       this.$refs.clock.start(); 
+    }
   },
   created () {
     // 请求题目是否收藏过
@@ -174,7 +176,7 @@ export default {
       }
       .heart-red {
         color:red;
-        margin-right: 4rpx;
+        margin-right: 10rpx;
       }
     }
 }

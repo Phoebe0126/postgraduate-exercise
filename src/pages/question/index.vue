@@ -11,7 +11,6 @@
       <option-right
         :type="questions[index].type"
         :correctRate="questions[index].correctRate"
-        @changeCollectStatus="changeCollectStatus"
         :quesId="questions[index].id"
         :moduleType="moduleType"
       ></option-right>

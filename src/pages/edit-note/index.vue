@@ -25,7 +25,6 @@ export default {
         });
         return;
       }
-      // todo 请求
       addNote({
         openID: getApp().globalData.openID,
         id: this.id,
@@ -38,6 +37,9 @@ export default {
             icon: 'none'
           });
           setTimeout(() => {
+            uni.showLoading({
+              title: '加载中'
+            });
             uni.navigateBack();
           }, 1000);
         } else {
