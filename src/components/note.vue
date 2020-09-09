@@ -68,7 +68,7 @@ export default {
         // 跳转到笔记页面
         naviToEditNotePage () {
             uni.navigateTo({
-                url: `../edit-note/index?id=${this.questionId}`
+                url: `../edit-note/index?id=${this.questionId}&text=${this.info.note}`
             });
         },
         //编辑，删除笔记的弹窗
@@ -80,7 +80,7 @@ export default {
                 success(res){
                     console.log(res.tapIndex)
                     if(res.tapIndex === 0){
-                        naviToEditNotePage();
+                        b.naviToEditNotePage();
                     }else if(res.tapIndex === 1){
                         deleteNote({
                             openID: getApp().globalData.openID,

@@ -55,8 +55,8 @@ export default {
       })
     },
     onLoad (query) {
-      console.log(query);
       this.id = query.id;
+      this.text = query.text;
     }
   }
 }

@@ -11,6 +11,9 @@
       <option-right
         :type="questions[index].type"
         :correctRate="questions[index].correctRate"
+        @changeCollectStatus="changeCollectStatus"
+        :quesId="questions[index].id"
+        :moduleType="moduleType"
       ></option-right>
       <!-- 选项 -->
       <v-option 
@@ -120,6 +123,7 @@ export default {
             titleColor: SUBJECT_NAVBAR_COLOR,
             // 模块类型
             moduleType: 0, // 0---章节、1---随机、2---智能、3---错题
+            // 笔记的信息
             noteInfo: null
         }
     },

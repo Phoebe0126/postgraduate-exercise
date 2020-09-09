@@ -33,3 +33,27 @@ export function setMarkDone (data) {
         data
     })
 }
+
+// 收藏题目
+export function collect (data) {
+    return request(`${BASE_URL}/collect`, {
+        method: 'POST',
+        data
+    })
+}
+
+// 取消收藏
+export function cancelCollection (data) {
+    return request(`${BASE_URL}/cancelCollection`, {
+        method: 'POST',
+        data
+    })
+}
+
+// 某道题是否收藏
+export function checkIsCollected (data) { 
+    return request(`${BASE_URL}/isCollected`, {
+        method: 'POST',
+        data
+    })
+ }
