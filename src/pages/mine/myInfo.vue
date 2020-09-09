@@ -68,6 +68,7 @@ export default {
                     this.items[3].val = (res.data.motto == null || res.data.motto == '') ?'未设置': res.data.motto;
                     this.items[4].val = res.data.goal == null ? 0: res.data.goal;
                 }
+                console.log(res.data.gender)
             }).catch(err => console.log(err))
         },
         saveUserInfo() {

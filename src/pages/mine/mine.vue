@@ -79,8 +79,7 @@ export default {
                     this.goal = res.data.goal == null ? '-': res.data.goal;
                 }
             }).catch(err => console.log(err))
-        },
-        
+        },  
     }
 }
 </script>
@@ -95,7 +94,7 @@ export default {
         background: #E2C9C9;
         align-items: center;
         justify-content: start;
-        box-shadow: 0 2px 3px grey;
+        box-shadow: 0 2rpx 3rpx grey;
         .avatar {
             width: 100rpx;
             height: 100rpx; 
