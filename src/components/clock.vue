@@ -26,7 +26,7 @@
 			end(){
 				this.is_show = false;
 				clearInterval(this.timer);
-				this.$emit('clockend',this.totalCount);
+				// this.$emit('clockend',this.totalCount);
 			},
 			showNum(num) {
 				if (num < 10) {

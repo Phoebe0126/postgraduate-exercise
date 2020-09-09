@@ -1,7 +1,7 @@
 <template>
   <view class="answer-wrapper">
       <view class="user-answer">你的答案: 
-          <text :class="['option-user', isCorrect ? '' : 'option-wrong-user']">{{ userAnswerStr }}</text>
+          <text :class="['option-user', isCorrect ? '' : 'option-wrong-user']">{{ userAnswerStr || '偷懒没做答！哼！' }}</text>
       </view>
       <view class="correct-answer">正确答案: 
           <text class="option-correct">{{ correctAnswer }}</text>
