@@ -81,6 +81,7 @@ export default {
     .title {
       color: #000;
       font-weight: bold;
+      width: 460rpx;
     }
     .questions {
       font-size: 26rpx;

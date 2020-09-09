@@ -27,28 +27,34 @@ export default {
         confirmStyle: {
             type: Array,
             default: []
+        },
+        type: {
+            type: Number,
+            default: 1
+        },
+        bgColors: {
+            type: Array,
+            default: []
         }
     },
     data () {
         return {
-            bgColors: new Array(4).fill(''),
             confirmColor: []
         }
     },
     watch: {
-        isConfirm (cur, pre) {
-           if (cur) {
-                this.confirmColor = this.confirmStyle;
-           }
+        'confirmStyle': {
+            handler: function (newValue){
+                this.confirmColor = newValue;  
+            },
+            deep: true
         }
     },
     methods: {
         // 选中切换背景颜色
         changeBgColor (index) {
             if (!this.isConfirm) {
-                this.bgColors.splice(index, 1, this.bgColors[index] ? '' :'choose-bg-color');
-                // 不选
-                this.$emit('changeOption', 'A'.charCodeAt(0) + index, !this.bgColors[index])
+                this.$emit('changeOption', index)
             }
         }
     }

@@ -1,15 +1,15 @@
 <template>
-  <view class="chapter-wrapper">
+  <view class="chapter-wrapper"  @click="naviToQuesPage">
       <view class="chapter-details">
-        <text class="chapter-title">第{{ chapterNumber }}章 {{ chapter }}</text>
+        <view class="chapter-title"><view class="chapter-number">第{{ chapterNumber }}章</view> <br/> {{ chapter }}</view>
         <text class="problem-fraction">{{ doneNum }}题/{{ totalNum }}题</text>
-      </view>
-      <hr :class="['line', bordeColor[subject]]">
+      </view> 
+      <view :class="['line', bordeColor[subject]]"></view>
   </view>
 </template>
 
 <script>
-import { BORDER_COLOR } from '../consts/const';
+import { BG_COLOR } from '../consts/const';
 
 export default {
     props: {
@@ -19,7 +19,7 @@ export default {
         },
         chapter: {
             type: String,
-            default: '的擦'
+            default: ''
         },
         doneNum: {
             type: Number,
@@ -37,13 +37,21 @@ export default {
     },
     data () {
         return {
-            bordeColor: BORDER_COLOR
+            bordeColor: BG_COLOR
         }
     },
     methods: {
         naviToProblemPage () {
             console.log(111)
             this.$emit('naviToProblemPage', this.chapterNum);
+        },
+        naviToQuesPage () {
+            uni.showLoading({
+                title: '加载中'
+            });
+            uni.navigateTo({
+              url: `../question/index?type=chapter&subject=${this.subject + 1}&chapterNumber=${this.chapterNumber}`
+            });
         }
     }
 }
@@ -53,31 +61,42 @@ export default {
 @import "../uni.scss";
 
   .chapter-wrapper{
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+   // margin-top: 10rpx;
+    margin-bottom: 30rpx;
+    padding-bottom: 20rpx;
+    padding-top: 20rpx;
     background: #fff;
-    margin-top: 60rpx;
-    margin-bottom: 40rpx;
-    margin-left: 40rpx;
-    margin-right: 40rpx;
-  }
-  .chapter-details{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .chapter-title{
-    font-family: Microsoft Yahei;
-    font-size:40rpx;
-    color: #000;
-    text-align: left;
-    padding-left: 15rpx;
-  }
-  .problem-fraction{
-    font-family: Mcrosoft Yahei;
-    font-size: 30rpx;
-    color: #aaadc2;
-    padding-right: 15rpx;
-  }
-  .line{
-    margin-top: 6rpx;
+    border-radius: 25rpx;
+
+     .chapter-details{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Microsoft Yahei;
+
+        .chapter-title{  
+        font-size:35rpx;
+        color: #000;
+        text-align: left;
+        padding-left: 15rpx;
+        width: 500rpx;
+        .chapter-number{
+          font-weight: bold;
+        }
+        }
+        .problem-fraction{
+        font-size: 30rpx;
+        color: #aaadc2;
+        padding-right: 15rpx;
+        }
+     }
+     .line{
+        height: 5rpx;
+        margin-left: 15rpx;
+        margin-right: 15rpx;
+
+      }
   }
 </style>

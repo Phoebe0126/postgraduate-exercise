@@ -1,26 +1,71 @@
 <template>
     <view class="content">
-        <ul class="admin">
-            <li class="add" style="color: #6A3F3F;">
-                <span style="background: #6A3F3F;"></span>
-                <span>添加题目</span>
-                <i></i>
-            </li>
-            <li class="notice-bar" style="color: #9F8080;">
-                <span style="background: #9F8080;"></span>
-                <span>公告栏内容设置</span>
-                <i></i>
-            </li>
-        </ul>
+        <view class="header">
+            <view class="avatar-container">
+                <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="white"></uni-icons>
+                <image v-else :src="avatarUrl" mode="aspectFill"  /> 
+            </view>
+            <span>管理员</span>
+        </view>
+        <!-- 导航栏：设置公告栏、添加题目 -->
+        <nav-lists :items="navItems" :top="'200rpx'"></nav-lists>
     </view>
 </template>
 
 <script>
+import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
+import navLists from '@/components/nav-lists.vue';
+import { ADMIN_LISTS} from '../../consts/const';
+
 export default {
-    
+    data() {
+        return {
+            navItems: ADMIN_LISTS
+        }
+    },
+    components: {
+        uniIcons,
+        navLists
+    }
 }
 </script>
 
 <style lang="scss">
-
+    .content {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #E0E0E0;
+        .header {
+            height: 200rpx; 
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            background: #DCCBCB;
+            box-shadow: 0 6rpx 6rpx gray;
+            .avatar-container {
+                height: 100rpx;
+                width: 100rpx;
+                border-radius: 50%;
+                background: #CE8B8B;
+                margin-left: 50rpx;
+                position: relative;
+                margin-right: 50rpx;
+                image {
+                    width: 100%;
+                    height: 100%;
+                }
+                uni-icons {
+                    width: 80rpx;
+                    height: 80rpx;
+                    position: absolute;
+                    left: 10rpx;
+                    top: 5rpx;
+                }
+            } 
+        }
+    }
 </style>

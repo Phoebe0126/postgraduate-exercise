@@ -3,7 +3,7 @@
         <!-- 用户头像、昵称、座右铭 -->
         <view class="header">
             <view class="avatar">
-                <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons>
+                <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="#E2C9C9"></uni-icons>
                  <image v-else :src="avatarUrl" mode="aspectFill"  /> 
             </view>
             <view class="info">
@@ -13,34 +13,18 @@
         </view>
         <!-- 目标学习天数 -->
         <view class="goal">目标学习天数：<span style="color: white;">{{ goal + ' '}}</span>天</view>
-        <ul class="mine">
-            <li class="note" style="color: #6A3F3F;">
-                <span style="background: #6A3F3F;"></span>
-                <span>我的笔记</span>
-                <i></i>
-            </li>
-            <li class="collection" style="color: #9F8080;">
-                <span style="background: #9F8080;"></span>
-                <span>我的收藏</span>
-                <i></i>
-            </li>
-            <li class="userinfo" style="color: #C9A2A2;" @click="navToMyInfo">
-                <span style="background: #C9A2A2;"></span>
-                <span>个人信息</span>
-                <i></i>
-            </li>
-            <li class="admin" style="color: #9F8080;" @click="navToAdmin">
-                <span style="background: #9F8080;"></span>
-                <span>管理员入口</span>
-                <i></i>
-            </li>
-        </ul>
+        <!-- 导航栏：我的笔记、我的收藏、个人信息、管理员入口 -->
+        <nav-lists :items="navItems" :top="'360rpx'" @navToMyInfo="navToMyInfo" @navToAdmin="navToAdmin"
+            @navToMyNote="navToMyNote">
+        </nav-lists>
     </view>
 </template>
 
 <script>
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
-import { getUserAllInfo } from '../../api/user'
+import navLists from '@/components/nav-lists.vue';
+import { getUserAllInfo } from '../../api/user';
+import { MINE_LISTS} from '../../consts/const'
 
 export default {
     data () {
@@ -48,16 +32,23 @@ export default {
             avatarUrl: '',
             nickname: '',
             motto: '',
-            goal: 0
+            goal: 0,
+            navItems: MINE_LISTS
         }
     },
     components: {
-        uniIcons
+        uniIcons,
+        navLists
     },  
     onShow () {
         this.getUserInfo();
     },
     methods: {
+        navToMyNote() {
+            uni.navigateTo({
+                url: "./myNote"
+            }) 
+        },
         navToMyInfo() {
             uni.navigateTo({
                 url: "./myInfo"
@@ -94,7 +85,7 @@ export default {
         background: #E2C9C9;
         align-items: center;
         justify-content: start;
-        box-shadow: 0 2rpx 3rpx grey;
+        box-shadow: 0 6rpx 6rpx grey;
         .avatar {
             width: 100rpx;
             height: 100rpx; 
@@ -102,13 +93,17 @@ export default {
             overflow: hidden;
             background: white;
             margin-left: 40rpx; 
+            position: relative;
             image {
                 width: 100%;
                 height: 100%;
             }
             uni-icons {
-                position: relative;
-                left: 8rpx;
+                width: 80rpx; 
+                height: 80rpx;
+                position: absolute;
+                left: 10rpx; 
+                top: 5rpx;
             }
         }
         .info {
@@ -135,46 +130,46 @@ export default {
         color: #6A3F3F; 
         font-size: 34rpx;
     }
-    .mine {
-        overflow: hidden;
-        background: gainsboro;
-        position: absolute;
-        top: 360rpx;
-        bottom: 0;
-        width: 100%;
-        padding: 0;
-        li {
-            height: 90rpx;
-            background: white;
-            width: 100%;
-            float: left;
-            list-style-type: none;
-            margin-top: 30rpx; 
-            position: relative;
-            font-size: 24rpx;
-            line-height: 90rpx;
-            span {
-                float: left;
-                display: block;
-            }
-            span:nth-child(1) {
-                height: 30rpx;
-                width: 30rpx; 
-                border-radius: 50%;
-                position: relative;
-                top: 30rpx;
-                left: 60rpx;
-                margin-right: 80rpx;
-            }
-            i {
-                background: url('/static/navTo.png') center center;
-                width: 30rpx; 
-                height: 30rpx; 
-                display: block;
-                position: absolute; 
-                right: 50rpx;
-                top: 30rpx;
-            }
-        }
-    }
+    // .mine {
+    //     overflow: hidden;
+    //     background: gainsboro;
+    //     position: absolute;
+    //     top: 360rpx;
+    //     bottom: 0;
+    //     width: 100%;
+    //     padding: 0;
+    //     li {
+    //         height: 90rpx;
+    //         background: white;
+    //         width: 100%;
+    //         float: left;
+    //         list-style-type: none;
+    //         margin-top: 30rpx; 
+    //         position: relative;
+    //         font-size: 24rpx;
+    //         line-height: 90rpx;
+    //         span {
+    //             float: left;
+    //             display: block;
+    //         }
+    //         span:nth-child(1) {
+    //             height: 30rpx;
+    //             width: 30rpx; 
+    //             border-radius: 50%;
+    //             position: relative;
+    //             top: 30rpx;
+    //             left: 60rpx;
+    //             margin-right: 80rpx;
+    //         }
+    //         i {
+    //             background: url('/static/navTo.png') center center;
+    //             width: 30rpx; 
+    //             height: 30rpx; 
+    //             display: block;
+    //             position: absolute; 
+    //             right: 50rpx;
+    //             top: 30rpx;
+    //         }
+    //     }
+    // }
 </style>
