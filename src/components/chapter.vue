@@ -1,5 +1,5 @@
 <template>
-  <view class="chapter-wrapper">
+  <view class="chapter-wrapper"  @click="naviToQuesPage">
       <view class="chapter-details">
         <view class="chapter-title"><view class="chapter-number">第{{ chapterNumber }}章</view> <br/> {{ chapter }}</view>
         <text class="problem-fraction">{{ doneNum }}题/{{ totalNum }}题</text>
@@ -19,7 +19,7 @@ export default {
         },
         chapter: {
             type: String,
-            default: '的擦'
+            default: ''
         },
         doneNum: {
             type: Number,
@@ -44,6 +44,14 @@ export default {
         naviToProblemPage () {
             console.log(111)
             this.$emit('naviToProblemPage', this.chapterNum);
+        },
+        naviToQuesPage () {
+            uni.showLoading({
+                title: '加载中'
+            });
+            uni.navigateTo({
+              url: `../question/index?type=chapter&subject=${this.subject + 1}&chapterNumber=${this.chapterNumber}`
+            });
         }
     }
 }

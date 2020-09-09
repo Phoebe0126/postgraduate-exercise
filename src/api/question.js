@@ -15,3 +15,11 @@ export function getWrongQuestions (params) {
         data: params
     })
 }
+
+// 获取章节题目
+export function getChapterQuestions (params) {
+    return request(`${BASE_URL}/getChapter`, {
+        method: 'GET',
+        params: params
+    })
+}

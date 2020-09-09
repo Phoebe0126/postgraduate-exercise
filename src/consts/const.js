@@ -26,7 +26,9 @@ const USER_INFO_ITEMS = [
   { id: 5, name: "goal", desc: "目标天数", val: 0 }
 ];
 
-const QUESTION_NAVBAR_TITLE = ["章节练习", "智能模考", "随机练习", "错题重练"];
+const QUESTION_NAVBAR_TITLE = ["章节练习", "随机练习", "智能模考", "错题重练"];
+
+const SUBJECT_NAVBAR_COLOR = ['#c9a2a2', '#aaadc2', '#a5b8c8', '#a0bfc0'];
 
 const TABS_TITLE = ['答案解析', '我的笔记'];
 
@@ -38,5 +40,6 @@ export {
   SUBJECT_ABBR_TITLE,
   USER_INFO_ITEMS,
   QUESTION_NAVBAR_TITLE,
-  TABS_TITLE
+  TABS_TITLE,
+  SUBJECT_NAVBAR_COLOR
 };

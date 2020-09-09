@@ -10,6 +10,7 @@
       <!--单选 正确率-->
       <option-right
         :type="questions[index].type"
+        :correctRate="questions[index].correctRate"
       ></option-right>
       <!-- 选项 -->
       <v-option 
@@ -31,8 +32,8 @@
       <button class="confirm-btn btn" @click="confirmAnswer(false)" v-show="!isConfirm">确认</button>
       <!-- 切换题目 -->
       <view class="change-ques">
-            <button :class="['pre-btn', 'btn', index === 0 ? 'btn-disabled' : '']" @click="changeToPre" v-show="isConfirm" :disabled="index === 0">上一题</button>
-            <button class="next-btn btn" @click="changeToNext" v-show="isConfirm" :disabled="index === questions.length - 1">下一题</button>
+            <button :class="[index === questions.length - 1 ? '' : 'pre-btn', 'btn']" @click="changeToPre" v-show="isConfirm && index !== 0" >上一题</button>
+            <button :class="[index === 0 ? '' : 'next-btn', 'btn']" @click="changeToNext" v-show="isConfirm" >下一题</button>
       </view> 
       <!-- 线条 -->
       <view class="line"  v-show="isConfirm"></view>
@@ -48,19 +49,15 @@
                 ></uni-segmented-control>
             </view>
             <!-- 显示的内容 -->
-            <view class="tab-content">
+            <view class="tab-content" v-if="questions.length > 0">
                 <!-- 解析 -->
                 <view v-if="current === 0" class="tips">
                     <view class="title">解析</view>
                     <view class="tip">{{ questions[index].tip }}</view>
                 </view>
                 <!-- 笔记 -->
-                <view v-else class="note" @click="naviToEditNotePage">
-                    <view>
-                        <i class="iconfont">&#xe60f;</i>
-                    </view>
-                   <view class="text">点击发表笔记</view>
-                   <view class="text">优质的笔记会在前排显示哦</view>
+                <view v-else>
+                   <note :quesId="questions[index].id"></note>
                 </view>
             </view>
       </view>
@@ -73,14 +70,15 @@ import VOption from '@/components/option';
 import Answer from '@/components/answer';
 import Progress from '@/components/progress';
 import OptionRight from '@/components/option-right';
-import { QUESTION_NAVBAR_TITLE, TABS_TITLE } from '../../consts/const';
+import Note from '@/components/note';
+import { QUESTION_NAVBAR_TITLE, TABS_TITLE, SUBJECT_NAVBAR_COLOR } from '../../consts/const';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
-import { getRandomQuestions } from '../../api/question';
-import { getWrongQuestions } from '../../api/question';
+import { getRandomQuestions, getChapterQuestions, getWrongQuestions } from '../../api/question';
 import { setMarkDone, setMarkFaulty } from '../../api/record';
 
 export default {
     components: {
+        Note,
         Topic,
         VOption,
         Answer,
@@ -116,35 +114,64 @@ export default {
             // 用户选过的答案
             choosedAnswers: [],
             // 选项的背景颜色
-            bgColors: ['', '', '', '']
+            bgColors: ['', '', '', ''],
+            // 标题背景颜色
+            titleColor: SUBJECT_NAVBAR_COLOR,
+            // 模块类型
+            moduleType: 0 // 0---章节、1---随机、2---智能、3---错题
         }
     },
     onLoad(query) {
-        const arr = ['chapter', 'smart', 'random', 'wrong'];
-        const index = arr.indexOf(query.type);
+
+        const arr = ['chapter', 'random', 'smart', 'wrong'];
+        this.moduleType = arr.indexOf(query.type);
 
         // 设置标题
         uni.setNavigationBarTitle({
-            title: this.title[index]
+            title: this.title[this.moduleType]
         });
-        //非智能模考模块
-        if (index !== 1) {
+
+        // 随机练习
+        if (this.moduleType !== 2) {
             this.questionType = 1;
-            //随机练习
-            if(index === 2){
+            // 随机练习
+            if (this.moduleType === 1) {
                 this.getRandomQuestions();
-            }
-            //错题重练
-            if(index === 3){
+            } else if ( this.moduleType === 0) {
+                // 章节练习
+                this.getChapterQuestions(query.subject, query.chapterNumber);
+            } else if(this.moduleType === 3){
+                 //错题重练
                 this.getWrongQuestions();
             }
-            
         }
     },
     onShow() {
         uni.hideLoading();
     },
     methods: {
+        // 获取章节题目
+        getChapterQuestions (subject, chapterNumber) {
+            console.log(subject, chapterNumber)
+            getChapterQuestions({
+                subject,
+                chapterNumber
+            })
+            .then(res => {
+                 if (res.code === 0) {
+                    this.questions = res.data;
+                    this.setOptions();
+                }
+                this.questionReady = true;
+            })
+            .catch(err => {
+                 uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+                this.questionReady = true;
+            })
+        },
         // 设置选项
         setOptions () {
             let arr = [];
@@ -238,7 +265,6 @@ export default {
             })
         },
         changeOption (index) {
-
             // 单选
             if (this.questions[this.index].type === 1) {
                 this.bgColors.forEach((val, i) => {
@@ -305,10 +331,7 @@ export default {
                 const question = this.questions[this.index];
                 const params = {
                     openID: getApp().globalData.openID,
-                    subject: question.subject,
-                    chapterNumber: question.chapterNumber,
-                    type: question.type,
-                    quesNumber: question.quesNumber
+                    id: question.id
                 }
                 if (this.isCorrect) {
                     this.setMarkDone(params);
@@ -346,12 +369,6 @@ export default {
         // 切换tab
         changeTab () {
             this.current = this.current === 0 ? 1 : 0;
-        },
-        // 跳转到笔记页面
-        naviToEditNotePage () {
-            uni.navigateTo({
-                url: '../edit-note/index'
-            });
         }
     }
 
@@ -365,19 +382,18 @@ export default {
     font-family: Microsoft Yahei;
     .change-ques {
         display: flex;
-        .btn {
-            margin: 30rpx;
-        }
         .pre-btn {
             flex: 1;
+            margin: 30rpx;
         }
         .next-btn {
             flex: 1;
+            margin: 30rpx;
         }
     }
     .btn {
         background: #ce8b8b;
-        margin: 100rpx auto;
+        margin: 60rpx auto;
         width: 500rpx;
         font-size: 30rpx;
         color: #fff;
@@ -387,6 +403,9 @@ export default {
     }
     .btn:hover{
        width: 510rpx;
+    }
+    .btn:after {
+        border: none;
     }
     .btn-disabled {
         background: #ccc;
@@ -414,12 +433,7 @@ export default {
                     margin: 20rpx 0;
                 }
             }
-            .note {
-                font-size: 30rpx;
-                padding: 20rpx 0;
-                color: #a7a7a7;
-                text-align: center
-            }
+           
         }
     }
 }

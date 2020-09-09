@@ -30,13 +30,13 @@
 		<view class="user-exercise-info">
 			<view class="user-persist center">
 				<view class="text">坚持天数</view>
-				<view class="number">{{ 88 }}天</view>
+				<view class="number">{{ daysOfPersistence }}天</view>
 			</view>
 			<view class="line">
 			</view>
 			<view class="user-correct-ratio center">
 				<view class="text">刷题正确率</view>
-				<view class="number">{{ 55 }}%</view>
+				<view class="number">{{ correctRate }}%</view>
 			</view>
 		</view>
 		<!-- 刷题模块 -->
@@ -48,12 +48,12 @@
 				</view>
 				<view class="section-smart">
 					<image src="../../static/section/begin_smart.png" mode="aspectFill" />
-					<view class="section-smart-text">{{ title[1] }}</view>
+					<view class="section-smart-text">{{ title[2] }}</view>
 				</view>
 			</view>
 			<view class="section-right">
 				<view class="section-random" @click="naviToRandromPage">
-					<view class="section-random-text">{{ title[2] }}</view>
+					<view class="section-random-text">{{ title[1] }}</view>
 					<image src="../../static/section/begin_random.png" mode="aspectFill" />
 				</view>
 				<view class="section-wrong" @click="naviToWrongPage">
@@ -83,7 +83,9 @@ export default {
 			avatarUrl: '',
 			title: QUESTION_NAVBAR_TITLE,
 			daysRemaining: -1,
-			isRequestComplete: false
+			isRequestComplete: false,
+			daysOfPersistence: 0,
+			correctRate: 0
 		}
 	},
 	components: {
@@ -133,9 +135,12 @@ export default {
 				// 已授权登录过
 				if (res.code === 0) {
 					this.isAuthed = true;
-					this.nickName = res.data.nickname;
-					this.avatarUrl = res.data.avatar;
-					this.daysRemaining = res.data.daysRemaining;
+					const data = res.data;
+					this.nickName = data.nickname;
+					this.avatarUrl = data.avatar;
+					this.daysRemaining = data.daysRemaining;
+					this.daysOfPersistence = data.daysOfPersistence;
+					this.correctRate = data.correctRate;
 				}
 				this.isRequestComplete = true;
 				uni.hideLoading();
@@ -234,9 +239,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../uni.scss";
 
 	.content {
-
+		height: 100vh;
 		background: #e0e0e0;
 		padding-bottom: 100rpx;
 		.notice-wrapper {
@@ -261,6 +267,7 @@ export default {
 			text-align: center;
 			background: #c9a2a2;
 			width: 100%;
+			margin-top: 100rpx;
 		}
 		.user-exercise-info {
 			display: flex;
@@ -303,7 +310,7 @@ export default {
 				position: relative;
 			}
 			&-chapter {
-				background: #c9a2a2;
+				background: $uni-color-chapter;
 				border-radius: 20rpx;
 				margin-right: 20rpx;
 				height: 150rpx;
@@ -323,7 +330,7 @@ export default {
 				}
 			}
 			&-random {
-				background: #aaadc2;
+				background: $uni-color-random;
 				box-sizing: border-box;
 				height: 280rpx;
 				border-radius: 20rpx;
@@ -341,7 +348,7 @@ export default {
 				}
 			}
 			&-smart {
-				background: #a5b8c8;
+				background: $uni-color-smart;
 				display: flex;
 				justify-content: space-between;
 				border-radius: 20rpx;
@@ -363,7 +370,7 @@ export default {
 				}
 			}
 			&-wrong {
-				background: #a0bfc0;
+				background: $uni-color-wrong;
 				box-sizing: border-box;
 				width: 90%;
 				border-radius: 20rpx;
