@@ -1,6 +1,6 @@
 <template>
-    <view class="note" @click="naviToEditNotePage">
-      <view v-if="!info.note" class="note-default">
+    <view class="note">
+      <view v-if="!info" class="note-default" @click="naviToEditNotePage">
             <view>
                 <i class="iconfont">&#xe60f;</i>
             </view>
@@ -15,7 +15,7 @@
                     </view>
                     <view class="nickname">{{ info.nickname }}</view>
                 </view>
-                <view class="more">
+                <view class="more" @click="naviToPopup">
                     <i class="iconfont">&#xe62b;</i>
                 </view>
            </view>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { deleteNote } from '../api/note.js';
 
 export default {
     props: {
@@ -52,6 +53,7 @@ export default {
         noteInfo: {
             immediate: true,
             handler (val) {
+                console.log(val);
                 this.info = val;
             }
         }
@@ -68,6 +70,36 @@ export default {
             uni.navigateTo({
                 url: `../edit-note/index?id=${this.questionId}`
             });
+        },
+        //编辑，删除笔记的弹窗
+        naviToPopup(){
+            let a = this.questionId;
+            let b = this;
+            wx.showActionSheet({
+                itemList: ['编辑','删除'],
+                success(res){
+                    console.log(res.tapIndex)
+                    if(res.tapIndex === 0){
+                        naviToEditNotePage();
+                    }else if(res.tapIndex === 1){
+                        deleteNote({
+                            openID: getApp().globalData.openID,
+                            id: a
+                        })
+                        .then(res => {
+					        if (res.code !== 0) {
+						    uni.showToast({
+                                title: '删除失败，请重试~',
+                                icon: 'none'
+                            });
+                            return;
+                          }
+                          b.$emit('getNote');
+                        })
+                    }
+            
+                }
+           })
         }
     }
 }

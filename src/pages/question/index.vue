@@ -57,7 +57,7 @@
                 </view>
                 <!-- 笔记 -->
                 <view v-else>
-                   <note :quesId="questions[index].id" :noteInfo="noteInfo"></note>
+                   <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
                 </view>
             </view>
       </view>
@@ -388,6 +388,9 @@ export default {
             .then(res => {
                 if (res.code === 0) {
                     this.noteInfo = res.data;
+                }else{
+                    this.noteInfo = null;
+                    console.log(this.noteInfo);
                 }
             })
             .catch(err => {
