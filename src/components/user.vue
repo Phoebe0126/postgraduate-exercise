@@ -16,7 +16,7 @@
           剩余：<text class="text">{{ validRemainingDays }}</text>天
       </view>
 
-  </view>
+  </view> 
 </template> 
 
 <script>

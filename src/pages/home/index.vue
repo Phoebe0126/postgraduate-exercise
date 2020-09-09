@@ -17,7 +17,7 @@
 		<view @click="navigateToMine">
 			<!-- 用户区域 -->
 			<user
-				:nickname="nickName"
+				:nickname="nickName" 
 				:isAuthed="isAuthed"
 				:avatarUrl="avatarUrl"
 				:remainingDays="daysRemaining"
