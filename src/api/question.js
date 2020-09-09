@@ -9,10 +9,10 @@ export function getRandomQuestions () {
     })
 }
 // 获取错题重练的题目
-export function getWrongQuestions (params) {
+export function getWrongQuestions (data) {
     return request(`${BASE_URL}/getWrong`,{
         method: 'POST',
-        data: params
+        data
     })
 }
 
@@ -20,6 +20,13 @@ export function getWrongQuestions (params) {
 export function getChapterQuestions (params) {
     return request(`${BASE_URL}/getChapter`, {
         method: 'GET',
-        params: params
+        params
+    })
+}
+
+// 获取一套模拟题
+export function getSimulation () {
+    return request(`${BASE_URL}/getSimulation`, {
+        method: 'GET'
     })
 }

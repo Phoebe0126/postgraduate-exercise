@@ -46,7 +46,7 @@
 					<image src="../../static/section/begin_chapter.png" mode="aspectFill" />
 					<view class="section-chapter-text">{{ title[0] }}</view>
 				</view>
-				<view class="section-smart">
+				<view class="section-smart"  @click="naviToSmartTest">
 					<image src="../../static/section/begin_smart.png" mode="aspectFill" />
 					<view class="section-smart-text">{{ title[2] }}</view>
 				</view>
@@ -232,6 +232,19 @@ export default {
 			}
 			uni.navigateTo({
 				url: '../question/index?type=wrong'
+			});
+		},
+		// 跳转到智能模考界面
+		naviToSmartTest () {
+			if (!this.isAuthed) {
+				uni.showToast({
+                    title: '您还未登录喲~',
+                    icon: 'none'
+				});
+				return;
+			}
+			uni.navigateTo({
+				url: '../smart-test/index'
 			});
 		}
 	}

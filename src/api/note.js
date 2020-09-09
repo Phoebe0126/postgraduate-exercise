@@ -15,5 +15,21 @@ export function getSubjectNotes (data) {
     return request(`${BASE_URL}/getSubjectNotes`, {
         method: 'POST',
         data
+    });
+}
+
+// 获取用户的笔记
+export function getNote (data) {
+    return request(`${BASE_URL}/getNote`, {
+        method: 'POST',
+        data
+    })
+}
+
+//删除用户的笔记
+export function deleteNote(data){
+    return request(`${BASE_URL}/deleteNote`,{
+        method: 'POST',
+        data
     })
 }

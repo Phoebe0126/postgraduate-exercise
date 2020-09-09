@@ -50,6 +50,12 @@
 			"style": {
 				"navigationBarTitleText": "我的笔记"
 			}
+		},
+		{
+			"path": "pages/smart-test/index",
+			"style": {
+				"navigationBarTitleText": "智能模考"
+			}
 		}
 	],
 	"globalStyle": {

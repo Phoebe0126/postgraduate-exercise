@@ -7,7 +7,7 @@
             :index="index"
             :doneNum="item.doneNum"
             :totalNum="item.totalNum"
-            :process="item.process"
+            :process="item.progress"
             :correctRate="item.correctRate"
             @naviToChapterPage="naviToChapterPage"
           ></single-subject>

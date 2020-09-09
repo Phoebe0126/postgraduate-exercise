@@ -53,7 +53,5 @@
 <style lang="scss">
 	.clock{
 		display: flex;
-		font-size: 35rpx;
-		color: #db9873;
 	}
 </style>
