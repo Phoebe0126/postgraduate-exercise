@@ -9,3 +9,11 @@ export function addNote (data) {
         data
     })
 }
+
+// 获取用户的笔记
+export function getNote (data) {
+    return request(`${BASE_URL}/getNote`, {
+        method: 'POST',
+        data
+    })
+}

@@ -1,19 +1,45 @@
 <template>
     <view class="note" @click="naviToEditNotePage">
-        <view>
-            <i class="iconfont">&#xe60f;</i>
-        </view>
-        <view class="text">点击发表笔记</view>
-        <view class="text">优质的笔记可以帮助你考得更高哦~</view>
+      <view v-if="!info.note" class="note-default">
+            <view>
+                <i class="iconfont">&#xe60f;</i>
+            </view>
+            <view class="text">点击发表笔记</view>
+            <view class="text">优质的笔记可以帮助你考得更高哦~</view>
+      </view>
+      <view v-else class="note-info">
+           <view class="note-info-up">
+                <view class="user-info">
+                    <view class="avatar">
+                        <image  :src="info.avatar" mode="aspectFill" class="image" />
+                    </view>
+                    <view class="nickname">{{ info.nickname }}</view>
+                </view>
+                <view class="more">
+                    <i class="iconfont">&#xe62b;</i>
+                </view>
+           </view>
+           <view class="note-info-text">
+               {{ info.note }}
+           </view>
+           <view class="note-info-time">
+               {{ info.createTime }}
+           </view>
+      </view>
     </view>
 </template>
 
 <script>
+
 export default {
     props: {
         quesId: {
             type: Number,
             default: -1
+        },
+        noteInfo: {
+            type: Object,
+            default: null
         }
     },
     watch: {
@@ -22,11 +48,18 @@ export default {
             handler (val) {
                 this.questionId = val;
             }
+        },
+        noteInfo: {
+            immediate: true,
+            handler (val) {
+                this.info = val;
+            }
         }
     },
     data () {
         return {
-            questionId: this.quesId
+            questionId: this.quesId,
+            info: this.noteInfo
         }
     },
     methods: {
@@ -43,8 +76,54 @@ export default {
 <style lang="scss" scoped>
  .note {
     font-size: 30rpx;
-    padding: 20rpx 0;
-    color: #a7a7a7;
-    text-align: center
+    &-default {
+        padding: 20rpx 0;
+        color: #a7a7a7;
+        text-align: center;
+    }
+
+    &-info {
+        padding: 10rpx 20rpx;
+        color: #a8a8a8;
+        &-up {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .user-info {
+                display: flex;
+                align-items: center;
+                .avatar {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #c9a2a2;
+                    border-radius: 50%;
+                    width: 60rpx;
+                    height: 60rpx;
+                    .image {
+                        width: 65rpx;
+                        height: 65rpx;
+                        border-radius: 50%;
+                    }
+                }
+                .nickname {
+                    margin-left: 20rpx;
+                    font-size: 30rpx;
+                    color: #0c0c0c;
+                }
+            }
+        }
+        &-text, &-time {
+            margin-left: 70rpx;
+            padding: 10rpx 10rpx;
+        }
+        &-text {
+            color: #0c0c0c;
+        }
+        &-time {
+            font-size: 26rpx;
+        }
+    }
+    
 }
 </style>

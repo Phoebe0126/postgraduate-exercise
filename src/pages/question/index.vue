@@ -33,7 +33,7 @@
       <!-- 切换题目 -->
       <view class="change-ques">
             <button :class="[index === questions.length - 1 ? '' : 'pre-btn', 'btn']" @click="changeToPre" v-show="isConfirm && index !== 0" >上一题</button>
-            <button :class="[index === 0 ? '' : 'next-btn', 'btn']" @click="changeToNext" v-show="isConfirm" >下一题</button>
+            <button :class="[index === 0 ? '' : 'next-btn', 'btn']" @click="changeToNext" v-show="isConfirm && index < questions.length - 1" >下一题</button>
       </view> 
       <!-- 线条 -->
       <view class="line"  v-show="isConfirm"></view>
@@ -57,7 +57,7 @@
                 </view>
                 <!-- 笔记 -->
                 <view v-else>
-                   <note :quesId="questions[index].id"></note>
+                   <note :quesId="questions[index].id" :noteInfo="noteInfo"></note>
                 </view>
             </view>
       </view>
@@ -75,6 +75,7 @@ import { QUESTION_NAVBAR_TITLE, TABS_TITLE, SUBJECT_NAVBAR_COLOR } from '../../c
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import { getRandomQuestions, getChapterQuestions, getWrongQuestions } from '../../api/question';
 import { setMarkDone, setMarkFaulty } from '../../api/record';
+import { getNote } from '../../api/note';
 
 export default {
     components: {
@@ -118,7 +119,8 @@ export default {
             // 标题背景颜色
             titleColor: SUBJECT_NAVBAR_COLOR,
             // 模块类型
-            moduleType: 0 // 0---章节、1---随机、2---智能、3---错题
+            moduleType: 0, // 0---章节、1---随机、2---智能、3---错题
+            noteInfo: null
         }
     },
     onLoad(query) {
@@ -148,6 +150,10 @@ export default {
     },
     onShow() {
         uni.hideLoading();
+        // 笔记编辑页返回请求笔记
+        if (this.questions.length !== 0 && this.current === 1) {
+            this.getNote();
+        }
     },
     methods: {
         // 获取章节题目
@@ -160,6 +166,8 @@ export default {
             .then(res => {
                  if (res.code === 0) {
                     this.questions = res.data;
+                    // 获取笔记
+                    this.getNote();
                     this.setOptions();
                 }
                 this.questionReady = true;
@@ -342,7 +350,6 @@ export default {
         },
         // 做错
         setMarkFaulty (params) {
-            console.log('错', params)
             setMarkFaulty(params)
             .then(res => {
                 if (res.code !== 0) {
@@ -355,7 +362,6 @@ export default {
         },
         // 做对
         setMarkDone (params) {
-            console.log('对', 'params')
             setMarkDone(params)
             .then(res => {
                 if (res.code !== 0) {
@@ -369,6 +375,31 @@ export default {
         // 切换tab
         changeTab () {
             this.current = this.current === 0 ? 1 : 0;
+            if (this.current === 1) {
+                this.getNote();
+            }
+        },
+        // 获取用户的笔记
+        getNote () {
+            getNote({
+                openID: getApp().globalData.openID,
+                id: this.questions[this.index].id
+            })
+            .then(res => {
+                if (res.code === 0) {
+                    this.noteInfo = res.data;
+                }
+            })
+            .catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+            })    
+        },
+        // 题目已完成
+        complete () {
+            uni.navigateBack();
         }
     }
 
