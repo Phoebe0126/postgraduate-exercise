@@ -2,7 +2,7 @@
   <view class="note-edit-wrapper">
       <textarea class="form-item" v-model="text" placeholder-style="color:#999" focus maxlength="*" disable-default-padding  placeholder="请输入你的笔记..."/>
       <view class="tip">温馨提示: 可以在个人信息页面查看和修改自己的笔记哦~</view>
-      <button class="confirm-btn btn" @click="confirmEditNote()">确认</button>
+      <button class="confirm-btn btn" @click="confirmEditNote()">发表笔记</button>
   </view>
 </template>
 
@@ -85,6 +85,15 @@ export default {
     width: 400rpx;
     color: #fff;
     font-size: 30rpx;
+    border-radius: 50rpx;
+    box-shadow: 0rpx 12rpx 10rpx #d4b2b2;  //下阴影
+    transition: .3s ease-out;
+  }
+  .btn:hover{
+    width: 410rpx;
+    }
+  .btn::after{
+    border: none;
   }
 }
 </style>

@@ -404,7 +404,7 @@ export default {
     .btn:hover{
        width: 510rpx;
     }
-    .btn:after {
+    .btn::after{
         border: none;
     }
     .btn-disabled {
