@@ -36,7 +36,12 @@
             <view class="footer-detail">
                 <view 
                     v-for="(item, index) in answerArr" 
-                    :key="index" :class="['circle', item.isChoosed ? 'bg-color-hasDone' : '']"
+                    :key="index" 
+                    :class="['circle', 
+                             !isConfirm ? item.isChoosed ? 'bg-color-hasDone' : ''
+                                : item.isChoosed ? isWrong[index] ? 'bg-color-wrong' : 'bg-color-right'
+                                : ''
+                            ]"
                     @click="changeIndex(index)"
                 >
                     <view class="text">
@@ -118,7 +123,6 @@ export default {
         color: #8ca1b3;
         font-size: 30rpx;
         .header-explain {
-            margin: 20rpx;
             .noDone, .done {
                 width: 100%;
                 display: flex;
@@ -143,39 +147,50 @@ export default {
                 }
                 .answer-right{
                    .circle{
-                       background:#32cd32;
-                       border: 1rpx solid #32cd32;
+                       background:#7eb7a6;
+                       border: 1rpx solid #7eb7a6;
                    }
                 }
                 .answer-false{
                     .circle{
-                        background:red;
-                        border: 1rpx solid red;
+                        background: #e0b6b6;
+                        border: 1rpx solid #e0b6b6;
                     }
                 }
             }
         }
         .footer-detail {
             margin: 10rpx auto;
-            width: 100%;
-            padding: 5rpx;;
+            width: 700rpx;
             display: flex;
             flex-wrap: wrap;
             font-size: 30rpx;
             justify-content: flex-start;
             align-content: center;
             color: #000;
+            box-sizing: border-box;
             .circle {
                 height: 60rpx;
                 width: 60rpx;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin: 10rpx;
+                margin: 20rpx;
+                box-sizing: border-box;
             }
             .bg-color-hasDone {
                 background: #8ca1b3;
                 color: #fff;
+            }
+            .bg-color-right {
+                color: #fff;
+                background:#7eb7a6;
+                border: 1rpx solid #7eb7a6;
+            }
+            .bg-color-wrong {
+                color: #fff;
+                background:#e0b6b6;
+                border: 1rpx solid #e0b6b6;
             }
 
         }

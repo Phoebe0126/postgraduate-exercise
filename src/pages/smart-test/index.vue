@@ -41,7 +41,7 @@
             </view> 
         
     
-            <view class="tabs-block" v-show="isConfirm">
+            <view class="tabs-block" v-if="isConfirm">
                 <!-- 选择项 -->
                 <view class="tabs">
                     <uni-segmented-control
@@ -65,15 +65,16 @@
                     </view>
                 </view>
             </view>
+            <!-- 答题卡 -->
+            <answer-sheet
+                :choosedAnswers="choosedAnswers"
+                @changeIndex="changeIndex"
+                @exchangeAnswerSheet="showAnswerSheet"
+                :showDetail="showDetail"
+                :isConfirm="isConfirm"
+                :isWrong="isWrong"
+            ></answer-sheet>
     </view>
-    <!-- 答题卡 -->
-    <answer-sheet
-        :choosedAnswers="choosedAnswers"
-        @changeIndex="changeIndex"
-        @exchangeAnswerSheet="showAnswerSheet"
-        :showDetail="showDetail"
-        :isConfirm="isConfirm"
-    ></answer-sheet>
     <view class="fullopacity fullbg" v-if="showDetail" @click="hideAnswerSheet"></view>
   </view>
 
@@ -119,7 +120,8 @@ export default {
             current: 0,
             tabs: TABS_TITLE,
             noteInfo: null,
-            showDetail: false
+            showDetail: false,
+            isWrong: []
         }
     },
     onLoad () {
@@ -311,7 +313,8 @@ export default {
         setQuestionsDone () {
 
             const idArr = this.questions.map(val => val.id);
-            const isWrong = this.questions.map((val, index) => val.answer === this.choosedAnswers[index].sort().join(''));
+            const isWrong = this.questions.map((val, index) => val.answer !== this.choosedAnswers[index].sort().join(''));
+            this.isWrong = isWrong;
 
             const params = {
                 openID: getApp().globalData.openID,
@@ -411,19 +414,6 @@ export default {
     .btn::after{
         border: none;
     }
-}
-
-.fullbg {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgb(1, 1, 1);
-    transition: all 2s;
-    opacity: 0;
-}
-.fullopacity {
-    opacity: .5;
     .tabs-block {
         margin-top: 20rpx;
         .tab-content {
@@ -443,5 +433,16 @@ export default {
             
         }
     }
+}
+
+.fullbg {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(1, 1, 1);
+    transition: all 2s;
+    opacity: 0;
+    opacity: .5;
 }
 </style>
