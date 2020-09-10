@@ -31,7 +31,11 @@
             <!-- <button class="complete-btn btn" @click="confirmAnswer" v-if="!isConfirm && index === questions.length - 1">已完成</button> -->
             <button :class="['next-btn', 'btn']" @click="confirmAnswer" v-show="!isConfirm && index === questions.length - 1" >完成</button>
         </view> 
-  </view>
+    
+        <view class="fullopacity fullbg" bindtap="hidebg">
+            bian
+        </view> 
+  </view> 
 </template>
 
 <script>
@@ -152,7 +156,14 @@ export default {
                     }
                 }
             })
-        }
+        },
+        hidebg:function () {
+            this.setData({
+                isChose:'0',
+                isfull:false,
+                rightOpen:false
+            })  
+        }        
     }
 }
 </script>
@@ -191,6 +202,19 @@ export default {
     }
     .btn::after{
         border: none;
+    }
+    .fullbg {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgb(1, 1, 1);
+        transition: all 2s;
+        opacity: 0;
+    }
+    .fullopacity {
+        opacity: .5;
     }
 }
 </style>
