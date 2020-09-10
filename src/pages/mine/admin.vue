@@ -58,7 +58,7 @@ export default {
             justify-content: start;
             align-items: center;
             background: #DCCBCB;
-            box-shadow: 0 10rpx 10rpx rgb(211, 204, 204);
+            box-shadow: 0 10rpx 10rpx #E0E0E0;
             z-index: 1000;
             .avatar-container {
                 height: 100rpx;
