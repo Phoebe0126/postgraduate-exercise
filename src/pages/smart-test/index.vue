@@ -72,6 +72,7 @@
         @changeIndex="changeIndex"
         @exchangeAnswerSheet="showAnswerSheet"
         :showDetail="showDetail"
+        :isConfirm="isConfirm"
     ></answer-sheet>
     <view class="fullopacity fullbg" v-if="showDetail" @click="hideAnswerSheet"></view>
   </view>
@@ -367,7 +368,7 @@ export default {
                 content: '确定提交答题卡么？',
                 confirmText: '确定提交',
                 cancelText: '检查试卷',
-                cancelColor: '#000',
+                cancelColor: '#888',
                 confirmColor: '#000',
                 success: function(res) {
                     if (res.confirm){
