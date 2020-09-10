@@ -17,7 +17,20 @@
                         <text>已做</text>
                     </view>
                 </view>
-                <view class="done" v-else></view>
+                <view class="done" v-else>
+                    <view class="answer-right">
+                        <view class="circle"></view>
+                        <text>正确</text>
+                    </view>
+                    <view class="answer-false">
+                        <view class="circle"></view>
+                        <text>错误</text>
+                    </view>
+                    <view class="undo">
+                        <view class="circle"></view>
+                        <text>未做</text>
+                    </view>
+                </view>
             </view>
             <!-- 每个答题项 -->
             <view class="footer-detail">
@@ -65,8 +78,7 @@ export default {
         exchange () {
             this.$emit('exchangeAnswerSheet');
         },
-        changeIndex (index) {
-            // this.showDetail = false;
+        changeIndex (index){
             this.$emit('changeIndex', index);
         }
     }
@@ -82,6 +94,7 @@ export default {
     color: #c9a2a2;
     position: fixed;
     bottom: 0;
+    z-index: 100;
     .sheet-btn {
         padding: 10rpx 0;
         display: flex;
@@ -101,7 +114,6 @@ export default {
         margin: 10rpx;
     }
     .content {
-        z-index: 100;
         padding: 10rpx;
         color: #8ca1b3;
         font-size: 30rpx;
@@ -121,6 +133,24 @@ export default {
                 .hasDo {
                     .circle {
                         background: #8ca1b3;
+                    }
+                }
+            }
+            .done{
+                .answer-right,.answer-false,.undo{
+                    display: flex;
+                    align-items: center;
+                }
+                .answer-right{
+                   .circle{
+                       background:#32cd32;
+                       border: 1rpx solid #32cd32;
+                   }
+                }
+                .answer-false{
+                    .circle{
+                        background:red;
+                        border: 1rpx solid red;
                     }
                 }
             }
@@ -147,6 +177,7 @@ export default {
                 background: #8ca1b3;
                 color: #fff;
             }
+
         }
     }
 }
