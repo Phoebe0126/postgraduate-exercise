@@ -137,6 +137,21 @@ export default {
         },
         confirmAnswer () {
             console.log(this.choosedAnswers)
+            uni.showModal({
+                title: '温馨提示',
+                content: '确定提交答题卡么？',
+                confirmText: '确定提交',
+                cancelText: '检查试卷',
+                cancelColor: '#000',
+                confirmColor: '#000',
+                success: function(res) {
+                    if (res.confirm){
+                        console.log('用户点击了确定提交')
+                    }else if (res.cancel){
+                        console.log('用户点击了检查试卷')
+                    }
+                }
+            })
         }
     }
 }
