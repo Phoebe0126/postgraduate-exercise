@@ -100,7 +100,6 @@ export default {
     },
     onLoad() {
         this.refreshChapters();
-        console.log(this.subjectItems)
     },
     methods: {
         typeChange(e) {
