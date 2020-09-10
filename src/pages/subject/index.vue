@@ -23,17 +23,14 @@ export default {
     components: {
         SingleSubject
     },
-    onLoad () {
-        // todo 请求信息
-        this.getTotalProgress();
-    },
     data () {
         return {
             arr: []
         }
     },
     onShow () {
-        uni.hideLoading();;
+        this.getTotalProgress();
+        uni.hideLoading();
     },
     methods: {
         naviToChapterPage (index) {

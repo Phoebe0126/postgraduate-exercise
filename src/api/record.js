@@ -57,3 +57,11 @@ export function checkIsCollected (data) {
         data
     })
  }
+
+// 提交模拟题的做题结果
+export function saveSimulationResult (data) {
+    return request(`${BASE_URL}/saveSimulationResult`, {
+        method: 'POST',
+        data
+    })
+}

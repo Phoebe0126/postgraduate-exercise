@@ -5,7 +5,7 @@
       <text class="right-rate" v-if="moduleType !== 2">正确率：{{ correctRate }}%</text>
       <view class="clock-block" v-else>
         <i class="iconfont">&#xe655;</i>
-        <v-clock class="clock" @clockend="clockend" ref="clock"></v-clock>
+        <v-clock class="clock"  ref="clock"></v-clock>
       </view>
     </view>
     <view class="collect" @click="changeCollectStatus">
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     clockend(res){
-      console.log(res)
+      this.$refs.clock.end();
     },
     changeCollectStatus () {
       // 收藏、取消收藏
@@ -76,14 +76,8 @@ export default {
               });
           })
       }
-    }
-  },
-  mounted(){
-    if (this.moduleType === 2) {
-       this.$refs.clock.start(); 
-    }
-  },
-  created () {
+    },
+    checkIsCollected () {
     // 请求题目是否收藏过
     checkIsCollected({
       openID: getApp().globalData.openID,
@@ -96,6 +90,12 @@ export default {
           this.isCollected = res.data;
         }
     })
+  },
+  },
+  mounted(){
+    if (this.moduleType === 2) {
+       this.$refs.clock.start(); 
+    }
   },
   props: {
       type: {
@@ -113,7 +113,27 @@ export default {
       moduleType: {
         type: Number,
         default: 0
+      },
+      isConfirm: {
+        type: Boolean,
+        default: false
       }
+   },
+   watch: {
+    quesId: {
+       immediate: true,
+       handler () {
+         this.checkIsCollected();
+      }
+    },
+    isConfirm: {
+      immediate: true,
+      handler (val) {
+        if (val) {
+          this.clockend();
+        }
+      }
+    }
    },
   data () {
     return {
