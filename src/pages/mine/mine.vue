@@ -19,7 +19,7 @@
                 <span>我的笔记</span>
                 <i></i>
             </li>
-            <li class="collection" style="color: #9F8080;">
+            <li class="collection" style="color: #9F8080;" @click="navToMyCollection">
                 <span style="background: #9F8080;"></span>
                 <span>我的收藏</span>
                 <i></i>
@@ -66,6 +66,11 @@ export default {
                 url: "./myInfo"
             }) 
         },
+        navToMyCollection(){
+            uni.navigateTo({
+                url: "./myCollection"
+            })
+        },
         getUserInfo() {
             getUserAllInfo({
                 openID: getApp().globalData.openID
@@ -92,7 +97,7 @@ export default {
         background: #E2C9C9;
         align-items: center;
         justify-content: start;
-        box-shadow: 0 2px 3px grey;
+        box-shadow: 0 20px 20px grey;
         .avatar {
             width: 100rpx;
             height: 100rpx; 
