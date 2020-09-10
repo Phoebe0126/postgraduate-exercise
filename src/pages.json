@@ -56,6 +56,18 @@
 			"style": {
 				"navigationBarTitleText": "智能模考"
 			}
+		},
+		{
+			"path": "pages/mine/admin/addQuestion",
+			"style": {
+				"navigationBarTitleText": "添加题目"
+			}
+		},
+		{
+			"path": "pages/mine/admin/setNoticeBar",
+			"style": {
+				"navigationBarTitleText": "设置公告栏"
+			}
 		}
 	],
 	"globalStyle": {

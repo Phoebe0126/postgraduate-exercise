@@ -1,0 +1,241 @@
+<template>
+    <view class="content">
+        <view class="header">
+            <add-question-select-box class="subject li" :name="'科目'" :items="subjectItems" 
+                @changeSelect="changeSubject"></add-question-select-box>
+            <add-question-select-box class="chapter li" :name="'章节'" :items="chapterItems"
+                @changeSelect="changeChapter"></add-question-select-box>
+        </view>
+        <view class="question-info">
+            <!-- 类型 -->
+            <view class="type li">
+                <span>类型</span>
+                <view>
+                    <radio-group @change="typeChange" class="typeRadio" >
+                        <!-- 单选 -->
+                        <radio value=1 :checked="type == 1" color="#CE8B8B"></radio>
+                        <span>单选题</span>
+                        <!-- 多选 -->
+                        <radio value=2 :checked="type == 2" color="#CE8B8B"></radio>
+                        <span>多选题</span>
+                    </radio-group>
+                </view>
+                
+            </view>
+            <!-- 题干 -->
+            <view class="question li">
+                <span>题干</span>
+                <view>
+                    <textarea v-model="question"></textarea>
+                </view>
+            </view>
+            <!-- 选项 -->
+            <view class="options li">
+                <span>选项</span>
+                <view>
+                    <ul>
+                        <li><span>A</span><input type="text" v-model="optionA"></li>
+                        <li><span>B</span><input type="text" v-model="optionB"></li>
+                        <li><span>C</span><input type="text" v-model="optionC"></li>
+                        <li><span>D</span><input type="text" v-model="optionD"></li>
+                    </ul>
+                </view>
+            </view>
+            <!-- 正确答案 -->
+            <view class="answer li">
+                <span>正确答案</span>
+                <view>
+                    <input type="text" v-model="answer">
+                </view>
+            </view>
+            <!-- 解析 -->
+            <view class="tip li">
+                <span>解析</span>
+                <view>
+                    <textarea v-model="tip"></textarea>
+                </view>
+            </view>
+        </view>
+        <button class="save" @click="saveQuestion">保存设置</button>
+    </view> 
+</template>
+
+<script>
+import addQuestionSelectBox from '@/components/add-question-select-box.vue';
+import { SUBJECT_TITLE} from '../../../consts/const'
+
+export default {
+    data() {
+        return {
+            selectedSubject: 1,
+            selectedChapter: 1,
+            type: 0,
+            question: '',
+            optionA: '',
+            optionB: '',
+            optionC: '',
+            optionD: '',
+            answer: '',
+            tip: '',
+            subjectItems: SUBJECT_TITLE,
+            chapterItems: ['第一章 XXX', '第二章 XXX', '第三章 XXX', '第四章 XXX', '第五章 XXX', '第六章 XXX']
+        }
+    },
+    components: {
+        addQuestionSelectBox
+    },
+    methods: {
+        typeChange(e) {
+            this.type = parseInt(e.detail.value);
+        },
+        changeSubject(subjectIndex) {
+            this.selectedSubject = subjectIndex;
+        },
+        changeChapter(chapterIndex) {
+            this.selectedChapter = chapterIndex;
+        },
+        saveQuestion() {
+            console.log({
+                subject: this.selectedSubject,
+                selectedChapter: this.selectedChapter,
+                type: this.type,
+                question: this.question,
+                optionA: this.optionA,
+                optionB: this.optionB,
+                optionC: this.optionC,
+                optionD: this.optionD,
+                answer: this.answer,
+                tip: this.tip
+            })
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+    page {
+        background: #E0E0E0;
+    }
+    textarea {
+        background: #F1EAEA;
+        border-radius: 20rpx;
+    }
+    input {
+        background: white;
+        border: 2rpx solid #CE8D8D;
+        border-radius: 20rpx;
+    }
+    .header {
+        margin-top: 20rpx;
+        height: 184rpx;
+        background: #E0E0E0;
+        .li {
+            float: left;
+            width: 100%;
+        }
+        .chapter {
+            margin-top: 4rpx;
+        }
+    }
+    .question-info {
+        margin-top: 20rpx;
+        width: 100%;
+        .li {
+            margin-bottom: 4rpx;
+            background: #DCCBCB;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-items: start;
+            >span {
+                width: 20%;
+                text-align: center;
+            }
+            >view {
+                width: 80%;
+            }
+        }
+        .type {
+            height: 90rpx;
+            radio-group {
+                margin-left: 10rpx;
+                radio:nth-of-type(2) {
+                    margin-left: 50rpx;
+                }
+            }
+        } 
+        .question {
+            height: 360rpx;
+            textarea {
+                width: 480rpx;
+                height: 280rpx;
+                line-height: 50rpx;
+                padding: 20rpx;
+                margin-left: 20rpx;
+            }
+        } 
+        .options {
+            margin-bottom: 20rpx;
+            height: 360rpx;
+            ul {
+                width: 100%;
+                height: 100%;
+                li {
+                    width: 520rpx;
+                    height: 90rpx;
+                    float: left;
+                    padding: 0 20rpx;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: start;
+                    align-items: center;
+                    span {
+                        width: 40rpx;
+                        display: block;
+                        height: 90rpx;
+                        line-height: 90rpx;
+                    }
+                    input {
+                        padding: 0 20rpx;
+                        width: 440rpx;
+                        height: 60rpx;
+                    }
+                }
+            }
+        } 
+        .answer {
+            height: 90rpx;
+            input {
+                padding: 0 20rpx;
+                width: 480rpx;
+                // width: 440rpx;
+                height: 60rpx;
+                margin-left: 20rpx;
+                background: #F1EAEA;
+                border-radius: 20rpx;
+                border: none;
+            }
+        }
+        .tip {
+            height: 360rpx;
+            textarea {
+                width: 480rpx;
+                height: 280rpx;
+                line-height: 50rpx;
+                padding: 20rpx;
+                margin-left: 20rpx;
+            }
+        }
+    }
+    .save {
+        height: 80rpx;
+        width: 100%;
+        margin-top: 30rpx;
+        color: white;
+        background: #CE8B8B;
+        border-radius: 0;
+        border: none;
+        margin-bottom: 60rpx;
+        line-height: 80rpx;
+    }
+</style>

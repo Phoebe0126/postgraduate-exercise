@@ -36,7 +36,7 @@ import { USER_INFO_ITEMS } from '../../consts/const.js'
 import { pathToBase64, base64ToPath } from 'image-tools';
 import { getUserAllInfo, saveUserAllInfo } from '../../api/user'
 
-export default {
+export default { 
     data() {
         return {
             avatarUrl: '',

@@ -1,5 +1,5 @@
 <template>
-  <view class="content">
+  <view class="content"> 
       <view class="header">
         <subject-select-box @changeSubject="changeSubject"></subject-select-box>
       </view>
@@ -12,7 +12,6 @@ import { SUBJECT_SHORT_TITLE} from '../../consts/const'
 import subjectSelectBox from '@/components/subject-select-box.vue';
 import myNoteList from '@/components/mynote-list.vue';
 import { getSubjectNotes } from '../../api/note'
-// import { SUBJECT_SHORT_TITLE} from '../../consts/const'
 
 
 export default {
@@ -51,11 +50,8 @@ export default {
                 openID: getApp().globalData.openID,
                 subject: that.getSubjectIndex()
             }).then(res => {
-            console.log(that.getSubjectIndex(), getApp().globalData.openID)
-
                 if(res.code == 0) {
                     this.items = res.data;
-                    // console.log(this.items);
                 }
                 else {
                     this.items = [];
@@ -64,7 +60,6 @@ export default {
                         icon: 'none'
                     })
                 }
-                console.log(res);
             })
         }
     }
