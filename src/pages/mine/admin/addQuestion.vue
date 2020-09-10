@@ -4,7 +4,7 @@
             <add-question-select-box class="subject li" :name="'科目'" :items="subjectItems" 
                 @changeSelect="changeSubject"></add-question-select-box>
             <add-question-select-box class="chapter li" :name="'章节'" :items="chapterItems"
-                @changeSelect="changeChapter"></add-question-select-box>
+                @changeSelect="changeChapter" v-if="update"></add-question-select-box>
         </view>
         <view class="question-info">
             <!-- 类型 -->
@@ -63,6 +63,8 @@
 <script>
 import addQuestionSelectBox from '@/components/add-question-select-box.vue';
 import { SUBJECT_TITLE} from '../../../consts/const'
+import { getChapterNames } from '../../../api/question'
+
 
 export default {
     data() {
@@ -77,12 +79,29 @@ export default {
             optionD: '',
             answer: '',
             tip: '',
-            subjectItems: SUBJECT_TITLE,
-            chapterItems: ['第一章 XXX', '第二章 XXX', '第三章 XXX', '第四章 XXX', '第五章 XXX', '第六章 XXX']
+            chapterItems: [{item: '', index: 0}],
+            update: true
+        }
+    },
+    computed: {
+        subjectItems() {
+            let arr = [];
+            for(let i = 0; i < SUBJECT_TITLE.length; i++){
+                arr.push({
+                    item: SUBJECT_TITLE[i],
+                    index: parseInt(i) + 1
+                });
+            }
+            return arr;
         }
     },
     components: {
         addQuestionSelectBox
+    },
+    onLoad() {
+        this.refreshChapters();
+        console.log(this.subjectItems)
+        // this.chaptersChangeKey += 1;
     },
     methods: {
         typeChange(e) {
@@ -90,9 +109,39 @@ export default {
         },
         changeSubject(subjectIndex) {
             this.selectedSubject = subjectIndex;
+            this.refreshChapters();
         },
         changeChapter(chapterIndex) {
             this.selectedChapter = chapterIndex;
+        },
+        refreshChapters(){
+            let that = this;
+            getChapterNames({
+                subject: that.selectedSubject
+            }).then(res => {
+                if(res.code == 0){
+                    let arr = res.data;
+                    that.chapterItems = [];
+                    for(let i in arr) {
+                        // that.chapterItems[i] = `第${arr[i].chapterNumber}章 ${arr[i].chapter}`
+                        that.chapterItems[i] = {
+                            item: `第${arr[i].chapterNumber}章 ${arr[i].chapter}`,
+                            index: arr[i].chapterNumber
+                        };
+                    }
+                }
+                //刷新章节选项
+                that.update = false;
+                that.$nextTick(() => {
+                    that.update = true
+                });
+                that.selectedChapter = that.chapterItems[0].index;
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                })
+            })
         },
         saveQuestion() {
             console.log({
@@ -129,6 +178,9 @@ export default {
         margin-top: 20rpx;
         height: 184rpx;
         background: #E0E0E0;
+        .subject {
+            z-index: 1001
+        }
         .li {
             float: left;
             width: 100%;
@@ -208,7 +260,6 @@ export default {
             input {
                 padding: 0 20rpx;
                 width: 480rpx;
-                // width: 440rpx;
                 height: 60rpx;
                 margin-left: 20rpx;
                 background: #F1EAEA;

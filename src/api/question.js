@@ -30,3 +30,11 @@ export function getSimulation () {
         method: 'GET'
     })
 }
+
+//获取某科目下的所有章节名 
+export function getChapterNames(params) {
+    return request(`${BASE_URL}/getChapterNames`, {
+        method: 'GET', 
+        params
+    })
+}
