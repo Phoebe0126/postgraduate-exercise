@@ -271,7 +271,7 @@ export default {
 
 	.content {
 		height: 100vh;
-		background: #e0e0e0;
+		background: #eee;
 		padding-bottom: 100rpx;
 		.notice-wrapper {
 			padding: 20rpx 0;

@@ -309,12 +309,31 @@ export default {
                 this.setQuestionsDone()
             }
         },
+
+        // 计算分数
+        calculateScore(){
+            let score = 0;
+            for(let i=0;i<this.isWrong.length;i++){
+                if(i<16 && !this.isWrong[i]){
+                    score = score + 1;
+                }else if(!this.isWrong[i]){
+                    score = score + 2;
+                }
+            }
+            uni.showToast({
+                title: '你的分数是' + score +'分',
+                icon: 'none'
+            })
+        },
+
         // 提交用户答题情况
         setQuestionsDone () {
 
             const idArr = this.questions.map(val => val.id);
             const isWrong = this.questions.map((val, index) => val.answer !== this.choosedAnswers[index].sort().join(''));
             this.isWrong = isWrong;
+
+            this.calculateScore();
 
             const params = {
                 openID: getApp().globalData.openID,
