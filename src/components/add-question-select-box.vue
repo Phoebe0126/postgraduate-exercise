@@ -34,47 +34,29 @@ export default {
             len: this.items.length - 1,
         }
     },
-    onLoad() {
-        // console.log('*'+this.items,this.name)
-    },
     methods: {
         changeShowAll() {
             this.showAll = !this.showAll;
         },
-        // getItemIndex(item) {
-        //     for(let i in this.items) {
-        //         if(this.items[i] == item) {
-        //             return parseInt(i) + 1;
-        //         }
-        //     }
-        //     return -1;
-        // },
         changeSelect(item, index) {
             let beforeItem = this.selectedItem;
             let beforeIndex = this.selectedIndex;
-            // console.log('before:'+beforeItem+beforeIndex)
             this.selectedItem = item;
             this.selectedIndex = index;
-            // this.indexNow = index;
-            // console.log('choose:'+item+index)
             for(let i = 0; i < this.listItems.length; i++){
                 if(this.listItems[i].item == item) {
-                    // console.log('pop:'+this.listItems[i].item+this.listItems[i].index)
                     this.listItems.splice(i, 1);
                     this.listItems.push({
                         item: beforeItem,
                         index: beforeIndex
                     });
-                    // console.log('push:'+beforeItem+beforeIndex)
                     break;
-                    // this.listItems[i] = before;
                 }
             }
             this.listItems.sort((a, b) => {
                 return a.index - b.index;
             })
             this.$emit('changeSelect', this.selectedIndex);
-            // this.$emit('changeSelect', this.getItemIndex(item));
             this.showAll = !this.showAll;
         }
     }

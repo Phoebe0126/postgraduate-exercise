@@ -101,7 +101,6 @@ export default {
     onLoad() {
         this.refreshChapters();
         console.log(this.subjectItems)
-        // this.chaptersChangeKey += 1;
     },
     methods: {
         typeChange(e) {
@@ -123,7 +122,6 @@ export default {
                     let arr = res.data;
                     that.chapterItems = [];
                     for(let i in arr) {
-                        // that.chapterItems[i] = `第${arr[i].chapterNumber}章 ${arr[i].chapter}`
                         that.chapterItems[i] = {
                             item: `第${arr[i].chapterNumber}章 ${arr[i].chapter}`,
                             index: arr[i].chapterNumber
