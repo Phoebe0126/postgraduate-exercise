@@ -38,6 +38,11 @@
             <!-- 确认按钮 -->
             <button :class="['next-btn', 'btn']" @click="confirmLastAnswer" v-show="!isConfirm && index === questions.length - 1" >完成</button>
         </view> 
+    
+        <view class="fullopacity fullbg" bindtap="hidebg">
+            bian
+        </view> 
+  
         <view class="tabs-block" v-show="isConfirm">
             <!-- 选择项 -->
             <view class="tabs">
@@ -63,6 +68,7 @@
             </view>
         </view>
   </view>
+
 </template>
 
 <script>
@@ -313,6 +319,31 @@ export default {
                 });
             })    
         },
+        confirmAnswer () {
+            console.log(this.choosedAnswers)
+            uni.showModal({
+                title: '温馨提示',
+                content: '确定提交答题卡么？',
+                confirmText: '确定提交',
+                cancelText: '检查试卷',
+                cancelColor: '#000',
+                confirmColor: '#000',
+                success: function(res) {
+                    if (res.confirm){
+                        console.log('用户点击了确定提交')
+                    }else if (res.cancel){
+                        console.log('用户点击了检查试卷')
+                    }
+                }
+            })
+        },
+        hidebg:function () {
+            this.setData({
+                isChose:'0',
+                isfull:false,
+                rightOpen:false
+            })  
+        }        
     }
 }
 </script>
@@ -344,6 +375,18 @@ export default {
     .btn::after{
         border: none;
     }
+    .fullbg {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgb(1, 1, 1);
+        transition: all 2s;
+        opacity: 0;
+    }
+    .fullopacity {
+        opacity: .5;
     .tabs-block {
         margin-top: 20rpx;
         .tab-content {
@@ -362,6 +405,7 @@ export default {
             }
            
         }
+    }
     }
 }
 </style>
