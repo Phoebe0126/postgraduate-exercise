@@ -8,7 +8,8 @@
             <span>管理员</span>
         </view>
         <!-- 导航栏：设置公告栏、添加题目 -->
-        <nav-lists :items="navItems" :top="'200rpx'"></nav-lists>
+        <nav-lists :items="navItems" :top="'200rpx'" @navToSetNoticeBar="navToSetNoticeBar"
+            @navToAddQuestion="navToAddQuestion"></nav-lists>
     </view>
 </template>
 
@@ -26,6 +27,18 @@ export default {
     components: {
         uniIcons,
         navLists
+    },
+    methods: {
+        navToSetNoticeBar() {
+            uni.navigateTo({
+                url: "./admin/setNoticeBar"
+            });
+        },
+        navToAddQuestion() {
+            uni.navigateTo({
+                url: "./admin/addQuestion"
+            });
+        }
     }
 }
 </script>
@@ -45,7 +58,8 @@ export default {
             justify-content: start;
             align-items: center;
             background: #DCCBCB;
-            box-shadow: 0 6rpx 6rpx gray;
+            box-shadow: 0 10rpx 10rpx rgb(211, 204, 204);
+            z-index: 1000;
             .avatar-container {
                 height: 100rpx;
                 width: 100rpx;
