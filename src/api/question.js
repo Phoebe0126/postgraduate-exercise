@@ -8,3 +8,33 @@ export function getRandomQuestions () {
         method: 'GET'
     })
 }
+// 获取错题重练的题目
+export function getWrongQuestions (data) {
+    return request(`${BASE_URL}/getWrong`,{
+        method: 'POST',
+        data
+    })
+}
+
+// 获取章节题目
+export function getChapterQuestions (params) {
+    return request(`${BASE_URL}/getChapter`, {
+        method: 'GET',
+        params
+    })
+}
+
+// 获取一套模拟题
+export function getSimulation () {
+    return request(`${BASE_URL}/getSimulation`, {
+        method: 'GET'
+    })
+}
+
+//获取收藏的题目
+export function getCollected(data) {
+    return request(`${BASE_URL}/getCollected`, {
+        method: 'POST',
+        data
+    })
+}
