@@ -17,7 +17,7 @@
 		<view @click="navigateToMine">
 			<!-- 用户区域 -->
 			<user
-				:nickname="nickName"
+				:nickname="nickName" 
 				:isAuthed="isAuthed"
 				:avatarUrl="avatarUrl"
 				:remainingDays="daysRemaining"
@@ -190,6 +190,9 @@ export default {
 		// 跳转到我的界面
 		navigateToMine () {
 			if (this.isAuthed) {
+				uni.showLoading({
+					title: '加载中'
+				});
 				uni.navigateTo({
 					url: '../mine/mine'
 				})
@@ -204,6 +207,9 @@ export default {
 				});
 				return;
 			}
+			uni.showLoading({
+				title: '加载中'
+			});
 			uni.navigateTo({
 				url: '../subject/index'
 			})
@@ -217,6 +223,9 @@ export default {
 				});
 				return;
 			}
+			uni.showLoading({
+				title: '加载中'
+			});
 			uni.navigateTo({
 				url: '../question/index?type=random'
 			});
@@ -230,6 +239,9 @@ export default {
 				});
 				return;
 			}
+			uni.showLoading({
+				title: '加载中'
+			});
 			uni.navigateTo({
 				url: '../question/index?type=wrong'
 			});
@@ -243,6 +255,9 @@ export default {
 				});
 				return;
 			}
+			uni.showLoading({
+				title: '加载中'
+			});
 			uni.navigateTo({
 				url: '../smart-test/index'
 			});

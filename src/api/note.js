@@ -10,6 +10,14 @@ export function addNote (data) {
     })
 }
 
+//获取用户某科目下的所有笔记
+export function getSubjectNotes (data) {
+    return request(`${BASE_URL}/getSubjectNotes`, {
+        method: 'POST',
+        data
+    });
+}
+
 // 获取用户的笔记
 export function getNote (data) {
     return request(`${BASE_URL}/getNote`, {

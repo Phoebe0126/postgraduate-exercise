@@ -34,9 +34,21 @@
 			}
 		},
 		{
+			"path": "pages/mine/admin",
+			"style": {
+				"navigationBarTitleText": "管理员设置"
+			}
+		},
+		{
 			"path": "pages/edit-note/index",
 			"style": {
 				"navigationBarTitleText": "添加笔记"
+			}
+		},
+		{
+			"path": "pages/mine/myNote",
+			"style": {
+				"navigationBarTitleText": "我的笔记"
 			}
 		},
 		{

@@ -5,8 +5,8 @@
             <li class="avatar">
                 <span>头像</span>
                 <view class="avatar-container">
-                    <!-- <uni-icons v-if="!avatarUrl" type="person" size="40" color="#E2C9C9"></uni-icons> -->
-                    <image v-if="avatarUrl" :src="avatarUrl"></image>
+                    <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="#E2C9C9"></uni-icons>
+                    <image v-else :src="avatarUrl" @click="getPhoto"></image>
                 </view>   
             </li>
             <li v-for="(item, index) in items" :key="item.id" :class="item.name">
@@ -26,13 +26,15 @@
                 @click="changeStyle(index)" @blur="restoreStyle(index)">
             </li>
         </ul>
-        <input type="button" value="保存设置" class="save" @click="saveUserInfo">
+        <button class="save" @click="saveUserInfo">保存设置</button>
     </view>
 </template>
 
 <script>
-import {USER_INFO_ITEMS} from '../../consts/const.js'
-import {getUserAllInfo, saveUserAllInfo} from '../../api/user'
+import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
+import { USER_INFO_ITEMS } from '../../consts/const.js'
+import { pathToBase64, base64ToPath } from 'image-tools';
+import { getUserAllInfo, saveUserAllInfo } from '../../api/user'
 
 export default {
     data() {
@@ -41,6 +43,9 @@ export default {
             activeIndex: -1,
             items: USER_INFO_ITEMS
         }
+    },
+    components: {
+        uniIcons
     },
     onLoad() {
         this.getUserInfo();
@@ -56,7 +61,7 @@ export default {
             this.items[1].val = e.detail.value;
         },
         getUserInfo() {
-            getUserAllInfo({
+            getUserAllInfo({ 
                 openID: getApp().globalData.openID
             }).then(res => {
                 if(res.code == 0) {
@@ -103,6 +108,30 @@ export default {
                 })
                 // }
             }).catch(err => console.log(err))
+        },
+        getPhoto() {
+            //后台再转为图片路径保存
+            // uni.chooseImage({
+            //     count: 1,
+            //     sourceType: ['album'],
+            //     success: (res) => {
+            //         pathToBase64(res.tempFilePaths[0])
+            //             .then(base64 => {
+            //                 console.log(base64);
+            //                 saveUserAllInfo({
+            //                     openID: getApp().globalData.openID,
+            //                     avatar: base64
+            //                 }).then(res => {
+            //                     if(res.code == 0) {
+            //                         uni.showToast({
+            //                             title: '头像修改成功',
+            //                             icon: 'none'
+            //                         })
+            //                     }
+            //                 })
+            //             })
+            //     }
+            // })
         }
     }
 }
@@ -174,9 +203,14 @@ export default {
                     overflow: hidden;
                     position: relative;
                     left: 10rpx;
+                    uni-icons {
+                        width: 80rpx; 
+                        height: 80rpx;
+                        position: absolute;
+                        left: 10rpx; 
+                        top: 5rpx;
+                    }
                     image {
-                        // width: 100rpx; 
-                        // height: 100rpx; 
                         width: 100%;
                         height: 100%;
                     }
@@ -189,6 +223,9 @@ export default {
                 content: '天'
             }
         }
+        button::after {
+            border: none;
+        }
         .save {
             width: 100%;
             background: #CE8B8B;
@@ -196,6 +233,8 @@ export default {
             height: 70rpx;
             text-align: center;
             color: white;
+            line-height: 70rpx;
+            border-radius: 0;
         }
     }
 </style>

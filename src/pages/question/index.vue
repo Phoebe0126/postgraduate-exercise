@@ -393,7 +393,6 @@ export default {
                     this.noteInfo = res.data;
                 }else{
                     this.noteInfo = null;
-                    console.log(this.noteInfo);
                 }
             })
             .catch(err => {
@@ -443,10 +442,6 @@ export default {
     }
     .btn::after{
         border: none;
-    }
-    .btn-disabled {
-        background: #ccc;
-        color: #444;
     }
     .line {
         width: 100%;
