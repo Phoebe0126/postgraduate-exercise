@@ -62,6 +62,11 @@
 				</view>
 			</view>
 		</view>
+		<!--排行模块-->
+			<view class="section-rank" @click="naviToRankPage">
+				<image src="../../static/section/begin_rank.png" mode="aspectFill" />
+				<view class="section-rank-text">{{ title[4] }}</view>	
+			</view>
 		<tip>
 		</tip>
 		<view class="continueToDevelop">功能持续开发中，打造超好用的刷题小程序</view>
@@ -245,7 +250,7 @@ export default {
 			});
 		},
 		//跳转到错题重练界面
-		naviToWrongPage(){
+		naviToWrongPage () {
 			if (!this.isAuthed) {
 				uni.showToast({
                     title: '您还未登录喲~',
@@ -275,6 +280,24 @@ export default {
 			uni.navigateTo({
 				url: '../smart-test/index'
 			});
+		},
+		//跳转到学霸排行界面
+		naviToRankPage () {
+			if (!this.isAuthed) {
+				uni.showToast({
+                    title: '您还未登录喲~',
+                    icon: 'none'
+				});
+				return;
+			}
+			uni.showLoading({
+				title: '加载中'
+			});
+			console.log('点击成功');
+			uni.navigateTo({
+				url: '../rank/index'
+			});
+
 		}
 	}
 }
@@ -286,7 +309,7 @@ export default {
 	.content {
 		height: 100vh;
 		background: #eee;
-		padding-bottom: 100rpx;
+		padding-bottom: 300rpx;
 		.notice-wrapper {
 			padding: 20rpx 0;
 			background: #c9a2a2;
@@ -431,6 +454,27 @@ export default {
 				&-text {
 					margin-right: 20rpx;
 					width: 80rpx;
+				}
+			}
+			&-rank {
+				background: $uni-color-rank;
+				border-radius: 20rpx;
+				margin-left: 30rpx;
+				padding: 35rpx;
+				display: flex;
+				align-items: center;
+				box-sizing: border-box;
+				width: 91.5%;
+				position: relative;
+				image {
+					margin-left: 180rpx;
+					width: 70rpx;
+					height: 70rpx;
+				}
+				&-text {
+					margin: 0 40rpx;
+					color: #fff;
+					font-size: 40rpx;
 				}
 			}
 		}
