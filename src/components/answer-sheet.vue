@@ -153,8 +153,8 @@ export default {
                 }
                 .answer-false{
                     .circle{
-                        background: #e0b6b6;
-                        border: 1rpx solid #e0b6b6;
+                        background: #d77474;
+                        border: 1rpx solid #d77474;
                     }
                 }
             }
@@ -189,8 +189,8 @@ export default {
             }
             .bg-color-wrong {
                 color: #fff;
-                background:#e0b6b6;
-                border: 1rpx solid #e0b6b6;
+                background:#d77474;
+                border: 1rpx solid #d77474;
             }
 
         }
