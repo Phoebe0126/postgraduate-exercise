@@ -295,7 +295,7 @@ export default {
 			text-align: center;
 			background: #c9a2a2;
 			width: 100%;
-			margin-top: 100rpx;
+			margin-top: 85rpx;
 		}
 		.user-exercise-info {
 			display: flex;

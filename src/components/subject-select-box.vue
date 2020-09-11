@@ -1,5 +1,5 @@
 <template>
-  <view class="content">
+  <view class="content"> 
       <view class="subject-select-box">
           <view class="selected subject-option" @click="changeShowAll" :class="{showAll: showAll}">
               <span>{{ selectedSubject }}</span>
@@ -17,12 +17,6 @@
 import { SUBJECT_SHORT_TITLE} from '../consts/const'
 
 export default {
-    // props: {
-    //     selectedSubject: {
-    //         type: String,
-    //         default: '马原'
-    //     }
-    // }, 
     data() {
         return {
             subjects: SUBJECT_SHORT_TITLE.slice(1, 4),
@@ -43,7 +37,7 @@ export default {
                     this.subjects[i] = before;
                     break;
                 }
-            }
+            } 
             this.$emit('changeSubject', subjectName);
             this.changeShowAll();
         }

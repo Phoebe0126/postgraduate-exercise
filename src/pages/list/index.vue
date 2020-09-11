@@ -36,7 +36,8 @@ export default {
         uni.setNavigationBarTitle({
             title: this.abbrTitle[this.subject]
         });
-
+    },
+    onShow() {
         this.getChapterProgress();
     },
     methods: {

@@ -90,7 +90,8 @@ export default {
         background: #E2C9C9;
         align-items: center;
         justify-content: start;
-        box-shadow: 0 6rpx 6rpx grey;
+        z-index: 1000;
+        box-shadow: 0 10rpx 10rpx #E0E0E0;
         .avatar {
             width: 100rpx;
             height: 100rpx; 

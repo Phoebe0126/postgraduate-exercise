@@ -257,15 +257,15 @@ export default {
                 console.log(res)
                 if (res.code === 0) {
                     this.questions = res.data;
-                    if(res.data.length === 0){
-                      uni.showToast({
-                         title: '没有错题',
-                         icon: 'none'
-                    });
-                    }
+                    this.questionReady = true;
                     this.setOptions();
+                }else{
+                    uni.showToast({
+                        title: '你太厉害了，还没有错题呢~',
+                        icon: 'none'
+                    });
                 }
-                this.questionReady = true;
+                
             })
             .catch(err => {
                 uni.showToast({
