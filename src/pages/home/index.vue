@@ -6,7 +6,7 @@
 				class="notice"
 				scrollable="true" 
 				single="true" 
-				text="[单行] 这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏"
+				:text="notice"
 				background-color="#9f8080"
 				showIcon="true"
 				speed=50
@@ -71,6 +71,7 @@
 <script>
 import { getUserOpenId, getUserShortInfo, saveUserShortInfo, getUserAllInfo } from '../../api/user.js';
 import { QUESTION_NAVBAR_TITLE } from '../../consts/const';
+import { getNotice } from '../../api/notice.js';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
 import User from '@/components/user.vue';
 import Tip from '@/components/tip.vue';
@@ -85,7 +86,8 @@ export default {
 			daysRemaining: -1,
 			isRequestComplete: false,
 			daysOfPersistence: 0,
-			correctRate: 0
+			correctRate: 0,
+			notice: ''
 		}
 	},
 	components: {
@@ -95,8 +97,20 @@ export default {
 	},
 	onShow() {
 		this.login();
+		this.getNotice();
 	},
 	methods: {
+		// 获取公告栏内容
+		getNotice(){
+			getNotice().then(res => {
+				console.log(res);
+                if (res.code === 0) {
+                    this.notice = res.data.content;
+                }else{
+					this.notice = '';
+                }
+            })
+		},
 		// 授权获取用户信息
 		getUserInfo (res) {
 			// 根据返回的数据传输相应的用户信息
