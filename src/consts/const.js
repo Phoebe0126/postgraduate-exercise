@@ -42,8 +42,8 @@ const MINE_LISTS = [
 ];
 
 const ADMIN_LISTS = [
-  {id: 1, class: 'set-notice-bar', content: '设置公告栏', color: '#6A3F3F', navToFunc: ''},
-  {id: 2, class: 'add-question', content: '添加题目', color: '#9F8080', navToFunc: ''}
+  {id: 1, class: 'set-notice-bar', content: '设置公告栏', color: '#6A3F3F', navToFunc: 'navToSetNoticeBar'},
+  {id: 2, class: 'add-question', content: '添加题目', color: '#9F8080', navToFunc: 'navToAddQuestion'}
 ];
 
 export {

@@ -8,7 +8,7 @@
                     <p>{{ item.note }}</p>
                     <i></i>
                 </view>
-            </li>
+            </li> 
         </ul>
     </view>
 </template>
@@ -16,10 +16,6 @@
 <script>
 export default {
     props: {
-        // top: {
-        //     type: String,
-        //     default: ''
-        // },
         items: {
             type: Array,
             default: () => []
@@ -64,7 +60,6 @@ export default {
                 bottom: 30rpx;
                 p {
                     font-size: 24rpx;
-                    // line-height: 24rpx;
                     height: 60rpx;
                     width: 550rpx;
                     display: -webkit-box;
