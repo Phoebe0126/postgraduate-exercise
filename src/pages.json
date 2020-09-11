@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/smart-test/result",
+			"style": {
+				"navigationBarTitleText": "刷题结果"
+			}
+		},
+		{
 			"path": "pages/home/index",
 			"style": {
 			}
