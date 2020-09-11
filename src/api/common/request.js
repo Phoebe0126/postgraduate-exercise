@@ -12,7 +12,7 @@ export default (url, paramsObj) => {
            return `${pre}${key}=${params[key]}&`
         }, url);
         url = url.slice(0, url.length - 1);
-
+        
         return new Promise((resolve, reject) => {
             wx.request({
                 url,
