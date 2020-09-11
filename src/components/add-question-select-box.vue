@@ -4,8 +4,8 @@
             <span class="name">{{ name }}</span>
             <view class="select option" :class="{showAll: showAll}" @click="changeShowAll">{{ selectedItem }}</view>
             <view :class="{showAll: showAll}" class="options" :style="{height: 90 * len + 4 * (len - 1)+ 'rpx'}">
-                <view v-for="(item, index) in listItems" class="option" :key="index"
-                @click="changeSelect(item)">{{ item }}</view>
+                <view v-for="(li, index) in listItems" class="option" :key="index"
+                @click="changeSelect(li.item, li.index)">{{ li.item }}</view>
             </view>
             <i @click="changeShowAll"></i>
         </view>
@@ -29,31 +29,34 @@ export default {
         return {
             showAll: false,
             listItems : this.items.slice(1),
-            selectedItem: this.items[0],
-            len: this.items.length - 1
+            selectedItem: this.items[0].item,
+            selectedIndex: this.items[0].index,
+            len: this.items.length - 1,
         }
     },
     methods: {
         changeShowAll() {
             this.showAll = !this.showAll;
         },
-        getItemIndex(item) {
-            for(let i in this.items) {
-                if(this.items[i] == item) {
-                    return parseInt(i) + 1;
-                }
-            }
-            return -1;
-        },
-        changeSelect(item) {
-            let before = this.selectedItem;
+        changeSelect(item, index) {
+            let beforeItem = this.selectedItem;
+            let beforeIndex = this.selectedIndex;
             this.selectedItem = item;
+            this.selectedIndex = index;
             for(let i = 0; i < this.listItems.length; i++){
-                if(this.listItems[i] == item) {
-                    this.listItems[i] = before;
+                if(this.listItems[i].item == item) {
+                    this.listItems.splice(i, 1);
+                    this.listItems.push({
+                        item: beforeItem,
+                        index: beforeIndex
+                    });
+                    break;
                 }
             }
-            this.$emit('changeSelect', this.getItemIndex(item));
+            this.listItems.sort((a, b) => {
+                return a.index - b.index;
+            })
+            this.$emit('changeSelect', this.selectedIndex);
             this.showAll = !this.showAll;
         }
     }
@@ -81,7 +84,10 @@ export default {
             text-indent: 20rpx;
         }
         .select {
-            width: 80%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 70%;
             height: 90rpx;
             margin-bottom: 4rpx;
             background: #DCCBCB;
@@ -104,6 +110,9 @@ export default {
             .option {
                 width: 100%;
                 height: 90rpx;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 float: left;
                 margin-bottom: 4rpx;
                 background: #DCCBCB;

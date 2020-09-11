@@ -1,15 +1,38 @@
 <template>
     <view class="content">
-        <textarea class="notice-bar-content">
-
-        </textarea>
-        <button class="save">保存设置</button>
+        <textarea class="notice-bar-content" v-model="notice"></textarea>
+        <button class="save" @click="saveMyNotice">保存设置</button>
     </view>
 </template>
 
-<script>
+<script> 
+import { saveNotice } from '../../../api/notice'
+
 export default {
-    
+    data() {
+        return {
+            notice: ''
+        }
+    },
+    methods: {
+        saveMyNotice() {
+            let that = this;
+            saveNotice({
+                content: that.notice
+            }).then(res => {
+                uni.showToast({
+                    title: res.msg,
+                    icon: 'none'
+                })
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                })
+            }
+            )
+        }
+    }
 }
 </script>
 
