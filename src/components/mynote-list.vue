@@ -1,7 +1,7 @@
 <template>
     <view class="content">
         <ul class="note-container">
-            <li v-for="(item, index) in items" :key="index">
+            <li v-for="(item, index) in items" :key="index" @click="naviToquesPage(item)">
                 <h3 class="title">{{ item.question }}</h3>
                 <span class="createdTime">{{ item.createTime }}</span>
                 <view class="note">
@@ -19,6 +19,11 @@ export default {
         items: {
             type: Array,
             default: () => []
+        }
+    },
+    methods: {
+        naviToquesPage ({ id }) {
+            this.$emit('naviToquesPage', id);
         }
     }
 }

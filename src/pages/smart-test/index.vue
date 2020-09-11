@@ -306,7 +306,10 @@ export default {
 
             // 发起请求
             if (firstDone) {
-                this.setQuestionsDone()
+                this.setQuestionsDone();
+                uni.navigateTo({
+                     url: './result'
+                });
             }
         },
 
@@ -333,6 +336,11 @@ export default {
             const isWrong = this.questions.map((val, index) => val.answer !== this.choosedAnswers[index].sort().join(''));
             this.isWrong = isWrong;
 
+            // 设置全局变量 0---未做，1---对，2---错
+            getApp().globalData.resultArr = this.questions.map((val, index) => {
+                const userAnswer = this.choosedAnswers[index].sort().join('');
+                return !userAnswer ? 0 : val.answer === userAnswer ? 1 : 2;
+            } )
             this.calculateScore();
 
             const params = {

@@ -95,9 +95,21 @@ export default {
 		User,
 		Tip
 	},
+	onLoad () {
+		wx.showShareMenu({
+			// 要求小程序返回分享目标信息
+			withShareTicket: true
+		}); 
+	},
 	onShow() {
 		this.login();
 		this.getNotice();
+	},
+	onShareAppMessage (res) {
+		return {
+			 title: '这么好用的刷题小程序，你确定不来试试？',
+			 path: 'pages/home/index'
+		}
 	},
 	methods: {
 		// 获取公告栏内容
@@ -171,6 +183,11 @@ export default {
 			uni.showLoading({
 				title: '加载中'
 			});
+			// 已登录
+			if (getApp().globalData.openID) {
+				this.getLoginUserInfo();
+				return;
+			}
 			const that = this;
 			wx.login({
 				success (res) {
@@ -199,7 +216,7 @@ export default {
 						icon: 'none'
 					});
 				}
-			})
+			});
 		},
 		// 跳转到我的界面
 		navigateToMine () {

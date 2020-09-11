@@ -4,7 +4,7 @@
         <view class="header">
             <subject-select-box @changeSubject="changeSubject"></subject-select-box>
         </view>
-        <my-collect-list :items="items" :key="collectListKey"></my-collect-list>
+        <my-collect-list :items="items" :key="collectListKey" @naviToquesPage="naviToquesPage"></my-collect-list>
     </view>
 </template>
 
@@ -27,14 +27,19 @@ export default {
         subjectSelectBox,
         myCollectList
     },
-    // ons() {
-       
-    // },
     onLoad(){
         this.subject = '马原'
         this.getMyCollectBySubject();
     },
     methods: {
+        naviToquesPage (quesId) {
+            uni.showLoading({
+                title: '加载中'
+            });
+            uni.navigateTo({
+                url: `../question/index?id=${quesId}`
+            });
+        },
         changeSubject(subjectName){
             this.subject = subjectName;
             this.getMyCollectBySubject();

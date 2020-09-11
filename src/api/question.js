@@ -46,3 +46,11 @@ export function getChapterNames(params) {
         params
     })
 }
+
+// 获取某题目内容
+export function getOneQuestion (data) {
+    return request(`${BASE_URL}/getOneQuestion`, {
+        method: 'POST', 
+        data
+    })
+}

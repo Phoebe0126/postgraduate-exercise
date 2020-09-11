@@ -75,7 +75,7 @@ import OptionRight from '@/components/option-right';
 import Note from '@/components/note';
 import { QUESTION_NAVBAR_TITLE, TABS_TITLE, SUBJECT_NAVBAR_COLOR } from '../../consts/const';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
-import { getRandomQuestions, getChapterQuestions, getWrongQuestions } from '../../api/question';
+import { getRandomQuestions, getChapterQuestions, getWrongQuestions, getOneQuestion } from '../../api/question';
 import { setMarkDone, setMarkFaulty } from '../../api/record';
 import { getNote } from '../../api/note';
 
@@ -127,6 +127,31 @@ export default {
         }
     },
     onLoad(query) {
+        // 收藏和笔记跳转
+        if (query.id) {
+            getOneQuestion({
+                openID: getApp().globalData.openID,
+                id: query.id
+            })
+            .then(res => {
+                console.log(res)
+                if (res.code === 0) {
+                    this.questions = res.data;
+                    // 获取笔记
+                    this.getNote();
+                    this.setOptions();
+                }
+                this.questionReady = true;
+            })
+            .catch(err => {
+                 uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+                this.questionReady = true;
+            })
+            return;
+        }
 
         const arr = ['chapter', 'random', 'smart', 'wrong'];
         this.moduleType = arr.indexOf(query.type);
@@ -336,7 +361,7 @@ export default {
 
             this.confirmStyle = style;
             this.isConfirm = true;
-            console.log(isDone)
+
             // 发起请求
             if (!isDone) {
                 const question = this.questions[this.index];
