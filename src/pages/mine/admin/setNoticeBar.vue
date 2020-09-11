@@ -6,13 +6,16 @@
 </template>
 
 <script> 
-import { saveNotice } from '../../../api/notice'
+import { saveNotice, getNotice } from '../../../api/notice'
 
 export default {
     data() {
         return {
             notice: ''
         }
+    },
+    onLoad() {
+        this.getOriginNotice();
     },
     methods: {
         saveMyNotice() {
@@ -31,6 +34,23 @@ export default {
                 })
             }
             )
+        },
+        getOriginNotice() {
+            let that = this;
+            getNotice().then(res => {
+                if(res.code == 0) {
+                    that.notice = res.data.content;
+                }
+                uni.showToast({
+                    title: res.msg,
+                    icon: 'none'
+                });
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+            })
         }
     }
 }

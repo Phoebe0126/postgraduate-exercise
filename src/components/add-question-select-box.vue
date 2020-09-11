@@ -3,7 +3,7 @@
         <view class="select-wrapper">
             <span class="name">{{ name }}</span>
             <view class="select option" :class="{showAll: showAll}" @click="changeShowAll">{{ selectedItem }}</view>
-            <view :class="{showAll: showAll}" class="options" :style="{height: 90 * len + 4 * (len - 1)+ 'rpx'}">
+            <view :class="{showAll: showAll}" class="options" :style="{height: 90 * len + 4 * (len - 1)+ 'rpx', zIndex: zIndex}">
                 <view v-for="(li, index) in listItems" class="option" :key="index"
                 @click="changeSelect(li.item, li.index)">{{ li.item }}</view>
             </view>
@@ -23,6 +23,10 @@ export default {
         items: {
             type: Array,
             default: () => []
+        },
+        zIndex: {
+            type: Number,
+            default: 1000
         }
     },
     data() {
@@ -105,7 +109,7 @@ export default {
             top: 94rpx;
             left: 20%;
             display: none;
-            z-index: 1000;
+            // z-index: 1000;
             box-shadow: -4rpx 16rpx 20rpx #E0E0E0;
             .option {
                 width: 100%;

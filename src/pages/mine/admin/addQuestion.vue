@@ -2,9 +2,9 @@
     <view class="content">
         <view class="header">
             <add-question-select-box class="subject li" :name="'科目'" :items="subjectItems" 
-                @changeSelect="changeSubject"></add-question-select-box>
+                @changeSelect="changeSubject" :zIndex=1001></add-question-select-box>
             <add-question-select-box class="chapter li" :name="'章节'" :items="chapterItems"
-                @changeSelect="changeChapter" v-if="update"></add-question-select-box>
+                @changeSelect="changeChapter" v-if="update" :zIndex=1000 ></add-question-select-box>
         </view>
         <view class="question-info">
             <!-- 类型 -->
@@ -163,7 +163,10 @@ export default {
         background: #E0E0E0;
     }
     textarea {
-        background: #F1EAEA;
+        // background: #F1EAEA;
+        // border-radius: 20rpx;
+        background: white;
+        border: 2rpx solid #CE8D8D;
         border-radius: 20rpx;
     }
     input {
@@ -175,9 +178,9 @@ export default {
         margin-top: 20rpx;
         height: 184rpx;
         background: #E0E0E0;
-        .subject {
-            z-index: 1001
-        }
+        // .subject {
+        //     z-index: 1001
+        // }
         .li {
             float: left;
             width: 100%;
@@ -259,9 +262,9 @@ export default {
                 width: 480rpx;
                 height: 60rpx;
                 margin-left: 20rpx;
-                background: #F1EAEA;
-                border-radius: 20rpx;
-                border: none;
+                // background: #F1EAEA;
+                // border-radius: 20rpx;
+                // border: none;
             }
         }
         .tip {
