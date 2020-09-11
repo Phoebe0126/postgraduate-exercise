@@ -12,8 +12,6 @@
             <view class="content">时分秒</view>
         </view>
     </view>
-    
-    
 </view>
 </template>
 
@@ -25,12 +23,12 @@ export default {
 
 <style lang="scss" scoped>
 .result-wrapper{
-    background: #c9a2a2;
     .tips{
     color: #fff;
     font-size: 30rpx;
     height: 210rpx;
     padding-left: 50rpx;
+    background: #c9a2a2;
     }
     .wrapper{
         width: 85%;
