@@ -36,9 +36,9 @@ const TABS_TITLE = ['答案解析', '我的笔记'];
 
 const MINE_LISTS_ADMIN = [
   {id: 1, class: 'note', content: '我的笔记', color: '#6A3F3F', navToFunc: 'navToMyNote'},
-  {id: 2, class: 'collection', content: '我的收藏', color: '#9F8080', navToFunc: ''},
+  {id: 2, class: 'collection', content: '我的收藏', color: '#9F8080', navToFunc: 'navToMyCollection'},
   {id: 3, class: 'userinfo', content: '个人信息', color: '#C9A2A2', navToFunc: 'navToMyInfo'},
-  {id: 4, class: 'admin', content: '管理员入口', color: '#9F8080', navToFunc: 'navToAdmin'}
+  { id: 4, class: 'admin', content: '管理员入口', color: '#9F8080', navToFunc: 'navToAdmin' }
 ];
 
 const MINE_LISTS = [

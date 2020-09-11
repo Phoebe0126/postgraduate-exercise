@@ -15,8 +15,8 @@
         <view class="goal">目标学习天数：<span style="color: white;">{{ goal + ' '}}</span>天</view>
         <!-- 导航栏：我的笔记、我的收藏、个人信息、管理员入口 -->
         <nav-lists :items="navItems" :top="'360rpx'" @navToMyInfo="navToMyInfo" @navToAdmin="navToAdmin"
-            @navToMyNote="navToMyNote" :isAdmin="isAdmin">
-        </nav-lists> 
+            @navToMyNote="navToMyNote" @navToMyCollection="navToMyCollection" :isAdmin="isAdmin"> 
+        </nav-lists>
     </view>
 </template>
 
@@ -53,6 +53,11 @@ export default {
         navToMyInfo() {
             uni.navigateTo({
                 url: "./myInfo"
+            }) 
+        },
+        navToMyCollection() {
+            uni.navigateTo({
+                url: "./myCollection"
             }) 
         },
         navToAdmin() {
