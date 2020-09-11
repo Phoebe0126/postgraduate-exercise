@@ -9,3 +9,10 @@ export function saveNotice (data) {
         data
     })
 }
+
+// 获取公告栏内容
+export function getNotice () {
+    return request(`${BASE_URL}/getNotice`, {
+        method: 'GET'
+    })
+}

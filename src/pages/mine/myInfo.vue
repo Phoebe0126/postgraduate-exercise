@@ -4,9 +4,9 @@
         <ul class="container">
             <li class="avatar">
                 <span>头像</span>
-                <view class="avatar-container">
+                <view class="avatar-container" @click="chooseAvatar">
                     <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="#E2C9C9"></uni-icons>
-                    <image v-else :src="avatarUrl" @click="getPhoto"></image>
+                    <image v-else :src="avatarUrl"></image>
                 </view>   
             </li>
             <li v-for="(item, index) in items" :key="item.id" :class="item.name">
@@ -109,29 +109,18 @@ export default {
                 // }
             }).catch(err => console.log(err))
         },
-        getPhoto() {
-            //后台再转为图片路径保存
-            // uni.chooseImage({
-            //     count: 1,
-            //     sourceType: ['album'],
-            //     success: (res) => {
-            //         pathToBase64(res.tempFilePaths[0])
-            //             .then(base64 => {
-            //                 console.log(base64);
-            //                 saveUserAllInfo({
-            //                     openID: getApp().globalData.openID,
-            //                     avatar: base64
-            //                 }).then(res => {
-            //                     if(res.code == 0) {
-            //                         uni.showToast({
-            //                             title: '头像修改成功',
-            //                             icon: 'none'
-            //                         })
-            //                     }
-            //                 })
-            //             })
-            //     }
-            // })
+        chooseAvatar() {
+            let that = this;
+            uni.chooseImage({
+                count: 1,
+                sourceType: ['album'],
+                success: (res) => {
+                    pathToBase64(res.tempFilePaths[0])
+                        .then(base64 => {
+                            that.avatarUrl = base64;
+                        })
+                }
+            })
         }
     }
 }

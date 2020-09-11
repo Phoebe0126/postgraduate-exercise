@@ -17,16 +17,21 @@
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
 import navLists from '@/components/nav-lists.vue';
 import { ADMIN_LISTS} from '../../consts/const';
+import { getUserAllInfo } from '../../api/user'
 
 export default {
     data() {
         return {
-            navItems: ADMIN_LISTS
+            navItems: ADMIN_LISTS,
+            avatarUrl: ''
         }
     },
     components: {
         uniIcons,
         navLists
+    },
+    onLoad() {
+        this.getUserInfo();
     },
     methods: {
         navToSetNoticeBar() {
@@ -38,6 +43,21 @@ export default {
             uni.navigateTo({
                 url: "./admin/addQuestion"
             });
+        },
+        getUserInfo() {
+            let that = this;
+            getUserAllInfo({
+                openID: getApp().globalData.openID
+            }).then(res => {
+                if(res.code == 0) {
+                    that.avatarUrl = res.data.avatar;
+                }
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+            })
         }
     }
 }
@@ -64,6 +84,7 @@ export default {
                 height: 100rpx;
                 width: 100rpx;
                 border-radius: 50%;
+                overflow: hidden;
                 background: #CE8B8B;
                 margin-left: 50rpx;
                 position: relative;

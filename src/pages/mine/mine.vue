@@ -15,7 +15,7 @@
         <view class="goal">目标学习天数：<span style="color: white;">{{ goal + ' '}}</span>天</view>
         <!-- 导航栏：我的笔记、我的收藏、个人信息、管理员入口 -->
         <nav-lists :items="navItems" :top="'360rpx'" @navToMyInfo="navToMyInfo" @navToAdmin="navToAdmin"
-            @navToMyNote="navToMyNote">
+            @navToMyNote="navToMyNote" :isAdmin="isAdmin">
         </nav-lists> 
     </view>
 </template>
@@ -24,7 +24,7 @@
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
 import navLists from '@/components/nav-lists.vue';
 import { getUserAllInfo } from '../../api/user';
-import { MINE_LISTS} from '../../consts/const'
+import { MINE_LISTS, MINE_LISTS_ADMIN } from '../../consts/const'
 
 export default {
     data () {
@@ -33,6 +33,7 @@ export default {
             nickname: '',
             motto: '',
             goal: 0,
+            // isAdmin: false,
             navItems: MINE_LISTS
         }
     },
@@ -60,16 +61,25 @@ export default {
             })
         },
         getUserInfo() {
+            let that = this;
             getUserAllInfo({
                 openID: getApp().globalData.openID
             }).then(res => {
                 if(res.code == 0) {
-                    this.avatarUrl = res.data.avatar;
-                    this.nickname = res.data.nickname;
-                    this.motto = (res.data.motto == null || res.data.motto == '') ?'说点什么吧~': res.data.motto;
-                    this.goal = res.data.goal == null ? '-': res.data.goal;
+                    that.avatarUrl = res.data.avatar;
+                    that.nickname = res.data.nickname;
+                    that.motto = (res.data.motto == null || res.data.motto == '') ?'说点什么吧~': res.data.motto;
+                    that.goal = res.data.goal == null ? '-': res.data.goal;
+                    if(res.data.isAdmin == true) {
+                        that.navItems = MINE_LISTS_ADMIN;
+                    }
                 }
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+            })
         },  
     }
 }
