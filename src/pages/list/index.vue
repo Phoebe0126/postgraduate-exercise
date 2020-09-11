@@ -67,5 +67,6 @@ export default {
     padding-top: 20rpx;
     background: #e4e4e4;
     padding-bottom: 200rpx;
+    height: 100vh;
 }
 </style>
