@@ -31,6 +31,14 @@ export function getSimulation () {
     })
 }
 
+//获取收藏的题目
+export function getCollected(data) {
+    return request(`${BASE_URL}/getCollected`, {
+        method: 'POST',
+        data
+    })
+}
+
 //获取某科目下的所有章节名 
 export function getChapterNames(params) {
     return request(`${BASE_URL}/getChapterNames`, {
