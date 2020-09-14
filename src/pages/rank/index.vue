@@ -30,13 +30,23 @@
 				</scroll-view>
 			</swiper-item>
 		</swiper>
+        <view v-if="current === 0">
+            <encourage></encourage>
+        </view>
+        <view v-else>
+            <encourage></encourage>
+        </view>
 	</view>
 </template>
 
 <script>
 import { getMaxQuesRank, getMaxDaysRank } from '../../api/user';
+import Encourage from '@/components/encourage.vue';
 
 	export default {
+        components: {
+        Encourage
+	},
 		data() {
 			return {
 				TabTitles: [{
@@ -186,14 +196,3 @@ import { getMaxQuesRank, getMaxDaysRank } from '../../api/user';
 
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
