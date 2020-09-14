@@ -47,15 +47,18 @@ export function getChapterNames(params) {
     })
 }
 
-<<<<<<< HEAD
 // 获取某题目内容
 export function getOneQuestion (data) {
     return request(`${BASE_URL}/getOneQuestion`, {
-=======
+        method: 'POST', 
+        data
+    })
+}
+
+
 //新增一道题目
 export function createOneQuestion(data) {
     return request(`${BASE_URL}/createOneQuestion`, {
->>>>>>> 9017181ecc86c3af81867375349431c586a0bfb0
         method: 'POST', 
         data
     })
