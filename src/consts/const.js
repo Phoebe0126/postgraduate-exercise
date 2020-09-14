@@ -21,11 +21,11 @@ const SUBJECT_SHORT_TITLE = ['马原', '毛概', '史纲', '思修'];
 const SUBJECT_ABBR_TITLE = ["马原习题", "毛中特习题", "史纲习题", "思修习题"];
 
 const USER_INFO_ITEMS = [
-  { id: 1, name: "nickname", desc: "昵称", val: "" },
+  { id: 1, name: "nickname", desc: "昵称", val: ""},
   { id: 2, name: "gender", desc: "性别", val: "" },
   { id: 3, name: "school", desc: "学校", val: "" },
   { id: 4, name: "motto", desc: "座右铭", val: "" },
-  { id: 5, name: "goal", desc: "目标天数", val: 0 }
+  { id: 5, name: "goal", desc: "目标天数", val: 0}
 ];
 
 const QUESTION_NAVBAR_TITLE = ["章节练习", "随机练习", "智能模考", "错题重练","学霸排行"];

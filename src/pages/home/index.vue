@@ -74,7 +74,7 @@
 </template>
  
 <script>
-import { getUserOpenId, getUserShortInfo, saveUserShortInfo, getUserAllInfo } from '../../api/user.js';
+import { getUserOpenId, getOpenId, getUserShortInfo, saveUserShortInfo, getUserAllInfo } from '../../api/user.js';
 import { QUESTION_NAVBAR_TITLE } from '../../consts/const';
 import { getNotice } from '../../api/notice.js';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
@@ -181,16 +181,23 @@ export default {
 				success (res) {
 					if (res.code) {
 						// 获取用户的openId
-						getUserOpenId({
-							appid: 'wx0e8cbbba3aab1125',
-							secret: '9097a462abccba0564091d8536fc7295',
-							js_code: res.code,
-							grant_type: 'authorization_code'
+						getOpenId({
+							code: res.code
 						}).then(res => {
 							// 存储openId
-							getApp().globalData.openID = res.openid;
+							getApp().globalData.openID = res.data.openID;
 							that.getLoginUserInfo();
 						})
+						// getUserOpenId({
+						// 	appid: 'wx0e8cbbba3aab1125',
+						// 	secret: '9097a462abccba0564091d8536fc7295',
+						// 	js_code: res.code,
+						// 	grant_type: 'authorization_code'
+						// }).then(res => {
+						// 	// 存储openId
+						// 	getApp().globalData.openID = res.openid;
+						// 	that.getLoginUserInfo();
+						// })
 					} else {
 						uni.showToast({
 							title: res.errMsg,
