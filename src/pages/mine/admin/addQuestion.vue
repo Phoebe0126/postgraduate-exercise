@@ -63,7 +63,7 @@
 <script>
 import addQuestionSelectBox from '@/components/add-question-select-box.vue';
 import { SUBJECT_TITLE} from '../../../consts/const'
-import { getChapterNames } from '../../../api/question'
+import { getChapterNames, createOneQuestion } from '../../../api/question'
 
 
 export default {
@@ -141,17 +141,58 @@ export default {
             })
         },
         saveQuestion() {
-            console.log({
-                subject: this.selectedSubject,
-                selectedChapter: this.selectedChapter,
-                type: this.type,
-                question: this.question,
-                optionA: this.optionA,
-                optionB: this.optionB,
-                optionC: this.optionC,
-                optionD: this.optionD,
-                answer: this.answer,
-                tip: this.tip
+            if(![1, 2, 3, 4].includes(this.selectedSubject)) {
+                uni.showToast({
+                    title: '科目输入错误',
+                    icon: 'none'
+                });
+                return;
+            }
+            if(![1, 2].includes(this.type)) {
+                uni.showToast({
+                    title: '类型输入错误',
+                    icon: 'none'
+                });
+                return;
+            }
+            if(this.type == 1 && this.answer.length > 1) {
+                uni.showToast({
+                    title: '类型和答案不匹配',
+                    icon: 'none'
+                });
+                return;
+            }
+            if(this.type == 2 && this.answer.length < 2) {
+                uni.showToast({
+                    title: '类型和答案不匹配',
+                    icon: 'none'
+                });
+                return;
+            }
+            let that = this;
+            let tmp = that.chapterItems[that.selectedChapter - 1].item;
+            createOneQuestion({
+                subject: that.selectedSubject,
+                chapter: tmp.slice(4),
+                chapterNumber: that.selectedChapter,
+                type: that.type,
+                question: that.question,
+                A: that.optionA,
+                B: that.optionB,
+                C: that.optionC,
+                D: that.optionD,
+                answer: that.answer,
+                tip: that.tip
+            }).then(res => {
+                uni.showToast({
+                    title: res.msg,
+                    icon: 'none'
+                });
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
             })
         }
     }

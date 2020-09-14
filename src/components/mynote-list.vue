@@ -39,6 +39,7 @@ export default {
             .title {
                 margin-top: 20rpx;
                 font-size: 30rpx;
+                font-weight: normal;
                 width: 520rpx;
                 overflow: hidden;
                 text-overflow: ellipsis;

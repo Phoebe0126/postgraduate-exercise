@@ -27,9 +27,6 @@ export default {
         subjectSelectBox,
         myCollectList
     },
-    // ons() {
-       
-    // },
     onLoad(){
         this.subject = '马原'
         this.getMyCollectBySubject();
