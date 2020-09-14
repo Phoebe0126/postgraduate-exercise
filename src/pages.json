@@ -80,6 +80,12 @@
 			"style": {
 				"navigationBarTitleText": "刷题结果"
 			}
+		},
+		{
+			"path": "pages/rank/index",
+			"style": {
+				"navigationBarTitleText": "学霸排行"
+			}
 		}
 	],
 	"globalStyle": {
