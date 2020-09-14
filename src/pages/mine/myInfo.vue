@@ -20,8 +20,12 @@
                     <radio v-if="item.name == 'gender'" value=2 :checked="item.val == 2" color="#CE8B8B"></radio>
                     <span v-if="item.name == 'gender'">女</span>
                 </radio-group>
+                <!-- 目标天数 -->
+                <input v-if="item.name == 'goal'" type="number" v-model="item.val" maxlength="5"
+                :class="{active: activeIndex == index? true: false}" 
+                @click="changeStyle(index)" @blur="restoreStyle(index)">
                 <!-- 其他输入框 -->
-                <input v-if="item.name != 'gender'" type="text" v-model="item.val"
+                <input v-if="item.name != 'gender' && item.name != 'goal'" type="text" v-model="item.val"
                 :class="{active: activeIndex == index? true: false}" 
                 @click="changeStyle(index)" @blur="restoreStyle(index)">
             </li>

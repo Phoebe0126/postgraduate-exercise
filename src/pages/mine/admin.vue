@@ -5,7 +5,7 @@
                 <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="white"></uni-icons>
                 <image v-else :src="avatarUrl" mode="aspectFill"  /> 
             </view>
-            <span>管理员</span>
+            <span class="nickname">{{ nickname }}</span>
         </view>
         <!-- 导航栏：设置公告栏、添加题目 -->
         <nav-lists :items="navItems" :top="'200rpx'" @navToSetNoticeBar="navToSetNoticeBar"
@@ -23,7 +23,8 @@ export default {
     data() {
         return {
             navItems: ADMIN_LISTS,
-            avatarUrl: ''
+            avatarUrl: '',
+            nickname: ''
         }
     },
     components: {
@@ -51,6 +52,7 @@ export default {
             }).then(res => {
                 if(res.code == 0) {
                     that.avatarUrl = res.data.avatar;
+                    that.nickname = res.data.nickname;
                 }
             }).catch(err => {
                 uni.showToast({
@@ -101,6 +103,12 @@ export default {
                     top: 5rpx;
                 }
             } 
+            .nickname {
+                display: block;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
         }
     }
 </style>
