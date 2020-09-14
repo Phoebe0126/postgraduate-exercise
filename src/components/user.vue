@@ -87,6 +87,10 @@ export default {
         .nickname {
            margin-left: 20rpx;
            font-size: 32rpx;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+           max-width: 400rpx;
         }
     }
     .remainDays {

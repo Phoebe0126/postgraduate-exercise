@@ -309,7 +309,7 @@ export default {
 			uni.showLoading({
 				title: '加载中'
 			});
-			console.log('点击成功');
+
 			uni.navigateTo({
 				url: '../rank/index'
 			});

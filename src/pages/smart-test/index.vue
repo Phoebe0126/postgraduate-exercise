@@ -122,7 +122,8 @@ export default {
             noteInfo: null,
             showDetail: false,
             isWrong: [],
-            time: ''
+            time: '',
+            isCorrect: false
         }
     },
     onLoad (query) {
