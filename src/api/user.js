@@ -10,6 +10,14 @@ export function getUserOpenId (params) {
     });
 }
 
+// 获取用户的openId
+export function getOpenId (params) {
+    return request(`${BASE_URL}/getOpenID`, {
+        method: 'POST',
+        data: params
+    })
+}
+
 // 获取用户头像、昵称以及坚持天数
 export function getUserShortInfo (params) {
     return request(`${BASE_URL}/getUser`, {

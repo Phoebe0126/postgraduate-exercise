@@ -126,8 +126,12 @@ export default {
             margin-left: 30rpx; 
             width: 540rpx; 
             .nickname {
+                display: block;
                 font-size: 36rpx;
                 line-height: 60rpx;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
             .motto {
                 color: #735F5F;
@@ -146,46 +150,4 @@ export default {
         color: #6A3F3F; 
         font-size: 34rpx;
     }
-    // .mine {
-    //     overflow: hidden;
-    //     background: gainsboro;
-    //     position: absolute;
-    //     top: 360rpx;
-    //     bottom: 0;
-    //     width: 100%;
-    //     padding: 0;
-    //     li {
-    //         height: 90rpx;
-    //         background: white;
-    //         width: 100%;
-    //         float: left;
-    //         list-style-type: none;
-    //         margin-top: 30rpx; 
-    //         position: relative;
-    //         font-size: 24rpx;
-    //         line-height: 90rpx;
-    //         span {
-    //             float: left;
-    //             display: block;
-    //         }
-    //         span:nth-child(1) {
-    //             height: 30rpx;
-    //             width: 30rpx; 
-    //             border-radius: 50%;
-    //             position: relative;
-    //             top: 30rpx;
-    //             left: 60rpx;
-    //             margin-right: 80rpx;
-    //         }
-    //         i {
-    //             background: url('/static/navTo.png') center center;
-    //             width: 30rpx; 
-    //             height: 30rpx; 
-    //             display: block;
-    //             position: absolute; 
-    //             right: 50rpx;
-    //             top: 30rpx;
-    //         }
-    //     }
-    // }
 </style>
