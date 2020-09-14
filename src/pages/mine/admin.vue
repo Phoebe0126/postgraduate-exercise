@@ -3,7 +3,7 @@
         <view class="header">
             <view class="avatar-container">
                 <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="white"></uni-icons>
-                <image v-else :src="avatarUrl" mode="aspectFill"  /> 
+                <image v-else :src="avatarUrl" ></image> 
             </view>
             <span class="nickname">{{ nickname }}</span>
         </view>
@@ -104,7 +104,9 @@ export default {
                 }
             } 
             .nickname {
+                // margin-left: 50rpx;
                 display: block;
+                width: 500rpx;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
