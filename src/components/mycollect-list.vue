@@ -1,7 +1,7 @@
 <template>
     <view class="content">
         <ul class="collect-container">
-            <li v-for="(item, index) in items" :key="index">
+            <li v-for="(item, index) in items" :key="index" @click="naviToquesPage(item)">
                 <view class="collection">
                 <p class="question" style="-webkit-box-orient: vertical;">{{ item.question }}：</p>
                 <i></i>
@@ -18,6 +18,11 @@ export default {
         items: {
             type: Array,
             default: ()=>[]
+        }
+    },
+    methods: {
+        naviToquesPage ({ id }) {
+            this.$emit('naviToquesPage', id);
         }
     }
 }

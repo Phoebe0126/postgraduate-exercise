@@ -53,7 +53,6 @@ export default {
         noteInfo: {
             immediate: true,
             handler (val) {
-                console.log(val);
                 this.info = val;
             }
         }
@@ -78,7 +77,6 @@ export default {
             wx.showActionSheet({
                 itemList: ['编辑','删除'],
                 success(res){
-                    console.log(res.tapIndex)
                     if(res.tapIndex === 0){
                         b.naviToEditNotePage();
                     }else if(res.tapIndex === 1){

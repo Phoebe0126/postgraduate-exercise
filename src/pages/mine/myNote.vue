@@ -3,7 +3,7 @@
       <view class="header">
         <subject-select-box @changeSubject="changeSubject"></subject-select-box>
       </view>
-      <my-note-list :items="items" :key="noteListKey"></my-note-list>
+      <my-note-list :items="items" :key="noteListKey"  @naviToquesPage="naviToquesPage"></my-note-list>
   </view>
 </template>
 
@@ -31,6 +31,14 @@ export default {
         this.getMyNoteBySubject();
     },
     methods: {
+        naviToquesPage (quesId) {
+            uni.showLoading({
+                title: '加载中'
+            });
+            uni.navigateTo({
+                url: `../question/index?id=${quesId}`
+            });
+        },
         changeSubject(subjectName){
             this.subject = subjectName;
             this.getMyNoteBySubject();

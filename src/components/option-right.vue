@@ -5,7 +5,7 @@
       <text class="right-rate" v-if="moduleType !== 2">正确率：{{ correctRate }}%</text>
       <view class="clock-block" v-else>
         <i class="iconfont">&#xe655;</i>
-        <v-clock class="clock"  ref="clock"></v-clock>
+        <v-clock class="clock" ref="clock" @clockend="clockEnd"></v-clock>
       </view>
     </view>
     <view class="collect" @click="changeCollectStatus">
@@ -25,7 +25,10 @@ export default {
     VClock
   },
   methods: {
-    clockend(res){
+    clockEnd (time) {
+      getApp().globalData.time = time;
+    },
+    endCount (res){
       this.$refs.clock.end();
     },
     changeCollectStatus () {
@@ -130,7 +133,7 @@ export default {
       immediate: true,
       handler (val) {
         if (val) {
-          this.clockend();
+          this.endCount();
         }
       }
     }
