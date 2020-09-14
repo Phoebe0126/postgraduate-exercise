@@ -16,11 +16,17 @@
             <view class="tab-content">
                 <!-- 解析 -->
                 <view v-if="current === 0" class="tips">
-                   <user-rank></user-rank>
+                   <user-rank
+                    :list="maxQuesRankList"
+                    :isNum="true"
+                   ></user-rank>
                 </view>
                 <!-- 笔记 -->
                 <view v-else>
-                  111
+                    <user-rank
+                        :list="maxDaysRankList"
+                        :isNum="false"
+                   ></user-rank>
                 </view>
             </view>
         </view>
@@ -88,18 +94,9 @@ export default {
 
 .rank-wrapper {
     .tabs-block {
-        .u-tabs {
-            .selected-border:before {
-                content : "";
-                position: absolute;
-                bottom: 0;
-                height: 0;
-                width: 80%;
-                border-bottom: 5rpx solid #c9a2a2;
-            }
-        }
-        margin-top: 20rpx;
-        .tab-content {
+       
+        .tabs {
+            margin-top: 20rpx;
         }
     }
 }
