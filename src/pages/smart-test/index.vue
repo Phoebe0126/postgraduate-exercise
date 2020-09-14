@@ -122,7 +122,8 @@ export default {
             noteInfo: null,
             showDetail: false,
             isWrong: [],
-            time: ''
+            time: '',
+            isCorrect: false
         }
     },
     onLoad (query) {
@@ -141,11 +142,11 @@ export default {
             });
         })
     },
-    onShow() {
+    onShow () {
 
         if (getApp().globalData.index !== undefined) {
-            this.index = getApp().globalData.index;
-            getApp().globalData.index = undefined;
+            this.changeIndex(getApp().globalData.index);
+            this.confirmAnswer();
         }
         uni.hideLoading();
         // 笔记编辑页返回请求笔记
@@ -228,7 +229,7 @@ export default {
                     this.getNote();
                 }
             } else {
-                if (Array.isArray( this.choosedAnswers[this.index])) {
+                if (Array.isArray(this.choosedAnswers[this.index])) {
                     this.choosedAnswers[this.index].forEach(val => {
                         const index = val.charCodeAt(0) - 'A'.charCodeAt(0);
                         this.changeOption(index);

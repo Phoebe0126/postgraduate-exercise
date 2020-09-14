@@ -1,5 +1,5 @@
 <template>
-	<view class="content" v-if="isRequestComplete">
+	<view class="content">
 		<!-- 公告栏 -->
 		<view class="notice-wrapper">
 			<uni-notice-bar 
@@ -9,7 +9,7 @@
 				:text="notice"
 				background-color="#9f8080"
 				showIcon="true"
-				speed=50
+				:speed="30"
 				color="#fff"
 			>
 			</uni-notice-bar>
@@ -74,7 +74,7 @@
 </template>
  
 <script>
-import { getUserOpenId, getOpenId, getUserShortInfo, saveUserShortInfo, getUserAllInfo } from '../../api/user.js';
+import { getUserOpenId, getOpenId, getUserShortInfo, saveUserShortInfo, getUserAllInfo, getRankList } from '../../api/user.js';
 import { QUESTION_NAVBAR_TITLE } from '../../consts/const';
 import { getNotice } from '../../api/notice.js';
 import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar/uni-notice-bar.vue';
@@ -316,11 +316,9 @@ export default {
 			uni.showLoading({
 				title: '加载中'
 			});
-			console.log('点击成功');
 			uni.navigateTo({
 				url: '../rank/index'
 			});
-
 		}
 	}
 }

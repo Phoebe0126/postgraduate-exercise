@@ -1,120 +1,114 @@
-<!--
- * @Author: your name
- * @Date: 2020-09-11 19:32:51
- * @LastEditTime: 2020-09-14 09:21:31
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \postgraduate\src\pages\rank\index.vue
--->
 <template>
-<view class="rank-wrapper">
-    <!-- 导航栏 -->
-    <view class="nav">
-
-    </view>
-
-    <!-- 用户列表 -->
-    <view class="user-list">
-        <view class="userinfo" >
-            <view class="ranking">
-                1
+	<view class="rank-wrapper">  
+        <view class="tabs-block">
+           <!-- 选择项 -->
+            <view class="tabs">
+                <uni-segmented-control
+                    :current="current"
+                    :values="TabTitles"
+                    active-color="#c9a2a2"
+                    @clickItem="change"
+                    style-type="text"
+                    class="u-tabs"
+                ></uni-segmented-control>
             </view>
-            <view class="avatar">
-                <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132" mode="aspectFill">
-                 <!-- <image src="avatarUrl" mode="aspectFill"  />  -->
-            </view>
-            <view class="info">
-                <text class="nickname">小陈小陈早点睡觉小陈小陈早点睡觉</text>
-                <text class="number">58542题</text>
+            <!-- 显示的内容 -->
+            <view class="tab-content">
+                <!-- 解析 -->
+                <view v-if="current === 0" class="tips">
+                   <user-rank
+                    :list="maxQuesRankList"
+                    :isNum="true"
+                   ></user-rank>
+                </view>
+                <!-- 笔记 -->
+                <view v-else>
+                    <user-rank
+                        :list="maxDaysRankList"
+                        :isNum="false"
+                   ></user-rank>
+                </view>
             </view>
         </view>
-
-    </view>
-
-</view>
+	</view>
 </template>
 
 <script>
+import { getRankList } from '../../api/user';
+import  { UserRank } from '@/components/user-rank';
+import { uniSegmentedControl } from "@/components/uni-segmented-control";
+
 export default {
-    
-}
+    components: {
+        UserRank,
+        uniSegmentedControl
+    },
+    data() {
+        return {
+            TabTitles: ['刷题数量', '坚持天数'],
+            // 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
+            current: 0, // tabs组件的current值，表示当前活动的tab选项
+            maxQuesRankList: [],
+            maxDaysRankList: [],
+            personalData: {}
+        };
+    },
+    onLoad () {
+        this.getRankList();
+    },
+    onShow () {
+        uni.hideLoading();
+    },
+    methods: {
+        // 获取刷题数量和坚持天数前20
+        getRankList () {
+            getRankList({
+                openID: getApp().globalData.openID
+            })
+            .then(res => {
+                if (res.code === 0) {
+                    console.log(res)
+                    const data = res.data;
+                    this.maxQuesRankList = data.rankNum;
+                    this.maxDaysRankList = data.rankDays;
+                    this.personalData = data.mine;
+                }
+            })
+            .catch(err => {
+                uni.showToast({
+                    title: err,
+                    icon: 'none'
+                });
+            })
+        },
+        // tabs通知swiper切换
+        change() {
+            this.current = 1 - this.current;
+            console.log(this.current);
+        },
+    }
+};
 </script>
 
 <style lang="scss" scoped>
 
-.nav {
-    width: 100%;
-    height: 100rpx;
-    background-color: palegoldenrod;
-}
-
-.userinfo{
-    width: 100%;
-    height: 150rpx; 
-    //background: rgb(167, 67, 67);
-    border-style: solid;
-    border-width: 1px 0;
-    border-color: #f0f0f0;
-    display: flex;
-    align-items: center;
-
-    .ranking{
-        //float: left;
-        fnot-size:28rpx;
-        font-color:black;
-        margin-left: 30rpx;
-
-    }
-
-    .avatar {
-        float:left;
-        width: 80rpx;
-        height: 80rpx; 
-        overflow: hidden;
-        // background-color: rgb(169, 111, 111);
-        margin-left: 40rpx; 
-        position: relative;
-        border-radius: 50%;
-
+.rank-wrapper {
+    .tabs-block {
        
-        image {
-            width: 100%;
-            height: 100%;
-        }
-        // uni-icons {
-        //     width: 80rpx; 
-        //     height: 80rpx;
-        //     position: absolute;
-        //     left: 10rpx; 
-        //     top: 5rpx;
-        // }
-    }
-    .info {
-        float:left;
-        margin-left: 30rpx; 
-        width: 540rpx; 
-        .nickname {
-            float:left;
-            color: black;
-            width:340rpx;
-            font-size: 36rpx;
-            line-height: 60rpx;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-
-        }
-        .number {
-            float:right;
-            color: #000000;
-            font-size: 36rpx; 
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            margin-right: 20rpx;
+        .tabs {
+            margin-top: 20rpx;
         }
     }
-
 }
-
 </style>
+
+
+
+
+
+
+
+
+
+
+
