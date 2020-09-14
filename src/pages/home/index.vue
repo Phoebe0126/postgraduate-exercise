@@ -115,7 +115,6 @@ export default {
 		// 获取公告栏内容
 		getNotice(){
 			getNotice().then(res => {
-				console.log(res);
                 if (res.code === 0) {
                     this.notice = res.data.content;
                 }else{

@@ -121,10 +121,11 @@ export default {
             tabs: TABS_TITLE,
             noteInfo: null,
             showDetail: false,
-            isWrong: []
+            isWrong: [],
+            time: ''
         }
     },
-    onLoad () {
+    onLoad (query) {
         getSimulation()
         .then(res => {
             if (res.code === 0) {
@@ -141,6 +142,11 @@ export default {
         })
     },
     onShow() {
+
+        if (getApp().globalData.index !== undefined) {
+            this.index = getApp().globalData.index;
+            getApp().globalData.index = undefined;
+        }
         uni.hideLoading();
         // 笔记编辑页返回请求笔记
         if (this.questions.length !== 0 && this.current === 1) {
@@ -283,7 +289,7 @@ export default {
 
             // 判断答案是否正确
             const correctAnswer = this.questions[this.index].answer;
-            console.log(this.choosedAnswers, this.index);
+
             // 判断正误
             this.isCorrect = this.choosedAnswers[this.index].sort().join('') === correctAnswer ? true : false;
 
@@ -308,25 +314,9 @@ export default {
             if (firstDone) {
                 this.setQuestionsDone();
                 uni.navigateTo({
-                     url: './result'
-                });
+                    url: `./result?`
+                })
             }
-        },
-
-        // 计算分数
-        calculateScore(){
-            let score = 0;
-            for(let i=0;i<this.isWrong.length;i++){
-                if(i<16 && !this.isWrong[i]){
-                    score = score + 1;
-                }else if(!this.isWrong[i]){
-                    score = score + 2;
-                }
-            }
-            uni.showToast({
-                title: '你的分数是' + score +'分',
-                icon: 'none'
-            })
         },
 
         // 提交用户答题情况
@@ -341,7 +331,6 @@ export default {
                 const userAnswer = this.choosedAnswers[index].sort().join('');
                 return !userAnswer ? 0 : val.answer === userAnswer ? 1 : 2;
             } )
-            this.calculateScore();
 
             const params = {
                 openID: getApp().globalData.openID,
@@ -402,12 +391,16 @@ export default {
                 confirmColor: '#000',
                 success: function(res) {
                     if (res.confirm){
-                        that.isConfirm = true;
                         that.choosedAnswers.splice(that.index, 1, that.userAnswer);
-                        that.confirmAnswer(true);
+                        that.submitAnswer();
                     }
                 }
             })
+        },
+        // 提交答案
+        submitAnswer () {
+            this.isConfirm = true;
+            this.confirmAnswer(true);
         }      
     }
 }

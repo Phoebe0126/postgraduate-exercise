@@ -134,7 +134,7 @@ export default {
                 id: query.id
             })
             .then(res => {
-                console.log(res)
+
                 if (res.code === 0) {
                     this.questions = res.data;
                     // 获取笔记
@@ -186,7 +186,6 @@ export default {
     methods: {
         // 获取章节题目
         getChapterQuestions (subject, chapterNumber) {
-            console.log(subject, chapterNumber)
             getChapterQuestions({
                 subject,
                 chapterNumber
@@ -279,7 +278,7 @@ export default {
                 openID: getApp().globalData.openID
             })
             .then(res => {
-                console.log(res)
+
                 if (res.code === 0) {
                     this.questions = res.data;
                     this.questionReady = true;
@@ -385,7 +384,9 @@ export default {
                         title: '出错了，请重试~',
                         icon: 'none'
                     });
+                    return;
                 }
+                this.questions[this.index].correctRate = res.data.correctRate;
             })
         },
         // 做对
@@ -397,7 +398,9 @@ export default {
                         title: '出错了，请重试~',
                         icon: 'none'
                     });
+                    return;
                 }
+                this.questions[this.index].correctRate = res.data.correctRate;
             })
         },
         // 切换tab

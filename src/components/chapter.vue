@@ -42,7 +42,6 @@ export default {
     },
     methods: {
         naviToProblemPage () {
-            console.log(111)
             this.$emit('naviToProblemPage', this.chapterNum);
         },
         naviToQuesPage () {
