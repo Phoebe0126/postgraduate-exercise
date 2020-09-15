@@ -50,19 +50,10 @@ export function saveUserAllInfo (params) {
     })
 }
 
-// 获取刷题数量的前20名用户
-export function getMaxQuesRank (data) {
-    return request(`${BASE_URL}/maxQuesRank`, {
+// 坚持天数最多的20名用户和刷题数量最多的20名用户
+export function getRankList (data) {
+    return request(`${BASE_URL}/getRank`, {
         method: 'POST',
         data
     })
 }
-
-// 获取坚持天数最多的20名用户 
-export function getMaxDaysRank (data) {
-    return request(`${BASE_URL}/maxDaysRank`, {
-        method: 'POST',
-        data
-    })
-}
-

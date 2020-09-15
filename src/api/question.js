@@ -55,7 +55,6 @@ export function getOneQuestion (data) {
     })
 }
 
-
 //新增一道题目
 export function createOneQuestion(data) {
     return request(`${BASE_URL}/createOneQuestion`, {

@@ -1,41 +1,67 @@
 <template>
     <view class="user-list">
-    <view class="userinfo" >
+    <view class="userinfo" v-for="(item, index) in list" :key="index">
         <view class="ranking">
-            1
+            <i class="iconfont" v-if="index < 3">&#xe78a;</i>
+            {{ index + 1 }}
         </view>
         <view class="avatar">
-            <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132" mode="aspectFill">
+             <uni-icons v-if="!item.avatar" type="person" color="#fff" size="22" />
+            <image :src="item.avatar" mode="aspectFill" v-else>
         </view>
         <view class="info">
-            <text class="nickname">小陈小陈早点睡觉小陈小陈早点睡觉</text>
-            <text class="number">58542题</text>
+            <text class="nickname">{{ item.nickname }}</text>
+            <text class="number" v-if="isNum">{{ item.doneQuesNum }}题</text>
+            <text class="number" v-else>{{ item.daysOfPersistence }}天</text>
         </view>
     </view>
 </view>
 </template>
 
 <script>
+import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
+
 export default {
-    
+    props: {
+        list: {
+            type: Array,
+            default: []
+        },
+        isNum: {
+            type: Boolean,
+            default: true
+        }
+    },
+    components: {
+        uniIcons
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .user-list {
+    &:first-child {
+        border-top: 1px solid #f0f0f0;
+    }
     .userinfo{
         width: 100%;
-        height: 150rpx; 
+        height: 120rpx; 
         border-bottom: 1px solid #f0f0f0;
         display: flex;
         align-items: center;
 
         .ranking{
-            //float: left;
             font-size:28rpx;
             color:black;
             margin-left: 30rpx;
-
+            position: relative;
+            .iconfont {
+                font-size: 30rpx;
+                position: absolute;
+                left: 50%;
+                top: 60%;
+                transform: translate(-50%, -50%);
+            }
         }
 
         .avatar {
@@ -62,7 +88,7 @@ export default {
                 float:left;
                 color: black;
                 width:340rpx;
-                font-size: 36rpx;
+                font-size: 30rpx;
                 line-height: 60rpx;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -72,7 +98,7 @@ export default {
             .number {
                 float:right;
                 color: #000000;
-                font-size: 36rpx; 
+                font-size: 30rpx; 
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
