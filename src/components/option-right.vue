@@ -37,10 +37,8 @@ export default {
           openID: getApp().globalData.openID,
           id: this.quesId
       };
-      // 取反
-      this.isCollected = !this.isCollected;
 
-      if (this.isCollected) {
+      if (!this.isCollected) {
           // 收藏
           collect(params)
           .then(res => {
@@ -55,7 +53,7 @@ export default {
           })
           .catch(err => {
               uni.showToast({
-                  title: err,
+                  title: err.errMsg,
                   icon: 'none'
               });
           })
@@ -74,7 +72,7 @@ export default {
           })
           .catch(err => {
               uni.showToast({
-                  title: err,
+                  title: err.errMsg,
                   icon: 'none'
               });
           })
@@ -167,9 +165,11 @@ export default {
         display: flex;
         .alone-tick{
             background: #c9a2a2;
-            padding-left: 15rpx;
-            padding-right: 15rpx;
             margin-right: 20rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5rpx 10rpx;
         }
         .right-rate{
             background: #a3c1a3;

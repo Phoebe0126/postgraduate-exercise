@@ -150,7 +150,7 @@ export default {
             })
             .catch(err => {
                  uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -206,7 +206,7 @@ export default {
             })
             .catch(err => {
                  uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -271,7 +271,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -298,7 +298,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -437,7 +437,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })    
@@ -493,6 +493,7 @@ export default {
         margin-top: 20rpx;
         .tab-content {
             padding: 10rpx;
+            min-height: 250rpx;
             // 解析
             .tips {
                 padding: 0 20rpx;

@@ -44,14 +44,14 @@ export default {
           }, 1000);
         } else {
           uni.showToast({
-            title: err,
+            title: err.errMsg,
             icon: 'none'
           });
         }
       })
       .catch(err => {
          uni.showToast({
-            title: err,
+            title: err.errMsg,
             icon: 'none'
          });
       })

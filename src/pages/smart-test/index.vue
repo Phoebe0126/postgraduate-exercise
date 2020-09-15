@@ -143,7 +143,7 @@ export default {
         })
         .catch(err => {
             uni.showToast({
-                title: err,
+                title: err.errMsg,
                 icon: 'none'
             });
         })
@@ -153,6 +153,7 @@ export default {
         if (getApp().globalData.index !== undefined) {
             this.changeIndex(getApp().globalData.index);
             this.confirmAnswer();
+            getApp().globalData.index = undefined;
         }
         uni.hideLoading();
         // 笔记编辑页返回请求笔记
@@ -356,7 +357,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })
@@ -389,7 +390,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })    
@@ -456,6 +457,7 @@ export default {
     }
     .tabs-block {
         margin-top: 20rpx;
+        min-height: 250rpx;
         .tab-content {
             padding: 10rpx;
             // 解析

@@ -107,7 +107,7 @@ export default {
  .note {
     font-size: 30rpx;
     &-default {
-        padding: 20rpx 0;
+        padding: 40rpx 0;
         color: #a7a7a7;
         text-align: center;
     }
