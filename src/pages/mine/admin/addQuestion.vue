@@ -169,6 +169,24 @@ export default {
                 });
                 return;
             }
+            if(this.type == 1 && !['A', 'B', 'C', 'D'].includes(this.answer)){
+                uni.showToast({
+                    title: '答案只能为A, B, C, D',
+                    icon: 'none'
+                });
+                return;
+            }
+            if(this.type == 2){
+                for(let i = 0; i < this.answer.length; i++){
+                    if(!['A', 'B', 'C', 'D'].includes(this.answer[i])){
+                        uni.showToast({
+                            title: '答案中只能出现A, B, C, D',
+                            icon: 'none'
+                        });
+                        return;
+                    }
+                }
+            }
             let that = this;
             let tmp = that.chapterItems[that.selectedChapter - 1].item;
             createOneQuestion({
