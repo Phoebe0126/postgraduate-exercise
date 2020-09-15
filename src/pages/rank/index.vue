@@ -1,31 +1,33 @@
 <template>
-	<view>
-	<view class="rank-wrapper">  
-        <view class="tabs-block">
-           <!-- 选择项 -->
-            <view class="tabs">
-                <uni-segmented-control
-                    :current="current"
-                    :values="TabTitles"
-                    active-color="#c9a2a2"
-                    @clickItem="change"
-                    style-type="text"
-                    class="u-tabs"
-                ></uni-segmented-control>
-            </view>
-            <!-- 显示的内容 -->
-            <view class="tab-content">
-                <view>
-                    <user-rank
-                        :list="current === 0 ? maxQuesRankList : maxDaysRankList"
-                        :current="current"
-                   ></user-rank>
+    <view>
+        <touch-swiper @swiperaction="handleSwiperAction">
+            <view class="rank-wrapper">  
+                <view class="tabs-block">
+                <!-- 选择项 -->
+                    <view class="tabs">
+                        <uni-segmented-control
+                            :current="current"
+                            :values="TabTitles"
+                            active-color="#c9a2a2"
+                            @clickItem="change"
+                            style-type="text"
+                            class="u-tabs"
+                        ></uni-segmented-control>
+                    </view>
+                    <!-- 显示的内容 -->
+                        <view class="tab-content">
+                            <view>
+                                <user-rank
+                                    :list="current === 0 ? maxQuesRankList : maxDaysRankList"
+                                    :current="current"
+                                ></user-rank>
+                            </view>
+                        </view>
+                    <encourage :current="current" :num="current === 0 ? personalData.doneQuesNum : personalData.daysOfPersistence"></encourage>
                 </view>
             </view>
-            <encourage :current="current" :num="current === 0 ? personalData.doneQuesNum : personalData.daysOfPersistence"></encourage>
-        </view>
-	</view>
-	</view>
+        </touch-swiper>
+    </view>
 </template>
 
 <script>
@@ -33,12 +35,14 @@ import { getRankList } from '../../api/user';
 import  { UserRank } from '@/components/user-rank';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import Encourage from "@/components/encourage";
+import touchSwiper from "@/components/touchSwiper";
 
 export default {
     components: {
         UserRank,
         uniSegmentedControl,
-        Encourage
+        Encourage,
+        touchSwiper
     },
     data() {
         return {
@@ -83,6 +87,14 @@ export default {
         change() {
             this.current = 1 - this.current;
         },
+        handleSwiperAction ({direction}) {
+            console.log(direction)
+            if (direction === 'left' && this.current === 1) {
+               this.current = 0;
+            } else if (direction === 'right' && this.current === 0) {
+               this.current = 1;
+            }
+        }
     }
 };
 </script>
@@ -91,6 +103,7 @@ export default {
 
 .rank-wrapper {
     padding-bottom: 100rpx;
+    min-height: 100vh;
     .tabs-block {
         .tabs {
             margin-top: 20rpx;
