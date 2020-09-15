@@ -1,6 +1,6 @@
 import request from './common/request';
 
-const BASE_URL = 'http://49.234.89.20:3000/ques';
+const BASE_URL = 'https://www.jessi.club:8000/ques';
 
 // 获取随机题目
 export function getRandomQuestions () {

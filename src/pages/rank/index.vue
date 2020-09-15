@@ -1,4 +1,5 @@
 <template>
+	<view>
 	<view class="rank-wrapper">  
         <view class="tabs-block">
            <!-- 选择项 -->
@@ -14,22 +15,16 @@
             </view>
             <!-- 显示的内容 -->
             <view class="tab-content">
-                <!-- 解析 -->
-                <view v-if="current === 0" class="tips">
-                   <user-rank
-                    :list="maxQuesRankList"
-                    :isNum="true"
-                   ></user-rank>
-                </view>
-                <!-- 笔记 -->
-                <view v-else>
+                <view>
                     <user-rank
-                        :list="maxDaysRankList"
-                        :isNum="false"
+                        :list="current === 0 ? maxQuesRankList : maxDaysRankList"
+                        :current="current"
                    ></user-rank>
                 </view>
             </view>
+            <encourage :current="current" :num="current === 0 ? personalData.doneQuesNum : personalData.daysOfPersistence"></encourage>
         </view>
+	</view>
 	</view>
 </template>
 
@@ -37,11 +32,13 @@
 import { getRankList } from '../../api/user';
 import  { UserRank } from '@/components/user-rank';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
+import Encourage from "@/components/encourage";
 
 export default {
     components: {
         UserRank,
-        uniSegmentedControl
+        uniSegmentedControl,
+        Encourage
     },
     data() {
         return {
@@ -50,7 +47,8 @@ export default {
             current: 0, // tabs组件的current值，表示当前活动的tab选项
             maxQuesRankList: [],
             maxDaysRankList: [],
-            personalData: {}
+            personalData: {},
+            rankList: []
         };
     },
     onLoad () {
@@ -81,10 +79,9 @@ export default {
                 });
             })
         },
-        // tabs通知swiper切换
+        // tabs切换
         change() {
             this.current = 1 - this.current;
-            console.log(this.current);
         },
     }
 };
@@ -93,22 +90,11 @@ export default {
 <style lang="scss" scoped>
 
 .rank-wrapper {
+    padding-bottom: 100rpx;
     .tabs-block {
-       
         .tabs {
             margin-top: 20rpx;
         }
     }
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
