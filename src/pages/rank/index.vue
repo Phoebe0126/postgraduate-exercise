@@ -1,4 +1,41 @@
 <template>
+	<view>
+		<view>
+			<u-tabs-swiper ref="uTabs" :list="TabTitles" active-color="#c9a2a2" :current="current" @change="tabsChange" :is-scroll="false"
+			 swiperWidth="750"></u-tabs-swiper>
+		</view>
+		<swiper :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
+			<swiper-item class="swiper-item">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+					<!-- 用户列表 -->
+                    <view class="user-list">
+                        <view class="userinfo" >
+                            <view class="ranking">
+                                1
+                            </view>
+                            <view class="avatar">
+                                <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8qgfY0NLmIwedj9uDt28tUpIsadMjbQwC2IhQBgzphWY83CWiaaxteQ4XR07kvicvrUibkFdaQqBzLg/132" mode="aspectFill">
+                            </view>
+                            <view class="info">
+                                <text class="nickname">小陈小陈早点睡觉小陈小陈早点睡觉</text>
+                                <text class="number">58542题</text>
+                            </view>
+                        </view>
+                    </view>
+				</scroll-view>
+			</swiper-item>
+            <swiper-item class="swiper-item">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
+					2
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+        <view v-if="current === 0">
+            <encourage></encourage>
+        </view>
+        <view v-else>
+            <encourage></encourage>
+        </view>
 	<view class="rank-wrapper">  
         <view class="tabs-block">
            <!-- 选择项 -->
@@ -30,6 +67,7 @@
                 </view>
             </view>
         </view>
+	</view>
 	</view>
 </template>
 
@@ -101,14 +139,3 @@ export default {
     }
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
