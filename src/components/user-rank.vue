@@ -2,16 +2,16 @@
     <view class="user-list">
     <view class="userinfo" v-for="(item, index) in list" :key="index">
         <view class="ranking">
-            <i class="iconfont" v-if="index < 3">&#xe78a;</i>
-            {{ index + 1 }}
+            <i class="iconfont" v-if="index < 3" :class="color[index]">&#xe78a;</i>
+            <text :class="index < 3 && color[index]">{{ index + 1 }}</text>
         </view>
         <view class="avatar">
-             <uni-icons v-if="!item.avatar" type="person" color="#fff" size="22" />
+            <uni-icons  class="default-person" v-if="!item.avatar" type="person" color="#fff" size="22" />
             <image :src="item.avatar" mode="aspectFill" v-else>
         </view>
         <view class="info">
             <text class="nickname">{{ item.nickname }}</text>
-            <text class="number" v-if="isNum">{{ item.doneQuesNum }}题</text>
+            <text class="number" v-if="current === 0">{{ item.doneQuesNum }}题</text>
             <text class="number" v-else>{{ item.daysOfPersistence }}天</text>
         </view>
     </view>
@@ -20,6 +20,7 @@
 
 <script>
 import uniIcons from '@/components/uni-notice-bar/uni-icons/uni-icons.vue';
+import { COLOR_MEDAL } from '../consts/const';
 
 export default {
     props: {
@@ -27,18 +28,25 @@ export default {
             type: Array,
             default: []
         },
-        isNum: {
-            type: Boolean,
-            default: true
+        current: {
+            type: Number,
+            default: 0
         }
     },
     components: {
         uniIcons
+    },
+    data () {
+        return {
+            color: COLOR_MEDAL
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "../uni.scss";
+
 .user-list {
     &:first-child {
         border-top: 1px solid #f0f0f0;
@@ -51,16 +59,24 @@ export default {
         align-items: center;
 
         .ranking{
-            font-size:28rpx;
+            font-size: 26rpx;
             color:black;
             margin-left: 30rpx;
             position: relative;
             .iconfont {
-                font-size: 30rpx;
                 position: absolute;
                 left: 50%;
                 top: 60%;
                 transform: translate(-50%, -50%);
+            }
+            .color-gold {
+                color: $uni-color-gold;
+            }
+            .color-silver {
+                color: $uni-color-silver;
+            }
+            .color-copper {
+                color: $uni-color-copper;
             }
         }
 
@@ -69,11 +85,16 @@ export default {
             width: 80rpx;
             height: 80rpx; 
             overflow: hidden;
-            // background-color: rgb(169, 111, 111);
+            background-color: #dccbcb;
             margin-left: 40rpx; 
             position: relative;
             border-radius: 50%;
-
+            .default-person {
+               position: absolute;
+               left: 50%;
+               top: 50%;
+               transform: translate(-50%, -50%);
+            }
         
             image {
                 width: 100%;
