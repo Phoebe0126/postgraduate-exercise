@@ -40,7 +40,8 @@
                 <button :class="['next-btn', 'btn']" @click="confirmSubmit" v-show="!isConfirm && index === questions.length - 1" >完成</button>
             </view> 
         
-    
+            <!-- 线条 -->
+            <view class="line"  v-show="isConfirm"></view>
             <view class="tabs-block" v-if="isConfirm">
                 <!-- 选择项 -->
                 <view class="tabs">
@@ -446,6 +447,12 @@ export default {
     }
     .btn::after{
         border: none;
+    }
+    .line {
+        width: 100%;
+        box-sizing: border-box;
+        height: 10rpx;
+        background: #eee;
     }
     .tabs-block {
         margin-top: 20rpx;

@@ -76,7 +76,12 @@ export default {
                     this.items[3].val = (res.data.motto == null || res.data.motto == '') ?'未设置': res.data.motto;
                     this.items[4].val = res.data.goal == null ? 0: res.data.goal;
                 }
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icone: 'none'
+                });
+            })
         },
         saveUserInfo() {
             //昵称为空
@@ -111,7 +116,12 @@ export default {
                     icon: 'none'
                 })
                 // }
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                uni.showToast({
+                    title: err,
+                    icone: 'none'
+                })
+            })
         },
         chooseAvatar() {
             let that = this;

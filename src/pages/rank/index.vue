@@ -69,11 +69,15 @@ export default {
             })
             .then(res => {
                 if (res.code === 0) {
-                    console.log(res)
                     const data = res.data;
                     this.maxQuesRankList = data.rankNum;
                     this.maxDaysRankList = data.rankDays;
                     this.personalData = data.mine;
+                } else {
+                    uni.showToast({
+                        title: '暂无排行数据~',
+                        icon: 'none'
+                    });
                 }
             })
             .catch(err => {
@@ -88,7 +92,6 @@ export default {
             this.current = 1 - this.current;
         },
         handleSwiperAction ({direction}) {
-            console.log(direction)
             if (direction === 'left' && this.current === 1) {
                this.change();
             } else if (direction === 'right' && this.current === 0) {
