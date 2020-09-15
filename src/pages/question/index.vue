@@ -219,7 +219,7 @@ export default {
                 let char = String.fromCharCode('A'.charCodeAt(0) + i);
                 arr.push({
                     letter: char,
-                    text: this.questions[this.index][char].split('.')[1]
+                    text: this.questions[this.index][char]
                 })
             }
             this.options = arr;
