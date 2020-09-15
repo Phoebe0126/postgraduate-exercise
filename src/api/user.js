@@ -1,6 +1,6 @@
 import request from './common/request';
 
-const BASE_URL = 'http://49.234.89.20:3000/user';
+const BASE_URL = 'https://www.jessi.club:8000/user';
 
 // 获取用户的openId
 export function getUserOpenId (params) {

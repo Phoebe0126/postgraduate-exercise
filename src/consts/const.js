@@ -52,6 +52,8 @@ const ADMIN_LISTS = [
   {id: 2, class: 'add-question', content: '添加题目', color: '#9F8080', navToFunc: 'navToAddQuestion'}
 ];
 
+const COLOR_MEDAL = ['color-gold', 'color-silver', 'color-copper'];
+
 export {
   SUBJECT_COLOR,
   BORDER_COLOR,
@@ -65,5 +67,6 @@ export {
   SUBJECT_NAVBAR_COLOR,
   MINE_LISTS,
   MINE_LISTS_ADMIN,
-  ADMIN_LISTS
+  ADMIN_LISTS,
+  COLOR_MEDAL
 };

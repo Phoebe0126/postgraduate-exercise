@@ -1,6 +1,6 @@
 import request from './common/request';
 
-const BASE_URL = 'http://49.234.89.20:3000/record';
+const BASE_URL = 'https://www.jessi.club:8000/record';
 
 // 获取各科目的用户信息
 export function getTotalProgress (data) {

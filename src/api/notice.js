@@ -1,6 +1,6 @@
 import request from './common/request';
 
-const BASE_URL = 'http://49.234.89.20:3000/notice';
+const BASE_URL = 'https://www.jessi.club:8000/notice';
 
 // 修改公告栏的内容
 export function saveNotice (data) {
