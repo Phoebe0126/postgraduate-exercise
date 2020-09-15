@@ -53,17 +53,20 @@
                     ></uni-segmented-control>
                 </view>
                 <!-- 显示的内容 -->
-                <view class="tab-content" v-if="questions.length > 0">
-                    <!-- 解析 -->
-                    <view v-if="current === 0" class="tips">
-                        <view class="title">解析</view>
-                        <view class="tip">{{ questions[index].tip }}</view>
-                    </view>
-                    <!-- 笔记 -->
-                    <view v-else>
-                    <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
-                    </view>
-                </view>
+                <touch-swiper @swiperaction="handleSwiperAction">
+                        <view class="tab-content" v-if="questions.length > 0">
+                            <!-- 解析 -->
+                            <view v-if="current === 0" class="tips">
+                                <view class="title">解析</view>
+                                <view class="tip">{{ questions[index].tip }}</view>
+                            </view>
+                            <!-- 笔记 -->
+                            <view v-else>
+                            <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
+                            </view>
+                        </view>
+                </touch-swiper>
+               
             </view>
             <!-- 答题卡 -->
             <answer-sheet
@@ -93,6 +96,7 @@ import { setMarkDone, setMarkFaulty, saveSimulationResult } from '../../api/reco
 import { getNote } from '../../api/note';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import AnswerSheet from '@/components/answer-sheet';
+import touchSwiper from '@/components/touchSwiper';
 
 export default {
     components: {
@@ -103,7 +107,8 @@ export default {
         VOption,
         Answer,
         uniSegmentedControl,
-        AnswerSheet
+        AnswerSheet,
+        touchSwiper
     },
     data () {
         return {
@@ -359,6 +364,13 @@ export default {
             this.current = this.current === 0 ? 1 : 0;
             if (this.current === 1) {
                 this.getNote();
+            }
+        },
+        handleSwiperAction ({direction}) {
+            if (direction === 'left' && this.current === 1) {
+               this.changeTab();
+            } else if (direction === 'right' && this.current === 0) {
+               this.changeTab();
             }
         },
         // 获取用户的笔记

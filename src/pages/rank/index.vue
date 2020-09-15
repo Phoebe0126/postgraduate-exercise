@@ -90,9 +90,9 @@ export default {
         handleSwiperAction ({direction}) {
             console.log(direction)
             if (direction === 'left' && this.current === 1) {
-               this.current = 0;
+               this.change();
             } else if (direction === 'right' && this.current === 0) {
-               this.current = 1;
+               this.change();
             }
         }
     }
