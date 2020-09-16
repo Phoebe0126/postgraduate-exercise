@@ -58,9 +58,6 @@ export default {
     onLoad () {
         this.getRankList();
     },
-    onShow () {
-        uni.hideLoading();
-    },
     methods: {
         // 获取刷题数量和坚持天数前20
         getRankList () {
@@ -69,6 +66,7 @@ export default {
             })
             .then(res => {
                 if (res.code === 0) {
+                    uni.hideLoading();
                     const data = res.data;
                     this.maxQuesRankList = data.rankNum;
                     this.maxDaysRankList = data.rankDays;
@@ -81,6 +79,7 @@ export default {
                 }
             })
             .catch(err => {
+                uni.hideLoading();
                 uni.showToast({
                     title: err.errMsg,
                     icon: 'none'

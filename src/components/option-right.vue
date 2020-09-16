@@ -175,6 +175,9 @@ export default {
             background: #a3c1a3;
             padding-left: 15rpx;
             padding-right: 15rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .clock-block {
           display: flex;

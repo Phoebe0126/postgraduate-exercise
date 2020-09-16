@@ -74,7 +74,7 @@ export default {
       height: 300rpx;
       background: #eee;
       border-radius: 5rpx;
-      padding: 5rpx;
+      padding: 20rpx;
       width: 92%;
   }
   .tip {
