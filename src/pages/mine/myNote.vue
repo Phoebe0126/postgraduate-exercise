@@ -27,7 +27,7 @@ export default {
         subjectSelectBox,
         myNoteList
     },
-    onLoad() {
+    onShow() {
         this.getMyNoteBySubject();
     },
     methods: {
