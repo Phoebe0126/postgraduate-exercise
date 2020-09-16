@@ -5,9 +5,13 @@
             <i class="iconfont" v-if="index < 3" :class="color[index]">&#xe78a;</i>
             <text :class="index < 3 && color[index]">{{ index + 1 }}</text>
         </view>
+        <view>
+            
         <view class="avatar">
             <uni-icons  class="default-person" v-if="!item.avatar" type="person" color="#fff" size="22" />
             <image :src="item.avatar" mode="aspectFill" v-else>
+            <i class="iconfont crown" >&#xec3b;</i>
+        </view>
         </view>
         <view class="info">
             <text class="nickname">{{ item.nickname }}</text>
@@ -84,11 +88,22 @@ export default {
             float:left;
             width: 80rpx;
             height: 80rpx; 
-            overflow: hidden;
+            // overflow: hidden;
             background-color: #dccbcb;
             margin-left: 40rpx; 
             position: relative;
             border-radius: 50%;
+
+            .crown {
+                position: absolute;
+                // display: ;
+                right: -23rpx;
+                top: -15rpx;
+                color:#efb336;
+                font-size: 40rpx;
+                transform: rotate(54deg);
+            }
+
             .default-person {
                position: absolute;
                left: 50%;
@@ -99,6 +114,7 @@ export default {
             image {
                 width: 100%;
                 height: 100%;
+                border-radius: 50%;
             }
         }
         .info {

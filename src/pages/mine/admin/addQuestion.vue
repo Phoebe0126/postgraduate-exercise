@@ -135,7 +135,7 @@ export default {
                 that.selectedChapter = that.chapterItems[0].index;
             }).catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 })
             })
@@ -208,7 +208,7 @@ export default {
                 });
             }).catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })

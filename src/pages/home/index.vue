@@ -178,7 +178,7 @@ export default {
 				uni.hideLoading();
 				this.isRequestComplete = true;
 				uni.showToast({
-					title: err,
+					title: err.errMsg,
 					icon: 'none'
 				});
 			})
@@ -223,7 +223,7 @@ export default {
 				},
 				fail (err) {
 					uni.showToast({
-						title: err,
+						title: err.errMsg,
 						icon: 'none'
 					});
 				}

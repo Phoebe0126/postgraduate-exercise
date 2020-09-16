@@ -40,7 +40,8 @@
                 <button :class="['next-btn', 'btn']" @click="confirmSubmit" v-show="!isConfirm && index === questions.length - 1" >完成</button>
             </view> 
         
-    
+            <!-- 线条 -->
+            <view class="line"  v-show="isConfirm"></view>
             <view class="tabs-block" v-if="isConfirm">
                 <!-- 选择项 -->
                 <view class="tabs">
@@ -53,17 +54,20 @@
                     ></uni-segmented-control>
                 </view>
                 <!-- 显示的内容 -->
-                <view class="tab-content" v-if="questions.length > 0">
-                    <!-- 解析 -->
-                    <view v-if="current === 0" class="tips">
-                        <view class="title">解析</view>
-                        <view class="tip">{{ questions[index].tip }}</view>
-                    </view>
-                    <!-- 笔记 -->
-                    <view v-else>
-                    <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
-                    </view>
-                </view>
+                <touch-swiper @swiperaction="handleSwiperAction">
+                        <view class="tab-content" v-if="questions.length > 0">
+                            <!-- 解析 -->
+                            <view v-if="current === 0" class="tips">
+                                <view class="title">解析</view>
+                                <view class="tip">{{ questions[index].tip }}</view>
+                            </view>
+                            <!-- 笔记 -->
+                            <view v-else>
+                            <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
+                            </view>
+                        </view>
+                </touch-swiper>
+               
             </view>
             <!-- 答题卡 -->
             <answer-sheet
@@ -93,6 +97,7 @@ import { setMarkDone, setMarkFaulty, saveSimulationResult } from '../../api/reco
 import { getNote } from '../../api/note';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import AnswerSheet from '@/components/answer-sheet';
+import touchSwiper from '@/components/touchSwiper';
 
 export default {
     components: {
@@ -103,7 +108,8 @@ export default {
         VOption,
         Answer,
         uniSegmentedControl,
-        AnswerSheet
+        AnswerSheet,
+        touchSwiper
     },
     data () {
         return {
@@ -137,7 +143,7 @@ export default {
         })
         .catch(err => {
             uni.showToast({
-                title: err,
+                title: err.errMsg,
                 icon: 'none'
             });
         })
@@ -147,6 +153,7 @@ export default {
         if (getApp().globalData.index !== undefined) {
             this.changeIndex(getApp().globalData.index);
             this.confirmAnswer();
+            getApp().globalData.index = undefined;
         }
         uni.hideLoading();
         // 笔记编辑页返回请求笔记
@@ -162,7 +169,7 @@ export default {
                 let char = String.fromCharCode('A'.charCodeAt(0) + i);
                 arr.push({
                     letter: char,
-                    text: this.questions[this.index][char].split('.')[1]
+                    text: this.questions[this.index][char]
                 })
             }
             this.options = arr;
@@ -350,7 +357,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })
@@ -359,6 +366,13 @@ export default {
             this.current = this.current === 0 ? 1 : 0;
             if (this.current === 1) {
                 this.getNote();
+            }
+        },
+        handleSwiperAction ({direction}) {
+            if (direction === 'left' && this.current === 1) {
+               this.changeTab();
+            } else if (direction === 'right' && this.current === 0) {
+               this.changeTab();
             }
         },
         // 获取用户的笔记
@@ -376,7 +390,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })    
@@ -435,8 +449,15 @@ export default {
     .btn::after{
         border: none;
     }
+    .line {
+        width: 100%;
+        box-sizing: border-box;
+        height: 10rpx;
+        background: #eee;
+    }
     .tabs-block {
         margin-top: 20rpx;
+        min-height: 250rpx;
         .tab-content {
             padding: 10rpx;
             // 解析

@@ -51,17 +51,20 @@
                 ></uni-segmented-control>
             </view>
             <!-- 显示的内容 -->
-            <view class="tab-content" v-if="questions.length > 0">
-                <!-- 解析 -->
-                <view v-if="current === 0" class="tips">
-                    <view class="title">解析</view>
-                    <view class="tip">{{ questions[index].tip }}</view>
-                </view>
-                <!-- 笔记 -->
-                <view v-else>
-                   <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
-                </view>
-            </view>
+            <touch-swiper @swiperaction="handleSwiperAction">
+                <view class="tab-content" v-if="questions.length > 0">
+                    <!-- 解析 -->
+                    <view v-if="current === 0" class="tips">
+                        <view class="title">解析</view>
+                        <view class="tip">{{ questions[index].tip }}</view>
+                    </view>
+                    <!-- 笔记 -->
+                    <view v-else>
+                    <note @getNote="getNote" :quesId="questions[index].id" :noteInfo="noteInfo"></note>
+                    </view>
+                 </view>
+            </touch-swiper>
+            
       </view>
   </view>
 </template>
@@ -73,6 +76,7 @@ import Answer from '@/components/answer';
 import Progress from '@/components/progress';
 import OptionRight from '@/components/option-right';
 import Note from '@/components/note';
+import touchSwiper from "@/components/touchSwiper";
 import { QUESTION_NAVBAR_TITLE, TABS_TITLE, SUBJECT_NAVBAR_COLOR } from '../../consts/const';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import { getRandomQuestions, getChapterQuestions, getWrongQuestions, getOneQuestion } from '../../api/question';
@@ -87,7 +91,8 @@ export default {
         Answer,
         Progress,
         OptionRight,
-        uniSegmentedControl
+        uniSegmentedControl,
+        touchSwiper
     },
     data () {
         return {
@@ -145,7 +150,7 @@ export default {
             })
             .catch(err => {
                  uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -201,7 +206,7 @@ export default {
             })
             .catch(err => {
                  uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -214,7 +219,7 @@ export default {
                 let char = String.fromCharCode('A'.charCodeAt(0) + i);
                 arr.push({
                     letter: char,
-                    text: this.questions[this.index][char].split('.')[1]
+                    text: this.questions[this.index][char]
                 })
             }
             this.options = arr;
@@ -266,7 +271,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -293,7 +298,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
                 this.questionReady = true;
@@ -410,6 +415,13 @@ export default {
                 this.getNote();
             }
         },
+        handleSwiperAction ({direction}) {
+            if (direction === 'left' && this.current === 1) {
+               this.changeTab();
+            } else if (direction === 'right' && this.current === 0) {
+               this.changeTab();
+            }
+        },
         // 获取用户的笔记
         getNote () {
             getNote({
@@ -425,7 +437,7 @@ export default {
             })
             .catch(err => {
                 uni.showToast({
-                    title: err,
+                    title: err.errMsg,
                     icon: 'none'
                 });
             })    
@@ -481,6 +493,7 @@ export default {
         margin-top: 20rpx;
         .tab-content {
             padding: 10rpx;
+            min-height: 250rpx;
             // 解析
             .tips {
                 padding: 0 20rpx;

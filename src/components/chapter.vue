@@ -4,7 +4,7 @@
         <view class="chapter-title"><view class="chapter-number">第{{ chapterNumber }}章</view> <br/> {{ chapter }}</view>
         <text class="problem-fraction">{{ doneNum }}题/{{ totalNum }}题</text>
       </view> 
-      <view :class="['line', bordeColor[subject]]"></view>
+      <!-- <view :class="['line', bordeColor[subject]]"></view> -->
   </view>
 </template>
 
@@ -74,28 +74,29 @@ export default {
       justify-content: space-between;
       align-items: center;
       font-family: Microsoft Yahei;
+      padding: 10rpx 0;
 
         .chapter-title{  
-        font-size:35rpx;
+        font-size:30rpx;
         color: #000;
         text-align: left;
-        padding-left: 15rpx;
+        padding-left: 50rpx;
         width: 500rpx;
         .chapter-number{
           font-weight: bold;
         }
         }
         .problem-fraction{
-        font-size: 30rpx;
+        font-size: 25rpx;
         color: #aaadc2;
-        padding-right: 15rpx;
+        padding-right: 30rpx;
         }
      }
-     .line{
-        height: 5rpx;
-        margin-left: 15rpx;
-        margin-right: 15rpx;
+    //  .line{
+    //     height: 5rpx;
+    //     margin-left: 15rpx;
+    //     margin-right: 15rpx;
 
-      }
+    //   }
   }
 </style>
