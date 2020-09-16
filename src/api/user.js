@@ -50,9 +50,17 @@ export function saveUserAllInfo (params) {
     })
 }
 
-// 坚持天数最多的20名用户和刷题数量最多的20名用户
-export function getRankList (data) {
-    return request(`${BASE_URL}/getRank`, {
+// 坚持天数最多的20名用户
+export function getNumRank (data) {
+    return request(`${BASE_URL}/getNumRank`, {
+        method: 'POST',
+        data
+    })
+}
+
+// 刷题数量最多的20名用户
+export function getDaysRank (data) {
+    return request(`${BASE_URL}/getDaysRank`, {
         method: 'POST',
         data
     })

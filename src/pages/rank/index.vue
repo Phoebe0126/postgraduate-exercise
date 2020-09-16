@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { getRankList } from '../../api/user';
+import { getNumRank, getDaysRank } from '../../api/user';
 import  { UserRank } from '@/components/user-rank';
 import { uniSegmentedControl } from "@/components/uni-segmented-control";
 import Encourage from "@/components/encourage";
@@ -51,26 +51,28 @@ export default {
             current: 0, // tabs组件的current值，表示当前活动的tab选项
             maxQuesRankList: [],
             maxDaysRankList: [],
-            personalData: {},
+            personalData: {
+                doneQuesNum: 0,
+                daysOfPersistence: 0
+            },
             rankList: []
         };
     },
     onLoad () {
-        this.getRankList();
+        this.getNumRank();
     },
     methods: {
-        // 获取刷题数量和坚持天数前20
-        getRankList () {
-            getRankList({
+        // 获取刷题数量前20
+        getNumRank () {
+            getNumRank({
                 openID: getApp().globalData.openID
             })
             .then(res => {
+                uni.hideLoading();
                 if (res.code === 0) {
-                    uni.hideLoading();
                     const data = res.data;
                     this.maxQuesRankList = data.rankNum;
-                    this.maxDaysRankList = data.rankDays;
-                    this.personalData = data.mine;
+                    this.personalData.doneQuesNum = data.mine.doneQuesNum;
                 } else {
                     uni.showToast({
                         title: '暂无排行数据~',
@@ -86,9 +88,40 @@ export default {
                 });
             })
         },
+        // 获取坚持天数前20
+        getDaysRank () {
+            uni.showLoading({
+                title: '加载中'
+            });
+            getDaysRank({
+                openID: getApp().globalData.openID
+            })
+            .then(res => {
+                uni.hideLoading();
+                if (res.code === 0) {
+                    this.maxDaysRankList = res.data.rankDays;
+                    this.personalData.daysOfPersistence = res.data.mine.daysOfPersistence;
+                } else {
+                    uni.showToast({
+                        title: '暂无排行数据~',
+                        icon: 'none'
+                    });
+                }
+            })
+            .catch(err => {
+                uni.hideLoading();
+                uni.showToast({
+                    title: err.errMsg,
+                    icone: 'none'
+                });
+            })
+        },
         // tabs切换
         change() {
             this.current = 1 - this.current;
+            if (this.maxDaysRankList.length <= 0 && this.current === 1) {
+                this.getDaysRank();
+            }
         },
         handleSwiperAction ({direction}) {
             if (direction === 'left' && this.current === 1) {

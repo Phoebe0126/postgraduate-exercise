@@ -90,11 +90,15 @@ export default {
            overflow: hidden;
            white-space: nowrap;
            text-overflow: ellipsis;
-           max-width: 400rpx;
+           max-width: 360rpx;
         }
     }
     .remainDays {
         color: #000;
+        height: 32rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         .text {
             padding: 0 5rpx;
             font-size: 32rpx;
