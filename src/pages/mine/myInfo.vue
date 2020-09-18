@@ -3,7 +3,7 @@
         <!-- 头像、昵称、性别、学校、座右铭、刷题目标 -->
         <ul class="container">
             <li class="avatar">
-                <span>头像</span>
+                <span>头像</span>   
                 <view class="avatar-container" @click="chooseAvatar">
                     <uni-icons v-if="avatarUrl == null || avatarUrl == ''" type="person" size="40" color="#E2C9C9"></uni-icons>
                     <image v-else :src="avatarUrl"></image>
@@ -21,12 +21,12 @@
                     <span v-if="item.name == 'gender'">女</span>
                 </radio-group>
                 <!-- 目标天数 -->
-                <input v-if="item.name == 'goal'" type="number" v-model="item.val" maxlength="5"
+                <input v-if="item.name == 'goal'" type="number" v-model="item.val" maxlength="5"  placeholder="0"
                 :class="{active: activeIndex == index? true: false}" 
                 @click="changeStyle(index)" @blur="restoreStyle(index)">
                 <!-- 其他输入框 -->
                 <input v-if="item.name != 'gender' && item.name != 'goal'" type="text" v-model="item.val"
-                :class="{active: activeIndex == index? true: false}" 
+                :class="{active: activeIndex == index? true: false}" placeholder="未设置"
                 @click="changeStyle(index)" @blur="restoreStyle(index)">
             </li>
         </ul>
@@ -72,8 +72,8 @@ export default {
                     this.avatarUrl = res.data.avatar;
                     this.items[0].val = res.data.nickname;
                     this.items[1].val = res.data.gender;
-                    this.items[2].val = (res.data.school == null || res.data.school == '') ?'未设置': res.data.school;
-                    this.items[3].val = (res.data.motto == null || res.data.motto == '') ?'未设置': res.data.motto;
+                    this.items[2].val = (res.data.school == null || res.data.school == '') ?'': res.data.school;
+                    this.items[3].val = (res.data.motto == null || res.data.motto == '') ?'': res.data.motto;
                     this.items[4].val = res.data.goal == null ? 0: res.data.goal;
                 }
             }).catch(err => {
@@ -106,16 +106,14 @@ export default {
                 avatar: this.avatarUrl,
                 nickname: this.items[0].val,
                 gender: this.items[1].val,
-                school: this.items[2].val == '未设置'? null: this.items[2].val,
-                motto: this.items[3].val == '未设置'? null: this.items[3].val,
+                school: this.items[2].val == ''? null: this.items[2].val,
+                motto: this.items[3].val == ''? null: this.items[3].val,
                 goal: this.items[4].val
             }).then(res => {
-                // if(res.code == 0) {
                 uni.showToast({
                     title: res.msg,
                     icon: 'none'
                 })
-                // }
             }).catch(err => {
                 uni.showToast({
                     title: err.errMsg,
@@ -175,11 +173,11 @@ export default {
                     padding: 0 10rpx;
                     border: 2rpx solid transparent;
                 }
-                input.active {
-                    background: white;
-                    border: 2rpx solid #CE8B8B;
-                    border-radius: 22rpx;
-                }
+                // input.active {
+                //     background: white;
+                //     border: 2rpx solid #CE8B8B;
+                //     border-radius: 22rpx;
+                // }
                 .genderRadio {
                     radio:nth-of-type(2) {
                         margin-left: 80rpx;
