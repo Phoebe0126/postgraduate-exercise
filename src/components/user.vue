@@ -76,8 +76,8 @@ export default {
             align-items: center;
             background: #c9a2a2;
             border-radius: 50%;
-            width: 60rpx;
-            height: 60rpx;
+            width: 65rpx;
+            height: 65rpx;
             .image {
                 width: 65rpx;
                 height: 65rpx;
