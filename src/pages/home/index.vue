@@ -22,7 +22,6 @@
 				:avatarUrl="avatarUrl"
 				:remainingDays="daysRemaining"
 				@getUserInfo="getUserInfo"
-				v-if="isRequestComplete"
 			></user>			
 		</view>
 		<!-- 主体内容区域 -->
@@ -89,7 +88,6 @@ export default {
 			avatarUrl: '',
 			title: QUESTION_NAVBAR_TITLE,
 			daysRemaining: -1,
-			isRequestComplete: false,
 			daysOfPersistence: 0,
 			correctRate: 0,
 			notice: ''
@@ -172,11 +170,9 @@ export default {
 					this.daysOfPersistence = data.daysOfPersistence;
 					this.correctRate = data.correctRate;
 				}
-				this.isRequestComplete = true;
 				uni.hideLoading();
 			}).catch(err => {
 				uni.hideLoading();
-				this.isRequestComplete = true;
 				uni.showToast({
 					title: err.errMsg,
 					icon: 'none'
@@ -204,16 +200,6 @@ export default {
 							getApp().globalData.openID = res.data.openID;
 							that.getLoginUserInfo();
 						})
-						// getUserOpenId({
-						// 	appid: 'wx0e8cbbba3aab1125',
-						// 	secret: '9097a462abccba0564091d8536fc7295',
-						// 	js_code: res.code,
-						// 	grant_type: 'authorization_code'
-						// }).then(res => {
-						// 	// 存储openId
-						// 	getApp().globalData.openID = res.openid;
-						// 	that.getLoginUserInfo();
-						// })
 					} else {
 						uni.showToast({
 							title: res.errMsg,
