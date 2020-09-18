@@ -1,6 +1,7 @@
 <template>
     <view class="content">
-        <textarea class="notice-bar-content" v-model="notice"></textarea>
+        <textarea class="notice-bar-content" v-model="notice" maxlength="36"></textarea>
+        <span class="left">还可以输入{{ 36 - notice.length }}个字</span>
         <button class="save" @click="saveMyNotice">保存设置</button>
     </view>
 </template>
@@ -64,6 +65,16 @@ export default {
         background: #EAE0E0;
         margin: 20px auto;
         border-radius: 16rpx;
+    }
+    .left {
+        display: block;
+        width: 300rpx;
+        height: 60rpx;
+        position: absolute;
+        top: 340rpx;
+        left: calc(10% - 20rpx);
+        line-height: 60rpx;
+        color: #928d8d;
     }
     .save {
         color: white;
