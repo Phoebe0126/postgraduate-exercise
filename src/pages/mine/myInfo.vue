@@ -74,7 +74,7 @@ export default {
                     this.items[1].val = res.data.gender;
                     this.items[2].val = (res.data.school == null || res.data.school == '') ?'': res.data.school;
                     this.items[3].val = (res.data.motto == null || res.data.motto == '') ?'': res.data.motto;
-                    this.items[4].val = res.data.goal == null ? 0: res.data.goal;
+                    this.items[4].val = res.data.goal == null ? '': res.data.goal;
                 }
             }).catch(err => {
                 uni.showToast({
