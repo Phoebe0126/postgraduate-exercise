@@ -67,10 +67,12 @@ export default {
             color:black;
             margin-left: 30rpx;
             position: relative;
+            width: 50rpx;
+            text-align: center;
             .iconfont {
                 position: absolute;
                 left: 50%;
-                top: 60%;
+                top: 55%;
                 transform: translate(-50%, -50%);
             }
             .color-gold {
@@ -88,15 +90,13 @@ export default {
             float:left;
             width: 80rpx;
             height: 80rpx; 
-            // overflow: hidden;
             background-color: #dccbcb;
-            margin-left: 40rpx; 
+            margin-left: 20rpx; 
             position: relative;
             border-radius: 50%;
 
             .crown {
                 position: absolute;
-                // display: ;
                 right: -23rpx;
                 top: -15rpx;
                 color:#efb336;
@@ -118,11 +118,12 @@ export default {
             }
         }
         .info {
-            float:left;
             margin-left: 30rpx; 
             width: 540rpx; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             .nickname {
-                float:left;
                 color: black;
                 width:340rpx;
                 font-size: 30rpx;
@@ -133,7 +134,6 @@ export default {
 
             }
             .number {
-                float:right;
                 color: #000000;
                 font-size: 30rpx; 
                 white-space: nowrap;
