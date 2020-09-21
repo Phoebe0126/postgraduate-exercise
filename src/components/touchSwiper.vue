@@ -33,7 +33,7 @@ export default {
                 return
             }
             // 判断是否超过一定滑动距离
-            if (Math.abs(this.touchEndX - this.touchStartX) < this.distance) {
+            if (Math.abs(this.touchEndX - this.touchStartX) < this.distance || Math.abs(this.touchEndY - this.touchStartY) > this.distance * 20) {
                 return 
             }
             // 判断滑动的方向
