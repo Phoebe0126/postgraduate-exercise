@@ -126,14 +126,27 @@ export default {
             uni.chooseImage({
                 count: 1,
                 sourceType: ['album'],
+                sizeType: ['compressed'],
                 success: (res) => {
                     //验证图片格式
                     let path = res.tempFilePaths[0];
+                    console.log(res)
                     let formatImage = path.split(".")[(path.split(".")).length - 1];
                     console.log("图片格式" + formatImage)
                     if (formatImage != "png" && formatImage != "jpg" && formatImage != "jpeg") {
                         return uni.showToast({
                             title: '只能上传.png、.jpg、.jpep 格式',
+                            icon: 'none',
+                            image: '',
+                            duration: 2000,
+                            mask: true,
+                        });
+                    }
+                    //限制图片大小
+                    let tempFilesSize = res.tempFiles[0].size;  //获取图片的大小，单位B
+                    if(tempFilesSize > 2000000){
+                        return uni.showToast({
+                            title: '上传图片不能大于2M',
                             icon: 'none',
                             image: '',
                             duration: 2000,
