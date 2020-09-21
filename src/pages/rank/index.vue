@@ -64,6 +64,9 @@ export default {
     methods: {
         // 获取刷题数量前20
         getNumRank () {
+            uni.showLoading({
+                title: '加载中'
+            });
             getNumRank({
                 openID: getApp().globalData.openID
             })
