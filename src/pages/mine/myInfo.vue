@@ -127,6 +127,20 @@ export default {
                 count: 1,
                 sourceType: ['album'],
                 success: (res) => {
+                    //验证图片格式
+                    let path = res.tempFilePaths[0];
+                    let formatImage = path.split(".")[(path.split(".")).length - 1];
+                    console.log("图片格式" + formatImage)
+                    if (formatImage != "png" && formatImage != "jpg" && formatImage != "jpeg") {
+                        return uni.showToast({
+                            title: '只能上传.png、.jpg、.jpep 格式',
+                            icon: 'none',
+                            image: '',
+                            duration: 2000,
+                            mask: true,
+                        });
+                    }
+                    //base64编码
                     pathToBase64(res.tempFilePaths[0])
                         .then(base64 => {
                             that.avatarUrl = base64;
